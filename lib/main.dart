@@ -1,28 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:treino/login.dart';
+import 'package:treino/login/login.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:async';
 
-void main() => runApp(MyApp());
+import 'package:treino/states/login.dart';
+
+void main() {
+  // Bloc.observer = SimpleBlocObserver();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<LoginCubit>(
+            create: (BuildContext context) => LoginCubit(),
+          ),
+          // BlocProvider<BlocB>(
+          //   create: (BuildContext context) => BlocB(),
+          // ),
+          // BlocProvider<BlocC>(
+          //   create: (BuildContext context) => BlocC(),
+          // ),
+        ],
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: MyHomePage(title: 'Flutter Demo Home Page'),
+        ));
   }
 }
 
@@ -75,53 +84,80 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: <Widget>[
-            Container(
-              height: 350,
+            Image(
+                fit: BoxFit.fitHeight,
+                height: 800,
+                image: AssetImage('assets/images/wallpaper.png')),
+            Opacity(
+              opacity: 0.7,
+              child: Container(
+                // height: 400,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [Colors.blue, Colors.green],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                )
+                    // LinearGradient(
+                    //     colors: [Colors.green, Colors.blueAccent],
+                    //     begin: const FractionalOffset(0.0, 0.0),
+                    //     end: const FractionalOffset(0.9, 0.0),
+                    //     stops: [0.0, 1.0],
+                    //     tileMode: TileMode.clamp),
+                    ),
+              ),
             ),
-            SizedBox(
-              height: 55,
-              width: 120,
-              child: RaisedButton(
-                  child: Text(
-                    "Entrar",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(28.0),
-                      side: BorderSide(color: Colors.blue)),
-                  color: Colors.blue,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login() ),
-                    );
-                    print("probando");
-                  }),
+            Center(
+              child: Opacity(
+                opacity: 1,
+                child: Image(
+                    color: Colors.white,
+                    colorBlendMode: BlendMode.srcIn,
+                    fit: BoxFit.fitWidth,
+                    height: 90,
+                    width: 180,
+                    image: AssetImage('assets/images/Group 2@2x.png')),
+              ),
             ),
-            // Text(
-            //   'You have pushed the button this many times:',
-            // ),
-            // Text(
-            //   '$_counter',
-            //   style: Theme.of(context).textTheme.display1,
-            // ),
+            Column(
+              // horizontal).
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: 350,
+                ),
+                SizedBox(
+                  height: 50,
+                  width: 120,
+                  child: RaisedButton(
+                      elevation: 12,
+                      child: Text(
+                        "Entrar",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(28.0),
+                          side: BorderSide(color: Color(0xff0781e5))),
+                      color: Color(0xff0781e5),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                        print("probando");
+                      }),
+                ),
+                // Text(
+                //   'You have pushed the button this many times:',
+                // ),
+                // Text(
+                //   '$_counter',
+                //   style: Theme.of(context).textTheme.display1,
+                // ),
+              ],
+            ),
           ],
         ),
       ),
