@@ -7,15 +7,14 @@ import 'package:dio/dio.dart';
 
 class GymDetailCubit extends Cubit<int> {
   GymDetailCubit() : super(0);
-  // UserInfo info = new UserInfo();
-
-  void loginInto(String id) async {
+  var response;
+  void getGymById(String id) async {
     var dio = Dio();
     try {
       await dio.get("https://treino.club/demo/api/AppMovil/getGymByID",
           queryParameters: {"id": id}).then((value) {
         print(value.data);
-        // var error = (json.decode(value.data)['error']);
+        this.response = (json.decode(value.data));
       });
     } catch (e) {
       print(e);

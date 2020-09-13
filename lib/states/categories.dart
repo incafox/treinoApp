@@ -9,20 +9,18 @@ class CategoriesCubit extends Cubit<int> {
   CategoriesCubit() : super(0);
   // UserInfo info = new UserInfo();
 
-  void loginInto(String correo) async {
+  List<dynamic> items = List();
+
+  void getAllCategorias(String correo) async {
     var dio = Dio();
     try {
       await dio
           .get("https://treino.club/demo/api/AppMovil/getAllCategorias")
           .then((value) {
-        print(value.data);
-        var error = (json.decode(value.data)['error']);
-        if (error == "1") {
-          print("hay un error");
-        } else {
-          print("parse la info");
-          // this.info = json.decode(value.data);
-        }
+        //print(value.data);
+        var itemss = (json.decode(value.data)['items']);
+        this.items = itemss;
+        print(itemss);
       });
     } catch (e) {
       print(e);

@@ -5,23 +5,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-class CategoriesCubit extends Cubit<int> {
-  CategoriesCubit() : super(0);
+class GymsPerCategoryCubit extends Cubit<int> {
+  GymsPerCategoryCubit() : super(0);
   // UserInfo info = new UserInfo();
+  List<dynamic> items = List();
 
-  void loginInto(String idCategorie) async {
+  void getGymByCategoria(String idCategorie) async {
     var dio = Dio();
     try {
       await dio.get("https://treino.club/demo/api/AppMovil/getGymsByCategoria",
           queryParameters: {"idCategoria": idCategorie}).then((value) {
         print(value.data);
-        var error = (json.decode(value.data)['error']);
-        if (error == "1") {
-          print("hay un error");
-        } else {
-          print("parse la info");
-          // this.info = json.decode(value.data);
-        }
+        var itemss = (json.decode(value.data)['items']);
+        this.items = itemss;
       });
     } catch (e) {
       print(e);

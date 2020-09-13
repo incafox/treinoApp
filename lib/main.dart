@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:treino/login/login.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:treino/states/buyMembresias.dart';
+import 'package:treino/states/categories.dart';
+import 'package:treino/states/classDetail.dart';
+import 'package:treino/states/detailGym.dart';
+import 'package:treino/states/getSolicitudes.dart';
+import 'package:treino/states/getSolicitudesPasadas.dart';
+import 'package:treino/states/gymsPerCategory.dart';
 import 'dart:async';
 
 import 'package:treino/states/login.dart';
+import 'package:treino/states/membresias.dart';
+import 'package:treino/states/recoverpass.dart';
+import 'package:treino/states/register.dart';
+import 'package:treino/states/solicitudClase.dart';
 
 void main() {
   // Bloc.observer = SimpleBlocObserver();
@@ -18,12 +29,42 @@ class MyApp extends StatelessWidget {
           BlocProvider<LoginCubit>(
             create: (BuildContext context) => LoginCubit(),
           ),
-          // BlocProvider<BlocB>(
-          //   create: (BuildContext context) => BlocB(),
-          // ),
-          // BlocProvider<BlocC>(
-          //   create: (BuildContext context) => BlocC(),
-          // ),
+          BlocProvider<RegisterCubit>(
+            create: (BuildContext context) => RegisterCubit(),
+          ),
+          BlocProvider<MembresiasCubit>(
+            create: (BuildContext context) => MembresiasCubit(),
+          ),
+          BlocProvider<CategoriesCubit>(
+            create: (BuildContext context) => CategoriesCubit(),
+          ),
+          BlocProvider<ClassDetailCubit>(
+            create: (BuildContext context) => ClassDetailCubit(),
+          ),
+          BlocProvider<GymDetailCubit>(
+            create: (BuildContext context) => GymDetailCubit(),
+          ),
+          BlocProvider<SolicitudesCubit>(
+            create: (BuildContext context) => SolicitudesCubit(),
+          ),
+          BlocProvider<SolicitudesPasadasCubit>(
+            create: (BuildContext context) => SolicitudesPasadasCubit(),
+          ),
+          BlocProvider<GymsPerCategoryCubit>(
+            create: (BuildContext context) => GymsPerCategoryCubit(),
+          ),
+          BlocProvider<ComprarMembresiasCubit>(
+            create: (BuildContext context) => ComprarMembresiasCubit(),
+          ),
+          BlocProvider<RecuperarPasswordCubit>(
+            create: (BuildContext context) => RecuperarPasswordCubit(),
+          ),
+          BlocProvider<RegisterCubit>(
+            create: (BuildContext context) => RegisterCubit(),
+          ),
+          BlocProvider<AgregarSolicitudCubit>(
+            create: (BuildContext context) => AgregarSolicitudCubit(),
+          ),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',

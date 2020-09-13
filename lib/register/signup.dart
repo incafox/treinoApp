@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:direct_select/direct_select.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:treino/states/register.dart';
 
 class Register extends StatefulWidget {
   Register({Key key}) : super(key: key);
@@ -18,6 +20,14 @@ class _LoginState extends State<Register> {
     "CIDUAD",
     "3rd Sn",
   ];
+  TextEditingController nombre = TextEditingController();
+  TextEditingController apellido = TextEditingController();
+  TextEditingController correo = TextEditingController();
+  TextEditingController telefono = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController fechaNac = TextEditingController();
+  TextEditingController genero = TextEditingController();
+  TextEditingController ciudad = TextEditingController();
 
   int selectedIndex1 = 0,
       selectedIndex2 = 0,
@@ -25,14 +35,12 @@ class _LoginState extends State<Register> {
       selectedIndex4 = 0;
 
   List<Widget> _buildItems1() {
-    return elements1
-        .map((val) => MySelectionItem(
-              title: val,
-            ))
-        .toList();
+    return elements1.map((val) => Text(val)).toList();
   }
 
   String dropdownValue = 'Ciudad';
+  String dropdownValue2 = 'Genero';
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +77,6 @@ class _LoginState extends State<Register> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                     
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0, top: 20.0),
                         child: Text(
@@ -79,6 +86,7 @@ class _LoginState extends State<Register> {
                         ),
                       ),
                       TextFormField(
+                        controller: this.nombre,
                         decoration: InputDecoration(hintText: "Nombre"),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -88,6 +96,7 @@ class _LoginState extends State<Register> {
                         },
                       ),
                       TextFormField(
+                        controller: this.apellido,
                         decoration: InputDecoration(hintText: "Apellido"),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -97,6 +106,7 @@ class _LoginState extends State<Register> {
                         },
                       ),
                       TextFormField(
+                        controller: this.correo,
                         decoration:
                             InputDecoration(hintText: "Correo Electronico"),
                         validator: (value) {
@@ -107,6 +117,7 @@ class _LoginState extends State<Register> {
                         },
                       ),
                       TextFormField(
+                        controller: this.password,
                         decoration: InputDecoration(hintText: "Contrasena"),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -116,6 +127,8 @@ class _LoginState extends State<Register> {
                         },
                       ),
                       TextFormField(
+                        controller: this.telefono,
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(hintText: "Telefono"),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -124,63 +137,115 @@ class _LoginState extends State<Register> {
                           return null;
                         },
                       ),
-                       DirectSelect(
-                          itemExtent: 55.0,
-                          selectedIndex: selectedIndex1,
-                          backgroundColor: Colors.white,
-                          child: MySelectionItem(
-                            isForList: false,
-                            title: elements1[selectedIndex1],
+                      // DirectSelect(
+                      //     itemExtent: 60.0,
+                      //     selectedIndex: selectedIndex1,
+                      //     backgroundColor: Colors.white,
+                      //     child: MySelectionItem(
+                      //       isForList: false,
+                      //       title: elements1[selectedIndex1],
+                      //     ),
+                      //     onSelectedItemChanged: (index) {
+                      //       setState(() {
+                      //         selectedIndex1 = index;
+                      //         this.ciudad.text = elements1[index];
+                      //         print(this.ciudad.text);
+                      //       });
+                      //     },
+                      //     items: _buildItems1()),
+                      // CupertinoPicker(itemExtent: null, onSelectedItemChanged: null, children: null)
+                      Center(
+                        child: DropdownButton<String>(
+                          value: dropdownValue,
+                          icon: Icon(Icons.keyboard_arrow_down),
+                          iconSize: 30,
+                          elevation: 5,
+                          style: TextStyle(fontSize: 17, color: Colors.black54),
+                          underline: Container(
+                            height: 0.7,
+                            color: Colors.black54,
                           ),
-                          onSelectedItemChanged: (index) {
+                          onChanged: (String newValue) {
                             setState(() {
-                              selectedIndex1 = index;
+                              dropdownValue = newValue;
+                              this.ciudad.text = newValue;
+                              print(this.ciudad.text);
                             });
                           },
-                          items: _buildItems1()),
-                      // DropdownButton<String>(
-
-                      //   value: dropdownValue,
-                      //   icon: Icon(Icons.keyboard_arrow_down),
-                      //   iconSize: 30,
-                      //   elevation: 5,
-                      //   style: TextStyle(fontSize: 17,color: Colors.black54),
-                      //   underline: Container(
-                      //     height: 0.7,
-                      //     color: Colors.black54,
-                      //   ),
-                      //   onChanged: (String newValue) {
-                      //     setState(() {
-                      //       dropdownValue = newValue;
-                      //     });
-                      //   },
-                      //   items: <String>['Ciudad', 'Two', 'Free', 'Four']
-                      //       .map<DropdownMenuItem<String>>((String value) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: value,
-                      //       child: Text(value),
-                      //     );
-                      //   }).toList(),
-                      // ),
-                      TextFormField(
-                        decoration:
-                            InputDecoration(hintText: "Fecha de nacimiento"),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                          items: <String>[
+                            'Ciudad',
+                            'Two',
+                            'Free',
+                            'adad',
+                            'adadadf',
+                            'fgrg',
+                            'fesaad',
+                            'wadasd',
+                            'Four',
+                            '1',
+                            "32",
+                            "232",
+                            "2323",
+                            "223"
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
                       ),
-                      TextFormField(
-                        decoration: InputDecoration(hintText: "Genero"),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      )
+
+                      Center(
+                        child: RaisedButton(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(28.0),
+                              side: BorderSide(color: Colors.white70)),
+                          onPressed: () => _selectDate(context), // Refer step 3
+                          child: Text(
+                            'Fecha de nacimiento',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          color: Colors.white70,
+                        ),
+                      ),
+                      Center(
+                        child: DropdownButton<String>(
+                          key: Key("value"),
+                          value: this.dropdownValue2 != null
+                              ? this.dropdownValue2
+                              : null,
+                          icon: Icon(Icons.keyboard_arrow_down),
+                          iconSize: 30,
+                          elevation: 5,
+                          style: TextStyle(fontSize: 17, color: Colors.black54),
+                          underline: Container(
+                            height: 0.7,
+                            color: Colors.black54,
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              // dropdownValue = newValue;
+                              this.ciudad.text = newValue;
+                              print(this.ciudad.text);
+                            });
+                          },
+                          items: <String>[
+                            'Genero',
+                            'Hombre',
+                            'Mujee',
+                            'No especificar'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
                       // Add TextFormFields and RaisedButton here.
                     ])),
               ),
@@ -192,27 +257,52 @@ class _LoginState extends State<Register> {
                   },
                 ),
               ),
-              RaisedButton(
-                  child: Text(
-                    "Registrar",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(28.0),
-                      side: BorderSide(color: Colors.blue)),
-                  color: Colors.blue,
-                  onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => Login()),
-                    // );
-                    // print("probando");
-                  })
+              Padding(
+                padding: const EdgeInsets.only(left: 34.0, right: 34),
+                child: RaisedButton(
+                    child: Text(
+                      "Registrar",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(28.0),
+                        side: BorderSide(color: Colors.blue)),
+                    color: Colors.blue,
+                    onPressed: () {
+                      context.bloc<RegisterCubit>().register(
+                          id: 'ada',
+                          nombre: this.nombre.text,
+                          genero: this.genero.text,
+                          password: this.password.text,
+                          telefono: this.telefono.text,
+                          fechaNac: this.fechaNac.text,
+                          ciudad: this.ciudad.text,
+                          apelli: this.apellido.text);
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => Login()),
+                      // );
+                      // print("probando");
+                    }),
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate, // Refer step 1
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
   }
 }
 

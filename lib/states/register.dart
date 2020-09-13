@@ -5,14 +5,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-class LoginCubit extends Cubit<int> {
-  LoginCubit() : super(0);
+class RegisterCubit extends Cubit<int> {
+  RegisterCubit() : super(0);
   // UserInfo info = new UserInfo();
 
-  void loginInto(String id, String password, String nombre, String apelli,
-      String telefono, String ciudad, String fechaNac, String genero) async {
+  Future<String> register(
+      {String id,
+      String password,
+      String nombre,
+      String apelli,
+      String telefono,
+      String ciudad,
+      String fechaNac,
+      String genero}) async {
     // print(correo + " = " + password);
-
+    String rpta = '';
     var dio = Dio();
     try {
       await dio.get("https://treino.club/demo/api/AppMovil/registrar",
@@ -38,5 +45,6 @@ class LoginCubit extends Cubit<int> {
     } catch (e) {
       print(e);
     }
+    return rpta;
   }
 }

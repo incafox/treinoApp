@@ -97,7 +97,10 @@ class _LoginState extends State<Login> {
                         MaterialPageRoute(builder: (context) => MainMenu()),
                         // MaterialPageRoute(builder: (context) => Membresias()),
                       );
-                      print("probando");
+                      context.bloc<LoginCubit>().loginInto(
+                          correo: this.correoController.text,
+                          password: this.passwordController.text);
+                      print("probansdsdo");
                     }),
               ),
               Container(
@@ -125,10 +128,11 @@ class _LoginState extends State<Login> {
               //     builder: (context, count) => Center(child: Text('$count')),
               //   ),
               // ),
-              MaterialButton(
-                  child: Text("data"),
-                  onPressed: () => context.bloc<LoginCubit>().loginInto(
-                      this.correoController.text, this.passwordController.text))
+
+              // MaterialButton(
+              //     child: Text("data"),
+              //     onPressed: () => context.bloc<LoginCubit>().loginInto(
+              //         this.correoController.text, this.passwordController.text))
             ],
           ),
         ),

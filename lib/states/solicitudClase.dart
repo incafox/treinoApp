@@ -5,11 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-class GymDetailCubit extends Cubit<int> {
-  GymDetailCubit() : super(0);
-  // UserInfo info = new UserInfo();
-
-  void loginInto(
+class AgregarSolicitudCubit extends Cubit<int> {
+  AgregarSolicitudCubit() : super(0);
+  var response;
+  void agregarSolicitud(
       String idClase, String idCliente, String idGym, String fecha) async {
     var dio = Dio();
     try {
@@ -21,7 +20,7 @@ class GymDetailCubit extends Cubit<int> {
             "fecha": fecha
           }).then((value) {
         print(value.data);
-        // var error = (json.decode(value.data)['error']);
+        this.response = (json.decode(value.data));
       });
     } catch (e) {
       print(e);

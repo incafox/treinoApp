@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-class LoginCubit extends Cubit<int> {
-  LoginCubit() : super(0);
+class RecuperarPasswordCubit extends Cubit<int> {
+  RecuperarPasswordCubit() : super(0);
   // UserInfo info = new UserInfo();
 
-  void loginInto(String correo) async {
+  void recuperarPassword(String correo) async {
     // print(correo + " = " + password);
 
     var dio = Dio();

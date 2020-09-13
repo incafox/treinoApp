@@ -9,7 +9,7 @@ class LoginCubit extends Cubit<int> {
   LoginCubit() : super(0);
   UserInfo info = new UserInfo();
 
-  void loginInto(String correo, String password) async {
+  void loginInto({String correo, String password}) async {
     print(correo + " = " + password);
     FormData formData =
         FormData.fromMap({'correo': correo, 'password': password});
