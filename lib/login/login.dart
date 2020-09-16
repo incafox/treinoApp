@@ -5,10 +5,15 @@ import 'package:treino/register/signup.dart';
 import 'package:treino/Mainmenu/MainMenu.dart';
 import 'package:treino/membresias/membresias.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:treino/states/agregarSolicitudClase.dart';
+import 'package:treino/states/buyMembresias.dart';
+import 'package:treino/states/getSolicitudes.dart';
+import 'package:treino/states/getSolicitudesPasadas.dart';
 import 'package:treino/states/login.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
+  // static final _mainMenuKey = new GlobalKey<_MainMenuState>();
 
   @override
   _LoginState createState() => _LoginState();
@@ -17,6 +22,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController correoController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  // static final _mainMenuKey = new GlobalKey<_MainMenuState>();
 
   @override
   Widget build(BuildContext context) {
@@ -91,16 +97,42 @@ class _LoginState extends State<Login> {
                         borderRadius: new BorderRadius.circular(28.0),
                         side: BorderSide(color: Color(0xff13e860))),
                     color: Color(0xff13e860),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MainMenu()),
-                        // MaterialPageRoute(builder: (context) => Membresias()),
-                      );
-                      context.bloc<LoginCubit>().loginInto(
+                    onPressed: () async {
+                      bool rpta = await context.bloc<LoginCubit>().loginInto(
                           correo: this.correoController.text,
                           password: this.passwordController.text);
-                      print("probansdsdo");
+
+                      print(rpta);
+                      print(context.bloc<LoginCubit>().res);
+                      //obtiene los clases/solicitudes presentes
+                      await context
+                          .bloc<SolicitudesCubit>()
+                          .getSolicitudes(context.bloc<LoginCubit>().res['id']);
+                      //id cliente en agregar solicitud
+                      await context
+                          .bloc<AgregarSolicitudCubit>()
+                          .setIdCliente(context.bloc<LoginCubit>().res['id']);
+
+                      //obtiene las clases pasadas
+                      await context
+                          .bloc<ComprarMembresiasCubit>()
+                          .setIdCliente(context.bloc<LoginCubit>().res['id']);
+                      print("id cliente >>> " +
+                          context.bloc<ComprarMembresiasCubit>().idCliente);
+                      //pide las clases/solicitudes pasadas
+                      // await context.bloc<sol>()
+
+                      await context
+                          .bloc<SolicitudesPasadasCubit>()
+                          .getSolicitudesPasadas(
+                              context.bloc<LoginCubit>().res['id']);
+                      if (!rpta) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainMenu()),
+                          // MaterialPageRoute(builder: (context) => Membresias()),
+                        );
+                      }
                     }),
               ),
               Container(

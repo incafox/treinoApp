@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/states/buyMembresias.dart';
 import 'package:treino/states/categories.dart';
 import 'package:treino/states/classDetail.dart';
+import 'package:treino/states/classesPerGym.dart';
 import 'package:treino/states/detailGym.dart';
+import 'package:treino/states/externalControlTab.dart';
 import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
 import 'package:treino/states/gymsPerCategory.dart';
@@ -14,7 +16,7 @@ import 'package:treino/states/login.dart';
 import 'package:treino/states/membresias.dart';
 import 'package:treino/states/recoverpass.dart';
 import 'package:treino/states/register.dart';
-import 'package:treino/states/solicitudClase.dart';
+import 'package:treino/states/agregarSolicitudClase.dart';
 
 void main() {
   // Bloc.observer = SimpleBlocObserver();
@@ -64,6 +66,16 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<AgregarSolicitudCubit>(
             create: (BuildContext context) => AgregarSolicitudCubit(),
+          ),
+          BlocProvider<ExternalControllerMainTabsCubit>(
+            create: (BuildContext context) => ExternalControllerMainTabsCubit(),
+          ),
+          BlocProvider<ExternalControllerMisClasesCubit>(
+            create: (BuildContext context) =>
+                ExternalControllerMisClasesCubit(),
+          ),
+          BlocProvider<ClassesPerGymCubit>(
+            create: (BuildContext context) => ClassesPerGymCubit(),
           ),
         ],
         child: MaterialApp(

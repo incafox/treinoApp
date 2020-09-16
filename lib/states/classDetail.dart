@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-class ClassDetailCubit extends Cubit<int> {
+class ClassDetailCubit extends Cubit<dynamic> {
   ClassDetailCubit() : super(0);
   // UserInfo info = new UserInfo();
   var response;

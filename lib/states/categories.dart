@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-class CategoriesCubit extends Cubit<int> {
-  CategoriesCubit() : super(0);
+class CategoriesCubit extends Cubit<List<dynamic>> {
+  CategoriesCubit() : super(null);
   // UserInfo info = new UserInfo();
 
-  List<dynamic> items = List();
+  // List<dynamic> items = List();
 
-  void getAllCategorias(String correo) async {
+  void getAllCategorias() async {
     var dio = Dio();
     try {
       await dio
@@ -19,7 +19,7 @@ class CategoriesCubit extends Cubit<int> {
           .then((value) {
         //print(value.data);
         var itemss = (json.decode(value.data)['items']);
-        this.items = itemss;
+        emit(itemss);
         print(itemss);
       });
     } catch (e) {

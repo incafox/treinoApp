@@ -5,22 +5,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-class GymsPerCategoryCubit extends Cubit<int> {
-  GymsPerCategoryCubit() : super(0);
+class GymsPerCategoryCubit extends Cubit<List<dynamic>> {
+  GymsPerCategoryCubit() : super(null);
   // UserInfo info = new UserInfo();
   List<dynamic> items = List();
+  String idCategoriaSeleccionado = "1";
+
+  void setIdCategoria(String val) {
+    this.idCategoriaSeleccionado = val;
+  }
 
   void getGymByCategoria(String idCategorie) async {
-    var dio = Dio();
-    try {
-      await dio.get("https://treino.club/demo/api/AppMovil/getGymsByCategoria",
-          queryParameters: {"idCategoria": idCategorie}).then((value) {
-        print(value.data);
-        var itemss = (json.decode(value.data)['items']);
-        this.items = itemss;
-      });
-    } catch (e) {
-      print(e);
-    }
+    final response = await http.post(
+        'https://treino.club/demo/api/AppMovil/getGymsByCategoria',
+        body: json.encode({"idCategoria": idCategorie}));
+    this.items = jsonDecode(response.body)['items'];
+    print(jsonDecode(response.body)['items']);
+
+    emit(this.items);
   }
 }

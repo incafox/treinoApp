@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-class SolicitudesCubit extends Cubit<int> {
-  SolicitudesCubit() : super(0);
-  var response;
+class SolicitudesCubit extends Cubit<List<dynamic>> {
+  SolicitudesCubit() : super(null);
+  List<dynamic> items;
   void getSolicitudes(String idCliente) async {
     var dio = Dio();
     try {
@@ -15,8 +15,9 @@ class SolicitudesCubit extends Cubit<int> {
           queryParameters: {
             "idCliente": idCliente,
           }).then((value) {
-        print(value.data);
-        this.response = (json.decode(value.data));
+        print("solicitudes " + value.data);
+        this.items = (json.decode(value.data)['items']);
+        emit(this.items);
       });
     } catch (e) {
       print(e);

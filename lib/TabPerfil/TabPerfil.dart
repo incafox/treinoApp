@@ -1,6 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:treino/login/login.dart';
+import 'package:treino/membresias/membresias.dart';
+import 'package:treino/states/login.dart';
+import 'package:treino/states/membresias.dart';
 
 class TabPerfil extends StatefulWidget {
   @override
@@ -8,25 +13,28 @@ class TabPerfil extends StatefulWidget {
 }
 
 class _TabPerfilState extends State<TabPerfil> {
-  Widget link(String name) {
+  Widget link(String name, Function func) {
     return MaterialButton(
         child: Padding(
           padding: const EdgeInsets.only(left: 19.0, right: 19),
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.only(
-              bottom: 3, // space between underline and text
-            ),
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-              color: Colors.black38, // Text colour here
-              width: 1.0, // Underline width
-            ))),
-            child: Text(
-              name,
-              style: TextStyle(
-                color: Colors.black, // Text colour here
+          child: FlatButton(
+            onPressed: func,
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.only(
+                bottom: 3, // space between underline and text
+              ),
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                color: Colors.black38, // Text colour here
+                width: 1.0, // Underline width
+              ))),
+              child: Text(
+                name,
+                style: TextStyle(
+                  color: Colors.black, // Text colour here
+                ),
               ),
             ),
           ),
@@ -60,14 +68,24 @@ class _TabPerfilState extends State<TabPerfil> {
               ),
               Align(
                   alignment: Alignment.bottomLeft,
-                  child: link("Karla Uriarte")),
-              Align(alignment: Alignment.bottomLeft, child: link("Membresia")),
+                  child: link(
+                      context.bloc<LoginCubit>().res['nombre'] +
+                          " " +
+                          context.bloc<LoginCubit>().res["apellidos"],
+                      () {})),
               Align(
                   alignment: Alignment.bottomLeft,
-                  child: link("Historial de pago")),
+                  child: link("Membresia", () async {
+                    await context.bloc<MembresiasCubit>().getMembresias();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Membresias()));
+                  })),
               Align(
                   alignment: Alignment.bottomLeft,
-                  child: link("Solicita tu factura")),
+                  child: link("Historial de pago", () {})),
+              Align(
+                  alignment: Alignment.bottomLeft,
+                  child: link("Solicita tu factura", () {})),
               Padding(
                 padding: const EdgeInsets.all(22.0),
                 child: Center(
@@ -82,16 +100,18 @@ class _TabPerfilState extends State<TabPerfil> {
               ),
               Align(
                   alignment: Alignment.bottomLeft,
-                  child: link("Preguntas Frecuentes")),
+                  child: link("Preguntas Frecuentes", () {})),
               Align(
                   alignment: Alignment.bottomLeft,
-                  child: link("Terminos y Condiciones")),
+                  child: link("Terminos y Condiciones", () {})),
               Align(
                   alignment: Alignment.bottomLeft,
-                  child: link("Politica de Privacidad")),
-              Align(alignment: Alignment.bottomLeft, child: link("Ayuda")),
+                  child: link("Politica de Privacidad", () {})),
+              Align(
+                  alignment: Alignment.bottomLeft, child: link("Ayuda", () {})),
               Padding(
-                padding: const EdgeInsets.only(bottom: 25,top: 17, left: 85, right: 85),
+                padding: const EdgeInsets.only(
+                    bottom: 25, top: 17, left: 85, right: 85),
                 child: Container(
                   height: 50,
                   width: 40,
@@ -152,7 +172,7 @@ class GradientAppBar extends StatelessWidget {
                                   new BorderRadius.all(Radius.circular(100)))),
                     ),
                     Center(
-                      child: Text("person",
+                      child: Text("",
                           style: TextStyle(color: Colors.black, fontSize: 25)),
                     ),
                   ],
@@ -172,14 +192,16 @@ class GradientAppBar extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Karla Uriarte",
+                          context.bloc<LoginCubit>().res["nombre"] +
+                              " " +
+                              context.bloc<LoginCubit>().res["apellidos"],
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                       ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "karla@treino.com.mx",
+                          context.bloc<LoginCubit>().res["correo"],
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                       ),

@@ -10,14 +10,18 @@ class GymDetailCubit extends Cubit<int> {
   var response;
   void getGymById(String id) async {
     var dio = Dio();
-    try {
-      await dio.get("https://treino.club/demo/api/AppMovil/getGymByID",
-          queryParameters: {"id": id}).then((value) {
-        print(value.data);
-        this.response = (json.decode(value.data));
-      });
-    } catch (e) {
-      print(e);
-    }
+    // try {
+    //   await dio.get("https://treino.club/demo/api/AppMovil/getGymByID",
+    //       queryParameters: {"id": id}).then((value) {
+    //     print(value.data);
+    //     this.response = (json.decode(value.data));
+    //   });
+    // } catch (e) {
+    //   print(e);
+    // }
+    final response = await http.post(
+        'https://treino.club/demo/api/AppMovil/getGymByID',
+        body: jsonEncode({"id": id}));
+    print(jsonDecode(response.body));
   }
 }

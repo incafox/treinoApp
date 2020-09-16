@@ -8,30 +8,37 @@ import 'package:dio/dio.dart';
 class LoginCubit extends Cubit<int> {
   LoginCubit() : super(0);
   UserInfo info = new UserInfo();
+  dynamic res;
 
-  void loginInto({String correo, String password}) async {
+  Future<bool> loginInto({String correo, String password}) async {
     print(correo + " = " + password);
-    FormData formData =
-        FormData.fromMap({'correo': correo, 'password': password});
-    var dio = Dio();
-    try {
-      await dio.get("https://treino.club/demo/api/AppMovil/login",
-          queryParameters: {
-            "correo": correo,
-            "password": password
-          }).then((value) {
-        print(value.data);
-        var error = (json.decode(value.data)['error']);
-        if (error == "1") {
-          print("hay un error");
-        } else {
-          print("parse la info");
-          this.info = json.decode(value.data);
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
+    // FormData formData =
+    // FormData.fromMap({'correo': correo, 'password': password});
+    // var dio = Dio();
+    // try {
+    //   await dio.get("https://treino.club/demo/api/AppMovil/login",
+    //       queryParameters: {
+    //         "correo": correo,
+    //         "password": password
+    //       }).then((value) {
+    //     print(value.data);
+    //     var error = (json.decode(value.data)['error']);
+    //     if (error == "1") {
+    //       print("hay un error");
+    //     } else {
+    //       print("parse la info");
+    //       this.info = json.decode(value.data);
+    //     }
+    //   });
+    // } catch (e) {
+    //   print(e);
+    // }
+    final response = await http.post(
+        'https://treino.club/demo/api/AppMovil/login',
+        body: jsonEncode({"correo": correo, "password": password}));
+    print(jsonDecode(response.body));
+    this.res = jsonDecode(response.body);
+    return res['error'] == 0 ? true : false;
   }
 }
 

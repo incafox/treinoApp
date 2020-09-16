@@ -1,60 +1,36 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:treino/states/externalControlTab.dart';
+import 'package:treino/states/getSolicitudes.dart';
+import 'package:treino/states/getSolicitudesPasadas.dart';
 
 class TabMisClases extends StatefulWidget {
   @override
   _TabMisClasesState createState() => _TabMisClasesState();
 }
 
+bool controlClasesVista = false;
+
 class _TabMisClasesState extends State<TabMisClases> {
-  Widget opciones() {
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          crossAxisSpacing: 30.0,
-          mainAxisSpacing: 7.0,
-          childAspectRatio: 4.5),
-      itemCount: 7,
-      itemBuilder: (context, index) {
-        return Container(
-          height: 40,
-          color: Colors.grey[200],
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  // "index: $index",
-                  "456765434567",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 15.0,
-                      color: Colors.blueAccent,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Text("Acceso Libre"),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  children: [
-                    Text("Acceso Libre"),
-                    Text("Sports World"),
-                    Text("Maestro : N/A"),
-                  ],
-                ),
-              )
-            ],
-          ),
-        );
-      },
+  Widget reservadas(BuildContext context) {
+    return BlocBuilder<SolicitudesCubit, List<dynamic>>(
+      builder: (context, items) => items != null
+          ? Column(
+              children: items.map((e) => Text(e['numeroControl'])).toList(),
+            )
+          : Text("cargando"),
+    );
+  }
+
+  Widget pasadas(BuildContext context) {
+    return BlocBuilder<SolicitudesPasadasCubit, List<dynamic>>(
+      builder: (context, items) => items != null
+          ? Column(
+              children: items.map((e) => Text(e['numeroControl'])).toList(),
+            )
+          : Text("cargando"),
     );
   }
 
@@ -62,11 +38,11 @@ class _TabMisClasesState extends State<TabMisClases> {
   Widget build(BuildContext context) {
     return //Demo();
         Scaffold(
-      body: ListView(
-        physics: BouncingScrollPhysics(),
+      body: Column(
+        // physics: BouncingScrollPhysics(),
         children: <Widget>[
           GradientAppBar("a"),
-          Demo(),
+          CustomTabSelector(),
           Container(
             color: Colors.grey[400],
             width: double.infinity,
@@ -94,19 +70,23 @@ class _TabMisClasesState extends State<TabMisClases> {
               ],
             ),
           ),
-          this.opciones()
+          BlocBuilder<ExternalControllerMisClasesCubit, int>(
+              builder: (context, val) =>
+                  val == 1 ? this.reservadas(context) : this.pasadas(context)),
         ],
       ),
     );
   }
 }
 
-class Demo extends StatefulWidget {
+class CustomTabSelector extends StatefulWidget {
+  // final bool control;
+  // CustomTabSelector({this.control});
   @override
-  _DemoState createState() => new _DemoState();
+  _CustomTabSelectorState createState() => new _CustomTabSelectorState();
 }
 
-class _DemoState extends State<Demo> {
+class _CustomTabSelectorState extends State<CustomTabSelector> {
   Color def1 = Colors.white;
   Color def1font = Colors.blue;
   Color def2 = Colors.blue;
@@ -119,7 +99,7 @@ class _DemoState extends State<Demo> {
         child: Container(
           alignment: Alignment.topCenter,
           child: Container(
-              height: 38  ,
+              height: 38,
               padding: EdgeInsets.all(3.5),
               width: MediaQuery.of(context).size.width * 1.2,
               decoration: BoxDecoration(
@@ -135,6 +115,9 @@ class _DemoState extends State<Demo> {
                         color: this.def1,
                         // height: double.infinity,
                         onPressed: () {
+                          context
+                              .bloc<ExternalControllerMisClasesCubit>()
+                              .setVal(1);
                           setState(() {
                             this.def1 = Colors.white;
                             this.def1font = Colors.blue;
@@ -169,6 +152,9 @@ class _DemoState extends State<Demo> {
                               borderRadius: new BorderRadius.circular(28.0),
                               side: BorderSide(color: Colors.blue)),
                           onPressed: () {
+                            context
+                                .bloc<ExternalControllerMisClasesCubit>()
+                                .setVal(2);
                             setState(() {
                               this.def1 = Colors.blue;
                               this.def1font = Colors.white;

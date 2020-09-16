@@ -3,7 +3,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:treino/TabBuscarClase/TabBuscarClasePrimerSub.dart';
 import 'package:treino/classdetail/ClassDetail.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
 import 'package:treino/states/classesPerGym.dart';
@@ -13,12 +12,13 @@ import 'TabBuscarClase.dart';
 import 'TabBuscarMap.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TabBuscarClasePrimer extends StatefulWidget {
+//las clases
+class TabBuscarClasePrimerSub extends StatefulWidget {
   @override
   _TabBuscarClasePrimerState createState() => _TabBuscarClasePrimerState();
 }
 
-class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
+class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
   var gradesRange = RangeValues(0, 7);
   List letras = ["D", "L", "M", "M", "J", "V", "S", "ads"];
   Widget semana() {
@@ -170,7 +170,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
   }
 
   Widget opciones2(BuildContext context) {
-    return BlocBuilder<GymsPerCategoryCubit, List<dynamic>>(
+    return BlocBuilder<ClassesPerGymCubit, List<dynamic>>(
         builder: (context, val) => val != null
             ? Container(
                 color: Colors.grey[200],
@@ -179,19 +179,15 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                   children: val
                       .map((e) => FlatButton(
                             onPressed: () {
-                              print("hacia sub ");
-                              context
-                                  .bloc<ClassesPerGymCubit>()
-                                  .getClassesByGym(e['idGym']);
                               context
                                   .bloc<AgregarSolicitudCubit>()
-                                  .setIdGym(e['idGym']);
+                                  .setIdClase(e['idClase']);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        TabBuscarClasePrimerSub()),
+                                    builder: (context) => ClassDetail()),
                               );
+                              print("as");
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
@@ -203,7 +199,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        e['nombreGym'],
+                                        e['nombreClase'],
                                         style: TextStyle(
                                             color: Colors.blue,
                                             fontSize: 18,
@@ -212,9 +208,10 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                                       Container(
                                         height: 5,
                                       ),
-                                      Text(e['direccion']),
-                                      Text(e['nombreEntrenadorClase']),
-                                      Text(e['direccion']),
+                                      Text("horario :" + e['horarioClase']),
+                                      Text("entrenador :" +
+                                          e['nombreEntrenadorClase']),
+                                      // Text(e['nombreCategoria']),
                                     ],
                                   ),
                                 ),
@@ -238,7 +235,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
             child: GradientAppBar("buscando"),
           ),
           // dias(),
-          // semana(),
+          semana(),
           Container(
             color: Colors.grey[400],
             width: double.infinity,
@@ -316,7 +313,6 @@ class GradientAppBar extends StatelessWidget {
             child: MaterialButton(
               minWidth: 6,
               onPressed: () {
-                // context.bloc<ClassesPerGymCubit>().getClassesByGym(idGym)
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => TabBuscarMap()),

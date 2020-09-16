@@ -270,7 +270,7 @@ class _LoginState extends State<Register> {
                     color: Colors.blue,
                     onPressed: () {
                       context.bloc<RegisterCubit>().register(
-                          id: 'ada',
+                          correo: this.correo.text,
                           nombre: this.nombre.text,
                           genero: this.genero.text,
                           password: this.password.text,

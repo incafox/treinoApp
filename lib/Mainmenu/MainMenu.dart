@@ -6,13 +6,35 @@ import 'package:treino/TabBuscarClase/TabBuscarClase.dart';
 import 'package:treino/TabBuscarClase/TabBuscarClasePrimer.dart';
 import 'package:treino/TabMisClases/TabMisClases.dart';
 import 'package:treino/TabPerfil/TabPerfil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:treino/states/categories.dart';
+import 'package:treino/states/externalControlTab.dart';
+import 'package:treino/states/register.dart';
 
 class MainMenu extends StatefulWidget {
+  const MainMenu({Key key}) : super(key: key);
+
   @override
   _MainMenuState createState() => _MainMenuState();
 }
 
-class _MainMenuState extends State<MainMenu> {
+class _MainMenuState extends State<MainMenu>
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = new TabController(vsync: this, length: 4);
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   Future<bool> _onWillPop() async {
     return (Navigator.push(
           context,
@@ -24,6 +46,8 @@ class _MainMenuState extends State<MainMenu> {
 
   @override
   Widget build(BuildContext context) {
+    context.bloc<CategoriesCubit>().getAllCategorias();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: DefaultTabController(
@@ -46,8 +70,7 @@ class _MainMenuState extends State<MainMenu> {
                 children: <Widget>[
                   // Expanded(child: TabInicio()),
                   GradientAppBar("Treino"),
-                  Container(
-                    width: 100,child: TabInicio()),
+                  Container(width: 100, child: TabInicio()),
                   // TabInicio(),
                 ],
               ),
@@ -64,6 +87,12 @@ class _MainMenuState extends State<MainMenu> {
               height: 40,
               child: Center(
                 child: TabBar(
+                  // controller: tabController,
+                  onTap: (index) {
+                    context
+                        .bloc<ExternalControllerMainTabsCubit>()
+                        .setVal(index);
+                  },
                   // indicatorWeight: 1,
                   tabs: [
                     Tab(
