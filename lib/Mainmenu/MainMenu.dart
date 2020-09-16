@@ -20,12 +20,15 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu>
     with SingleTickerProviderStateMixin {
+  // GlobalKey<_MainMenuState> _mainMenuState;
+  GlobalKey<_MainMenuState> _key = GlobalKey();
+
   TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = new TabController(vsync: this, length: 4);
+    tabController = new TabController(length: 4, vsync: this);
     setState(() {});
   }
 
@@ -64,13 +67,14 @@ class _MainMenuState extends State<MainMenu>
           //       ),
           //     )),
           body: TabBarView(
+            controller: tabController,
             children: [
               ListView(
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
                   // Expanded(child: TabInicio()),
                   GradientAppBar("Treino"),
-                  Container(width: 100, child: TabInicio()),
+                  Container(width: 100, child: TabInicio(this.tabController)),
                   // TabInicio(),
                 ],
               ),
@@ -87,11 +91,13 @@ class _MainMenuState extends State<MainMenu>
               height: 40,
               child: Center(
                 child: TabBar(
-                  // controller: tabController,
+                  controller: tabController,
                   onTap: (index) {
-                    context
-                        .bloc<ExternalControllerMainTabsCubit>()
-                        .setVal(index);
+                    tabController.animateTo(index);
+                    // context
+                    //     .bloc<ExternalControllerMainTabsCubit>()
+                    //     .tabber
+                    //     .animateTo(index);
                   },
                   // indicatorWeight: 1,
                   tabs: [

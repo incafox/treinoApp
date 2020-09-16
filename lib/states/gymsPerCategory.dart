@@ -15,9 +15,14 @@ class GymsPerCategoryCubit extends Cubit<List<dynamic>> {
     this.idCategoriaSeleccionado = val;
   }
 
+  void reset() {
+    emit(null);
+  }
+
   void getGymByCategoria(String idCategorie) async {
     final response = await http.post(
         'https://treino.club/demo/api/AppMovil/getGymsByCategoria',
+        headers: {'Content-Type': 'application/json'},
         body: json.encode({"idCategoria": idCategorie}));
     this.items = jsonDecode(response.body)['items'];
     print(jsonDecode(response.body)['items']);

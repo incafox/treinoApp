@@ -21,6 +21,7 @@ class GymDetailCubit extends Cubit<int> {
     // }
     final response = await http.post(
         'https://treino.club/demo/api/AppMovil/getGymByID',
+        headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"id": id}));
     print(jsonDecode(response.body));
   }

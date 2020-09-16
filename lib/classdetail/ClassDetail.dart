@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
+import 'package:treino/states/classDetail.dart';
 
 class ClassDetail extends StatefulWidget {
   @override
@@ -41,49 +42,68 @@ class _ClassDetailState extends State<ClassDetail> {
         child: Column(
           children: [
             GradientAppBar("title"),
+            BlocBuilder<ClassDetailCubit, dynamic>(
+              builder: (context, res) => Column(
+                children: [
+                  Text(res['nombreGimnasio'],
+                      style: TextStyle(color: Colors.black54, fontSize: 22)),
+                  Text(res['nombreCategoria'],
+                      style: TextStyle(color: Colors.black54, fontSize: 22)),
+                  Text('Nombre de gimnasio: ' + res['nombre'],
+                      style: TextStyle(color: Colors.black54, fontSize: 22)),
+                  Text('Duracion :' + res['duracion'],
+                      style: TextStyle(color: Colors.black54, fontSize: 22)),
+                  Text('Horario :' + res['horario'],
+                      style: TextStyle(color: Colors.black54, fontSize: 22)),
+                  Text('Que Traer :' + res['queTraer'],
+                      style: TextStyle(color: Colors.black54, fontSize: 22)),
+                  // Image.network(res['galeria1'])
+                ],
+              ),
+            ),
             Container(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: Column(
                     children: [
-                      Text(
-                        "Acerca de la Clase",
-                        style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 22),
-                      ),
-                      Text(
-                        """Thermobike es una bicicleta fija dentro de una cabina que brinda luz infrerroja mientras ejercitas. Entrenamiento de cardio resistencia y terapeutico que ayuda""",
-                        style: TextStyle(color: Colors.black54, fontSize: 22),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        "Categoria",
-                        style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 22),
-                      ),
-                      Text(
-                        "Cycling, Wellness",
-                        style: TextStyle(color: Colors.black54, fontSize: 22),
-                      ),
-                      Text(
-                        "Maestro",
-                        style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 22),
-                      ),
-                      Text(
-                        "Jaimito",
-                        style: TextStyle(color: Colors.black54, fontSize: 22),
-                      ),
-                      Text(
-                        "Que traer",
-                        style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 22),
-                      ),
-                      Text(
-                        "indispensable toalla, ropa comoda y ligera, tenis, agua y si gustas un cambio",
-                        style: TextStyle(color: Colors.black54, fontSize: 22),
-                      ),
+                      // Text(
+                      //   "Acerca de la Clase",
+                      //   style:
+                      //       TextStyle(color: Colors.blueAccent, fontSize: 22),
+                      // ),
+                      // Text(
+                      //   """Thermobike es una bicicleta fija dentro de una cabina que brinda luz infrerroja mientras ejercitas. Entrenamiento de cardio resistencia y terapeutico que ayuda""",
+                      //   style: TextStyle(color: Colors.black54, fontSize: 22),
+                      //   textAlign: TextAlign.center,
+                      // ),
+                      // Text(
+                      //   "Categoria",
+                      //   style:
+                      //       TextStyle(color: Colors.blueAccent, fontSize: 22),
+                      // ),
+                      // Text(
+                      //   "Cycling, Wellness",
+                      //   style: TextStyle(color: Colors.black54, fontSize: 22),
+                      // ),
+                      // Text(
+                      //   "Maestro",
+                      //   style:
+                      //       TextStyle(color: Colors.blueAccent, fontSize: 22),
+                      // ),
+                      // Text(
+                      //   " - ",
+                      //   style: TextStyle(color: Colors.black54, fontSize: 22),
+                      // ),
+                      // Text(
+                      //   "Que traer",
+                      //   style:
+                      //       TextStyle(color: Colors.blueAccent, fontSize: 22),
+                      // ),
+                      // Text(
+                      //   "indispensable toalla, ropa comoda y ligera, tenis, agua y si gustas un cambio",
+                      //   style: TextStyle(color: Colors.black54, fontSize: 22),
+                      // ),
                       Text(
                         "Es indispensable traer identificacion oficial para poder ingresar",
                         style:
@@ -113,114 +133,120 @@ class _ClassDetailState extends State<ClassDetail> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
-                            child: CircleAvatar(
-                                foregroundColor: Colors.green,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Opacity(
-                                      opacity: 0.0,
-                                      child: Container(
-                                          decoration: new BoxDecoration(
-                                              color: Colors.blue,
-                                              borderRadius:
-                                                  new BorderRadius.all(
-                                                      Radius.circular(100)))),
-                                    ),
-                                    Center(
-                                      child: Text("person",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 25)),
-                                    ),
-                                  ],
-                                ),
-                                radius: 45,
-                                backgroundImage: NetworkImage(
-                                    'https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg')),
-                          ),
+                              child: CircleAvatar(
+                                  foregroundColor: Colors.green,
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Opacity(
+                                        opacity: 0.0,
+                                        child: Container(
+                                            decoration: new BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius:
+                                                    new BorderRadius.all(
+                                                        Radius.circular(100)))),
+                                      ),
+                                      Center(
+                                        child: Icon(
+                                          Icons.check_box_outline_blank,
+                                          size: 80,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  radius: 45,
+                                  backgroundImage: null)
+                              // NetworkImage(
+                              //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
+                              ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
-                            child: CircleAvatar(
-                                foregroundColor: Colors.green,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Opacity(
-                                      opacity: 0.0,
-                                      child: Container(
-                                          decoration: new BoxDecoration(
-                                              color: Colors.blue,
-                                              borderRadius:
-                                                  new BorderRadius.all(
-                                                      Radius.circular(100)))),
-                                    ),
-                                    Center(
-                                      child: Text("person",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 25)),
-                                    ),
-                                  ],
-                                ),
-                                radius: 45,
-                                backgroundImage: NetworkImage(
-                                    'https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg')),
-                          ),
+                              child: CircleAvatar(
+                                  foregroundColor: Colors.green,
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Opacity(
+                                        opacity: 0.0,
+                                        child: Container(
+                                            decoration: new BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius:
+                                                    new BorderRadius.all(
+                                                        Radius.circular(100)))),
+                                      ),
+                                      Center(
+                                        child: Icon(
+                                          Icons.change_history,
+                                          size: 80,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  radius: 45,
+                                  backgroundImage: null)
+                              // NetworkImage(
+                              //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
+                              ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
-                            child: CircleAvatar(
-                                foregroundColor: Colors.green,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Opacity(
-                                      opacity: 0.0,
-                                      child: Container(
-                                          decoration: new BoxDecoration(
-                                              color: Colors.blue,
-                                              borderRadius:
-                                                  new BorderRadius.all(
-                                                      Radius.circular(100)))),
-                                    ),
-                                    Center(
-                                      child: Text("person",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 25)),
-                                    ),
-                                  ],
-                                ),
-                                radius: 45,
-                                backgroundImage: NetworkImage(
-                                    'https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg')),
-                          ),
+                              child: CircleAvatar(
+                                  foregroundColor: Colors.green,
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Opacity(
+                                        opacity: 0.0,
+                                        child: Container(
+                                            decoration: new BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius:
+                                                    new BorderRadius.all(
+                                                        Radius.circular(100)))),
+                                      ),
+                                      Center(
+                                        child: Icon(
+                                          Icons.bubble_chart,
+                                          size: 80,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  radius: 45,
+                                  backgroundImage: null)
+                              // NetworkImage(
+                              //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
+                              ),
                         ),
                         Center(
-                          child: CircleAvatar(
-                              foregroundColor: Colors.green,
-                              child: Stack(
-                                children: <Widget>[
-                                  Opacity(
-                                    opacity: 0.0,
-                                    child: Container(
-                                        decoration: new BoxDecoration(
-                                            color: Colors.blue,
-                                            borderRadius: new BorderRadius.all(
-                                                Radius.circular(100)))),
-                                  ),
-                                  Center(
-                                    child: Text("person",
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 25)),
-                                  ),
-                                ],
-                              ),
-                              radius: 45,
-                              backgroundImage: NetworkImage(
-                                  'https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg')),
-                        )
+                            child: CircleAvatar(
+                                foregroundColor: Colors.green,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Opacity(
+                                      opacity: 0.0,
+                                      child: Container(
+                                          decoration: new BoxDecoration(
+                                              color: Colors.blue,
+                                              borderRadius:
+                                                  new BorderRadius.all(
+                                                      Radius.circular(100)))),
+                                    ),
+                                    Center(
+                                      child: Icon(
+                                        Icons.bubble_chart,
+                                        size: 80,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                radius: 45,
+                                backgroundImage: null)
+                            // NetworkImage(
+                            //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
+                            )
                       ]),
                 ],
               ),
@@ -261,15 +287,15 @@ class _ClassDetailState extends State<ClassDetail> {
                         "Cycling, Wellness",
                         style: TextStyle(color: Colors.black54, fontSize: 22),
                       ),
-                      Text(
-                        "Maestro",
-                        style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 22),
-                      ),
-                      Text(
-                        "Jaimito",
-                        style: TextStyle(color: Colors.black54, fontSize: 22),
-                      ),
+                      // Text(
+                      //   "Maestro",
+                      //   style:
+                      //       TextStyle(color: Colors.blueAccent, fontSize: 22),
+                      // ),
+                      // Text(
+                      //   "Jaimito",
+                      //   style: TextStyle(color: Colors.black54, fontSize: 22),
+                      // ),
                       Text(
                         "Que traer",
                         style:
@@ -394,14 +420,14 @@ class GradientAppBar extends StatelessWidget {
                                   new BorderRadius.all(Radius.circular(100)))),
                     ),
                     Center(
-                      child: Text("person",
+                      child: Text("",
                           style: TextStyle(color: Colors.black, fontSize: 25)),
                     ),
                   ],
                 ),
                 radius: 65,
                 backgroundImage: NetworkImage(
-                    'https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg')),
+                    'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
           ),
           Center(
             child: Container(

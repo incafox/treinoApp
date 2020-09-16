@@ -67,9 +67,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<AgregarSolicitudCubit>(
             create: (BuildContext context) => AgregarSolicitudCubit(),
           ),
-          BlocProvider<ExternalControllerMainTabsCubit>(
-            create: (BuildContext context) => ExternalControllerMainTabsCubit(),
-          ),
+          // BlocProvider<ExternalControllerMainTabsCubit>(
+          //   create: (BuildContext context) => ExternalControllerMainTabsCubit(),
+          // ),
           BlocProvider<ExternalControllerMisClasesCubit>(
             create: (BuildContext context) =>
                 ExternalControllerMisClasesCubit(),

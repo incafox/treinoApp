@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treino/classdetail/ClassDetail.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
+import 'package:treino/states/classDetail.dart';
 import 'package:treino/states/classesPerGym.dart';
 import 'package:treino/states/externalControlTab.dart';
 import 'package:treino/states/gymsPerCategory.dart';
@@ -179,9 +180,15 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
                   children: val
                       .map((e) => FlatButton(
                             onPressed: () {
+                              //setea la id de clase para la compra
                               context
                                   .bloc<AgregarSolicitudCubit>()
                                   .setIdClase(e['idClase']);
+
+                              //setea los detalles de clase
+                              context
+                                  .bloc<ClassDetailCubit>()
+                                  .getClaseByID(e['idClase']);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -240,7 +247,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
             color: Colors.grey[400],
             width: double.infinity,
             child: Text(
-              "YOGA",
+              "Seleccione una Clase",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 17),
             ),

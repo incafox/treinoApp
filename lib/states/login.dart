@@ -35,6 +35,7 @@ class LoginCubit extends Cubit<int> {
     // }
     final response = await http.post(
         'https://treino.club/demo/api/AppMovil/login',
+        headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"correo": correo, "password": password}));
     print(jsonDecode(response.body));
     this.res = jsonDecode(response.body);

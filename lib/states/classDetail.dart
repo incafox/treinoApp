@@ -8,16 +8,20 @@ import 'package:dio/dio.dart';
 class ClassDetailCubit extends Cubit<dynamic> {
   ClassDetailCubit() : super(0);
   // UserInfo info = new UserInfo();
-  var response;
+  dynamic response;
 
   void getClaseByID(String id) async {
-    var dio = Dio();
+    print('obteniendo detalles de clase ... ' + id);
     try {
-      await dio.get("https://treino.club/demo/api/AppMovil/getClaseByID",
-          queryParameters: {"id": id}).then((value) {
-        print(value.data);
-        var res = (json.decode(value.data));
-        this.response = res;
+      await http
+          .post("https://treino.club/demo/api/AppMovil/getClaseByID",
+              headers: {'Content-Type': 'application/json'},
+              body: json.encode({"id": id}))
+          .then((value) {
+        print(value.body);
+        this.response = (json.decode(value.body));
+        // this.response = res;
+        emit(this.response);
       });
     } catch (e) {
       print(e);

@@ -7,11 +7,15 @@ import 'package:treino/states/externalControlTab.dart';
 import 'package:treino/states/gymsPerCategory.dart';
 
 class TabInicio extends StatefulWidget {
+  final TabController tabCcontroller;
+  TabInicio(this.tabCcontroller);
   @override
   _TabInicioState createState() => _TabInicioState();
 }
 
 class _TabInicioState extends State<TabInicio> {
+  // final GlobalKey<_MainMenuState> counterKey;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -84,12 +88,17 @@ class _TabInicioState extends State<TabInicio> {
                                           .setIdCategoria(e["id"]);
                                       context
                                           .bloc<GymsPerCategoryCubit>()
-                                          .getGymByCategoria(e['id']);
-
+                                          .reset();
                                       context
-                                          .bloc<
-                                              ExternalControllerMainTabsCubit>()
-                                          .setVal(2);
+                                          .bloc<GymsPerCategoryCubit>()
+                                          .getGymByCategoria(e['id']);
+                                      widget.tabCcontroller.animateTo(1);
+                                      // widget.keyController.currentState.
+                                      // context
+                                      //     .bloc<
+                                      //         ExternalControllerMainTabsCubit>()
+                                      //     .tabber
+                                      //     .animateTo(2);
                                     },
                                     child: CircleAvatar(
                                         backgroundImage:

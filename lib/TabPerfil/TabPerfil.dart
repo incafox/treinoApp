@@ -179,7 +179,7 @@ class GradientAppBar extends StatelessWidget {
                 ),
                 radius: 65,
                 backgroundImage: NetworkImage(
-                    'https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg')),
+                    'https://journeypurebowlinggreen.com/wp-content/uploads/2018/05/placeholder-person.jpg')),
           ),
           Center(
             child: Container(

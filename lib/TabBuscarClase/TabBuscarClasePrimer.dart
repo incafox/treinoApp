@@ -243,7 +243,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
             color: Colors.grey[400],
             width: double.infinity,
             child: Text(
-              "YOGA",
+              "Gimnasios Disponibles",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 17),
             ),

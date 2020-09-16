@@ -138,7 +138,7 @@ class _CustomTabSelectorState extends State<CustomTabSelector> {
                                   topRight: Radius.circular(12),
                                   bottomRight: Radius.circular(12),
                                   topLeft: Radius.circular(12))),
-                          child: Text("Referrals",
+                          child: Text("Presentes",
                               style: TextStyle(
                                 color: this.def1font,
                                 fontSize: 17,
@@ -171,7 +171,7 @@ class _CustomTabSelectorState extends State<CustomTabSelector> {
                                     topLeft: Radius.circular(12),
                                     bottomLeft: Radius.circular(12),
                                     topRight: Radius.circular(12))),
-                            child: Text("Referrals",
+                            child: Text("Pasadas",
                                 style: TextStyle(
                                   color: this.def2font,
                                   fontSize: 17,

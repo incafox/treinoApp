@@ -18,6 +18,7 @@ class ClassesPerGymCubit extends Cubit<List<dynamic>> {
   void getClassesByGym(String idGym) async {
     final response = await http.post(
         'https://treino.club/demo/api/AppMovil/getListaClasesByGimnasio',
+        headers: {'Content-Type': 'application/json'},
         body: json.encode({"idGym": idGym}));
     // print(jsonDecode(response.body)['items']);
     // print(jsonDecode(response.body)['items']);
