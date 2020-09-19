@@ -12,6 +12,7 @@ import 'package:treino/states/gymsPerCategory.dart';
 import 'TabBuscarClase.dart';
 import 'TabBuscarMap.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:convert' show jsonDecode, jsonEncode, utf8;
 
 class TabBuscarClasePrimer extends StatefulWidget {
   @override
@@ -203,7 +204,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        e['nombreGym'],
+                                        (e['nombreGym']),
                                         style: TextStyle(
                                             color: Colors.blue,
                                             fontSize: 18,
@@ -212,9 +213,10 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                                       Container(
                                         height: 5,
                                       ),
-                                      Text(e['direccion']),
-                                      Text(e['nombreEntrenadorClase']),
-                                      Text(e['direccion']),
+                                      Text(jsonDecode(
+                                          jsonEncode(e['direccion']))),
+                                      Text((e['nombreEntrenadorClase'])),
+                                      Text(e['direccion'].toString()),
                                     ],
                                   ),
                                 ),

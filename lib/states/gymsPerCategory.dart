@@ -22,11 +22,18 @@ class GymsPerCategoryCubit extends Cubit<List<dynamic>> {
   void getGymByCategoria(String idCategorie) async {
     final response = await http.post(
         'https://treino.club/demo/api/AppMovil/getGymsByCategoria',
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json; charset=utf-8'},
         body: json.encode({"idCategoria": idCategorie}));
-    this.items = jsonDecode(response.body)['items'];
-    print(jsonDecode(response.body)['items']);
+    // String body = utf8.decode(response.bodyBytes);
+    // String source = Utf8Decoder().convert(response.bodyBytes);
+    var myRichRunesMessage = new Runes(response.body);
+    // String source = String.fromCharCodes(myRichRunesMessage);
 
-    emit(this.items);
+    this.items = json.decode(response.body)['items'];
+    print("============");
+    print(items);
+    print(response.body);
+    print("============");
+    emit(jsonDecode(jsonEncode(this.items).toString()));
   }
 }
