@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/login/login.dart';
 import 'package:treino/membresias/membresias.dart';
 import 'package:treino/states/login.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:treino/states/membresias.dart';
 
 class TabPerfil extends StatefulWidget {
@@ -100,13 +101,22 @@ class _TabPerfilState extends State<TabPerfil> {
               ),
               Align(
                   alignment: Alignment.bottomLeft,
-                  child: link("Preguntas Frecuentes", () {})),
+                  child: link("Preguntas Frecuentes", () async {
+                    _launchURL(
+                        "http://treino.club/demo/home/preguntasFrecuentes");
+                  })),
               Align(
                   alignment: Alignment.bottomLeft,
-                  child: link("Terminos y Condiciones", () {})),
+                  child: link("Terminos y Condiciones", () async {
+                    _launchURL(
+                        "http://treino.club/demo/home/terminosCondiciones");
+                  })),
               Align(
                   alignment: Alignment.bottomLeft,
-                  child: link("Politica de Privacidad", () {})),
+                  child: link("Politica de Privacidad", () async {
+                    _launchURL(
+                        "http://treino.club/demo/home/politicaPrivacidad");
+                  })),
               Align(
                   alignment: Alignment.bottomLeft, child: link("Ayuda", () {})),
               Padding(
@@ -126,10 +136,10 @@ class _TabPerfilState extends State<TabPerfil> {
                           side: BorderSide(color: Color(0xff0781e5))),
                       color: Color(0xff0781e5),
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => Login()),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
                         print("probando");
                       }),
                 ),
@@ -139,6 +149,15 @@ class _TabPerfilState extends State<TabPerfil> {
         ),
       ),
     );
+  }
+
+  _launchURL(String linki) async {
+    String url = linki;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:treino/recover_password/recover_password.dart';
 import 'package:treino/register/signup.dart';
 import 'package:treino/Mainmenu/MainMenu.dart';
 import 'package:treino/membresias/membresias.dart';
@@ -26,6 +27,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    this.correoController.text = "";
+    this.passwordController.text = "";
     return Scaffold(
       // appBar: AppBar(),
       body: Padding(
@@ -63,6 +66,9 @@ class _LoginState extends State<Login> {
                         },
                       ),
                       TextFormField(
+                        // obs,
+                        autofocus: false,
+                        // focusNode: FocusScope.of(context).requestFocus(new FocusNode()),
                         controller: this.passwordController,
                         decoration: InputDecoration(hintText: "Contrasena"),
                         obscureText: true,
@@ -81,6 +87,12 @@ class _LoginState extends State<Login> {
                   child: Text("Olvidaste tu clave?"),
                   onPressed: () {
                     print("entrando");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RecoverPasswordPage()),
+                      // MaterialPageRoute(builder: (context) => Membresias()),
+                    );
                   },
                 ),
               ),
@@ -99,6 +111,11 @@ class _LoginState extends State<Login> {
                         side: BorderSide(color: Color(0xff13e860))),
                     color: Color(0xff13e860),
                     onPressed: () async {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+
+                      // if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
                       bool rpta = await context.bloc<LoginCubit>().loginInto(
                           correo: this.correoController.text,
                           password: this.passwordController.text);

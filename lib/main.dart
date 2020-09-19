@@ -78,13 +78,23 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => ClassesPerGymCubit(),
           ),
         ],
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+            FocusScopeNode currentFocus = FocusScope.of(context);
+
+            // if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            // }
+          },
+          child: MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            debugShowCheckedModeBanner: false,
+            home: MyHomePage(title: 'Flutter Demo Home Page'),
           ),
-          debugShowCheckedModeBanner: false,
-          home: MyHomePage(title: 'Flutter Demo Home Page'),
         ));
   }
 }

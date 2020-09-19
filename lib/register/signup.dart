@@ -178,16 +178,7 @@ class _LoginState extends State<Register> {
                             'Two',
                             'Free',
                             'adad',
-                            'adadadf',
-                            'fgrg',
-                            'fesaad',
-                            'wadasd',
-                            'Four',
-                            '1',
-                            "32",
-                            "232",
-                            "2323",
-                            "223"
+                            'adadadf'
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -201,7 +192,7 @@ class _LoginState extends State<Register> {
                         child: RaisedButton(
                           elevation: 3,
                           shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(28.0),
+                              borderRadius: new BorderRadius.circular(35.0),
                               side: BorderSide(color: Colors.white70)),
                           onPressed: () => _selectDate(context), // Refer step 3
                           child: Text(
@@ -237,8 +228,6 @@ class _LoginState extends State<Register> {
                           items: <String>[
                             'Genero',
                             'Hombre',
-                         
-                            
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -297,8 +286,8 @@ class _LoginState extends State<Register> {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: selectedDate, // Refer step 1
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(1950),
+      lastDate: DateTime(2015),
     );
     if (picked != null && picked != selectedDate)
       setState(() {
