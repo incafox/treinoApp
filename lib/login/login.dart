@@ -65,6 +65,7 @@ class _LoginState extends State<Login> {
                       TextFormField(
                         controller: this.passwordController,
                         decoration: InputDecoration(hintText: "Contrasena"),
+                        obscureText: true,
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter some text';

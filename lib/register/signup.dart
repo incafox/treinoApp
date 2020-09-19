@@ -119,6 +119,7 @@ class _LoginState extends State<Register> {
                       TextFormField(
                         controller: this.password,
                         decoration: InputDecoration(hintText: "Contrasena"),
+                        obscureText: true,
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter some text';
@@ -236,8 +237,8 @@ class _LoginState extends State<Register> {
                           items: <String>[
                             'Genero',
                             'Hombre',
-                            'Mujee',
-                            'No especificar'
+                         
+                            
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
