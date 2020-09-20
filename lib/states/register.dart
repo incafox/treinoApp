@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -18,45 +19,28 @@ class RegisterCubit extends Cubit<int> {
       String ciudad,
       String fechaNac,
       String genero}) async {
-    print(correo + " = " + password);
-    // String rpta = '';
-    // var dio = Dio();
-    // try {
-    //   await dio.post("https://treino.club/demo/api/AppMovil/registrar",
-    //       queryParameters: {
-    //         'correo': correo,
-    //         'password': password,
-    //         'nombre': nombre,
-    //         'apellidos': apelli,
-    //         'telefono': telefono,
-    //         'ciudad': ciudad,
-    //         'fechaNacimiento': fechaNac,
-    //         'genero': genero
-    //       }).then((value) {
-    //     print(value.data);
-    //     var error = (json.decode(value.data)['error']);
-    //     if (error == "1") {
-    //       print("hay un error");
-    //     } else {
-    //       print("parse la info");
-    //       // this.info = json.decode(value.data);
-    //     }
-    //   });
-    // } catch (e) {
-    //   print(e);
-    // }
-    final response = await http
-        .post('https://treino.club/demo/api/AppMovil/registrar', body: jsonEncode({
-      'correo': correo,
-      'password': password,
-      'nombre': nombre,
-      'apellidos': apelli,
-      'telefono': telefono,
-      'ciudad': ciudad,
-      'fechaNacimiento': fechaNac,
-      'genero': genero
-    }));
-    print(response.body);
-    return response.body;
+    
+      try{
+        final response = await http
+            .post('https://treino.club/demo/api/AppMovil/registrar', body: jsonEncode({
+          'correo': correo,
+          'password': password,
+          'nombre': nombre,
+          'apellidos': apelli,
+          'telefono': telefono,
+          'ciudad': ciudad,
+          'fechaNacimiento': fechaNac,
+          'genero': genero
+        }));
+        print(response.body);
+        Map<String, dynamic> responseData = jsonDecode(response.body);
+        
+        String successStatus = responseData["error"] == "1" ? "Error de registro!. " : ''; 
+        if(successStatus == '') return responseData["error"];
+        return successStatus + responseData["descripcion"];
+      } on SocketException {
+        print('error');  
+      }
+      return 'Error de servidor. Intentelo mas tarde';
   }
 }

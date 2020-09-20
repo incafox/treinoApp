@@ -1,9 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:direct_select/direct_select.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/states/register.dart';
+import '../states/getCiudadesRequest.dart';
+
 
 class Register extends StatefulWidget {
   Register({Key key}) : super(key: key);
@@ -13,6 +14,29 @@ class Register extends StatefulWidget {
 }
 
 class _LoginState extends State<Register> {
+
+  List<String> _ciudades;
+
+  @override
+  void initState() {
+    super.initState();
+    _ciudades = ['Ciudad actual'];
+    _getCiudades();
+  }
+
+  _getCiudades() async{
+    GetCiudadesRequest getCiudadesRequest = GetCiudadesRequest(); 
+    List<dynamic> ciudades =  await getCiudadesRequest.getCiudades();
+    print(ciudades);
+    for(int i = 0; i<ciudades.length; i++){
+      setState(() {
+        this._ciudades.add(ciudades[i]['nombre']);  
+      });
+    }
+  }
+
+
+
   final elements1 = [
     "CDMX",
     "XL CIUDAD",
@@ -25,6 +49,7 @@ class _LoginState extends State<Register> {
   TextEditingController correo = TextEditingController();
   TextEditingController telefono = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
   TextEditingController fechaNac = TextEditingController();
   TextEditingController genero = TextEditingController();
   TextEditingController ciudad = TextEditingController();
@@ -38,7 +63,7 @@ class _LoginState extends State<Register> {
     return elements1.map((val) => Text(val)).toList();
   }
 
-  String dropdownValue = 'Ciudad';
+  String dropdownValue = 'Ciudad actual';
   String dropdownValue2 = 'Genero';
   DateTime selectedDate = DateTime.now();
 
@@ -46,7 +71,9 @@ class _LoginState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(elevation: 0,backgroundColor: Colors.white,iconTheme: IconThemeData(color: Colors.black),),
-      body: Padding(
+      body: Builder(
+        builder: (context) =>
+         Padding(
         padding: const EdgeInsets.all(10.0),
         child: Container(
           child: ListView(
@@ -78,7 +105,7 @@ class _LoginState extends State<Register> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 20.0),
+                        padding: const EdgeInsets.only(left: 10.0, top: 0),
                         child: Text(
                           "",
                           style: TextStyle(
@@ -118,7 +145,18 @@ class _LoginState extends State<Register> {
                       ),
                       TextFormField(
                         controller: this.password,
-                        decoration: InputDecoration(hintText: "Contrasena"),
+                        decoration: InputDecoration(hintText: "Contraseña"),
+                        obscureText: true,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                      ),
+                        TextFormField(
+                        controller: this.confirmPassword,
+                        decoration: InputDecoration(hintText: "Confirmar contraseña"),
                         obscureText: true,
                         validator: (value) {
                           if (value.isEmpty) {
@@ -170,25 +208,9 @@ class _LoginState extends State<Register> {
                             setState(() {
                               dropdownValue = newValue;
                               this.ciudad.text = newValue;
-                              print(this.ciudad.text);
                             });
                           },
-                          items: <String>[
-                            'Ciudad',
-                            'Two',
-                            'Free',
-                            'adad',
-                            'adadadf',
-                            'fgrg',
-                            'fesaad',
-                            'wadasd',
-                            'Four',
-                            '1',
-                            "32",
-                            "232",
-                            "2323",
-                            "223"
-                          ].map<DropdownMenuItem<String>>((String value) {
+                          items: this._ciudades.map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -229,16 +251,15 @@ class _LoginState extends State<Register> {
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              // dropdownValue = newValue;
-                              this.ciudad.text = newValue;
-                              print(this.ciudad.text);
+                              dropdownValue2 = newValue;
+                              this.genero.text = newValue;
+                              print(this.genero.text);
                             });
                           },
                           items: <String>[
                             'Genero',
-                            'Hombre',
-                         
-                            
+                            'Masculino',
+                            'Femenino'
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -249,14 +270,6 @@ class _LoginState extends State<Register> {
                       ),
                       // Add TextFormFields and RaisedButton here.
                     ])),
-              ),
-              Center(
-                child: MaterialButton(
-                  child: Text("Olvidaste tu clave?"),
-                  onPressed: () {
-                    print("entrando");
-                  },
-                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 34.0, right: 34),
@@ -269,26 +282,59 @@ class _LoginState extends State<Register> {
                         borderRadius: new BorderRadius.circular(28.0),
                         side: BorderSide(color: Colors.blue)),
                     color: Colors.blue,
-                    onPressed: () {
-                      context.bloc<RegisterCubit>().register(
+                    onPressed: () async {
+
+                       if(
+                        this.correo.text == '' || this.nombre.text == '' || this.telefono.text == '' || 
+                        this.password.text == '' || this.ciudad.text == '' || this.apellido.text == '' || 
+                        this.genero.text == '' || this.confirmPassword.text == ''
+                      ) {
+                        _notification(context, "Error de registro!. Algunos campos se encuentran vacios");
+                        return;
+                      }
+
+                      if(this.password.text != this.confirmPassword.text) {
+                         _notification(context, "Error de registro!. Las contraseñas no coinciden");
+                        return;
+                      }
+
+                      if((DateTime.now().year - this.selectedDate.year) < 10){
+                       _notification(context, 'Error de registro!. Fecha de nacimiento invalida');
+                       return; 
+                      }
+
+                      String response  =  await context.bloc<RegisterCubit>().register(
                           correo: this.correo.text,
                           nombre: this.nombre.text,
                           genero: this.genero.text,
                           password: this.password.text,
                           telefono: this.telefono.text,
-                          fechaNac: this.fechaNac.text,
+                          fechaNac: this.selectedDate.toString(),
                           ciudad: this.ciudad.text,
-                          apelli: this.apellido.text);
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => Login()),
-                      // );
-                      // print("probando");
+                          apelli: this.apellido.text
+                      );
+                       
+                       if(response != '0') {
+                         _notification(context, response);
+                        return;
+                       } 
+              
+                      Navigator.pop(context);
                     }),
               )
             ],
           ),
         ),
+      ),
+      )
+    );
+  }
+
+    ///login error message
+  void _notification(BuildContext context, String message) {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
       ),
     );
   }
@@ -297,12 +343,13 @@ class _LoginState extends State<Register> {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: selectedDate, // Refer step 1
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(selectedDate.year + 5),
     );
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+        print(selectedDate.year);
       });
   }
 }
