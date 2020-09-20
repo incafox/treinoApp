@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/login/login.dart';
 import 'package:treino/membresias/membresias.dart';
+import 'package:treino/solicita_factura/solicita_factura.dart';
 import 'package:treino/states/login.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:treino/states/membresias.dart';
@@ -34,7 +35,7 @@ class _TabPerfilState extends State<TabPerfil> {
               child: Text(
                 name,
                 style: TextStyle(
-                  color: Colors.black, // Text colour here
+                  color: Colors.black54, // Text colour here
                 ),
               ),
             ),
@@ -47,105 +48,105 @@ class _TabPerfilState extends State<TabPerfil> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(0.0),
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: <Widget>[
-              GradientAppBar("title"),
-              Padding(
-                padding: const EdgeInsets.only(top: 25.0),
-                child: Center(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          // physics: BouncingScrollPhysics(),
+          children: <Widget>[
+            Container(child: GradientAppBar("title")),
+            Padding(
+              padding: const EdgeInsets.only(top: 25.0),
+              child: Center(
+                  child: Text(
+                "DATOS DE CUENTA",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: Colors.blue,
+                    decorationColor: Colors.blue),
+              )),
+            ),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: link(
+                    context.bloc<LoginCubit>().res['nombre'] +
+                        " " +
+                        context.bloc<LoginCubit>().res["apellidos"],
+                    () {})),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: link("Membresia", () async {
+                  await context.bloc<MembresiasCubit>().getMembresias();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Membresias()));
+                })),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: link("Historial de pago", () {})),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: link("Solicita tu factura", () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SolicitaFactura()));
+                })),
+            Padding(
+              padding: const EdgeInsets.all(22.0),
+              child: Center(
+                  child: Text(
+                "MAS INFORMACION",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: Colors.blue,
+                    decorationColor: Colors.blue),
+              )),
+            ),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: link("Preguntas Frecuentes", () async {
+                  _launchURL(
+                      "http://treino.club/demo/home/preguntasFrecuentes");
+                })),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: link("Terminos y Condiciones", () async {
+                  _launchURL(
+                      "http://treino.club/demo/home/terminosCondiciones");
+                })),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: link("Politica de Privacidad", () async {
+                  _launchURL("http://treino.club/demo/home/politicaPrivacidad");
+                })),
+            Align(alignment: Alignment.bottomLeft, child: link("Ayuda", () {})),
+            Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 25, top: 17, left: 85, right: 85),
+              child: Container(
+                height: 50,
+                width: 150,
+                child: RaisedButton(
+                    elevation: 5,
                     child: Text(
-                  "DATOS DE CUENTA",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                      color: Colors.blue,
-                      decorationColor: Colors.blue),
-                )),
+                      "Cerrar Sesion",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(28.0),
+                        side: BorderSide(color: Color(0xff0781e5))),
+                    color: Color(0xff0781e5),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+                      print("probando");
+                    }),
               ),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: link(
-                      context.bloc<LoginCubit>().res['nombre'] +
-                          " " +
-                          context.bloc<LoginCubit>().res["apellidos"],
-                      () {})),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: link("Membresia", () async {
-                    await context.bloc<MembresiasCubit>().getMembresias();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Membresias()));
-                  })),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: link("Historial de pago", () {})),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: link("Solicita tu factura", () {})),
-              Padding(
-                padding: const EdgeInsets.all(22.0),
-                child: Center(
-                    child: Text(
-                  "MAS INFORMACION",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                      color: Colors.blue,
-                      decorationColor: Colors.blue),
-                )),
-              ),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: link("Preguntas Frecuentes", () async {
-                    _launchURL(
-                        "http://treino.club/demo/home/preguntasFrecuentes");
-                  })),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: link("Terminos y Condiciones", () async {
-                    _launchURL(
-                        "http://treino.club/demo/home/terminosCondiciones");
-                  })),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: link("Politica de Privacidad", () async {
-                    _launchURL(
-                        "http://treino.club/demo/home/politicaPrivacidad");
-                  })),
-              Align(
-                  alignment: Alignment.bottomLeft, child: link("Ayuda", () {})),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 25, top: 17, left: 85, right: 85),
-                child: Container(
-                  height: 50,
-                  width: 40,
-                  child: RaisedButton(
-                      elevation: 5,
-                      child: Text(
-                        "Cerrar Sesion",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(28.0),
-                          side: BorderSide(color: Color(0xff0781e5))),
-                      color: Color(0xff0781e5),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Login()),
-                        );
-                        print("probando");
-                      }),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -205,8 +206,10 @@ class GradientAppBar extends StatelessWidget {
               color: Colors.transparent,
               child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 75.0),
+                  padding: const EdgeInsets.only(top: 0.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
@@ -221,7 +224,21 @@ class GradientAppBar extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           context.bloc<LoginCubit>().res["correo"],
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Membresia: ",
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Expira: ",
+                          style: TextStyle(color: Colors.white, fontSize: 15),
                         ),
                       ),
                     ],

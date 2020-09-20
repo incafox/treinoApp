@@ -213,10 +213,13 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                                       Container(
                                         height: 5,
                                       ),
-                                      Text(jsonDecode(
-                                          jsonEncode(e['direccion']))),
-                                      Text((e['nombreEntrenadorClase'])),
-                                      Text(e['direccion'].toString()),
+                                      // Text(jsonDecode(
+                                      //     jsonEncode(e['direccion']))),
+                                      // Text((e['informacion'])),
+                                      Text((e['informacion'])),
+                                      Text(e['direccion']),
+                                      Text(e['nombreCiudad']),
+                                      Divider()
                                     ],
                                   ),
                                 ),
@@ -226,36 +229,38 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                       .toList(),
                 ),
               )
-            : Text("cargando"));
+            : Text("cargandou"));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        children: <Widget>[
-          Container(
-            child: GradientAppBar("buscando"),
-          ),
-          // dias(),
-          // semana(),
-          Container(
-            color: Colors.grey[400],
-            width: double.infinity,
-            child: Text(
-              "Gimnasios Disponibles",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 17),
+      body: SingleChildScrollView(
+        child: Column(
+          // scrollDirection: Axis.vertical,
+          // physics: BouncingScrollPhysics(),
+          children: <Widget>[
+            Container(
+              child: GradientAppBar("buscando"),
             ),
-          ),
-          //     // opciones(),
-          //     BlocBuilder<ExternalControllerMisClasesCubit, int>(
-          //   builder: (context, val) => val==1? ),
-          // ),
-          opciones2(context)
-        ],
+            // dias(),
+            // semana(),
+            Container(
+              color: Colors.grey[400],
+              width: double.infinity,
+              child: Text(
+                "Gimnasios Disponibles",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 17),
+              ),
+            ),
+            //     // opciones(),
+            //     BlocBuilder<ExternalControllerMisClasesCubit, int>(
+            //   builder: (context, val) => val==1? ),
+            // ),
+            opciones2(context)
+          ],
+        ),
       ),
     );
   }
@@ -296,23 +301,6 @@ class GradientAppBar extends StatelessWidget {
               ),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(5.0),
-          //   child: Center(
-          //       child: Icon(
-          //     Icons.search,
-          //     size: 40,
-          //     color: Colors.white,
-          //   )
-          //       // Text(
-          //       //   "Search",
-          //       //   style: TextStyle(
-          //       //       fontSize: 25.0,
-          //       //       color: Colors.white,
-          //       //       fontWeight: FontWeight.bold),
-          //       // ),
-          //       ),
-          // ),
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: MaterialButton(

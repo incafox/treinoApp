@@ -111,7 +111,7 @@ class _TabInicioState extends State<TabInicio> {
                                               child: Container(
                                                   // width: 80,height: 80,
                                                   decoration: new BoxDecoration(
-                                                      color: Color(0xef0781e5),
+                                                      color: Color(0xef0763e5),
                                                       borderRadius:
                                                           new BorderRadius.all(
                                                               Radius.circular(
