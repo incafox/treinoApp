@@ -28,147 +28,169 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(38.0),
-        child: Container(
-          child: ListView(
-            children: <Widget>[
-              Center(
-                child: Opacity(
-                  opacity: 1,
-                  child: Image(
-                      // color: Colors.white,
-                      // colorBlendMode: BlendMode.srcIn,
-                      fit: BoxFit.fitWidth,
-                      height: 90,
-                      width: 180,
-                      image: AssetImage('assets/images/Path 8@2x.png')),
+      body: Builder(
+        builder: (context) => 
+          Padding(
+          padding: const EdgeInsets.all(38.0),
+          child: Container(
+            child: ListView(
+              children: <Widget>[
+                Center(
+                  child: Opacity(
+                    opacity: 1,
+                    child: Image(
+                        // color: Colors.white,
+                        // colorBlendMode: BlendMode.srcIn,
+                        fit: BoxFit.fitWidth,
+                        height: 90,
+                        width: 180,
+                        image: AssetImage('assets/images/Path 8@2x.png')),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Form(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                      TextFormField(
-                        controller: this.correoController,
-                        decoration:
-                            InputDecoration(hintText: "Correo electronico"),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Form(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                        TextFormField(
+                          controller: this.correoController,
+                          decoration:
+                              InputDecoration(hintText: "Correo electronico"),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: this.passwordController,
+                          decoration: InputDecoration(hintText: "Contrasena"),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                        )
+                        // Add TextFormFields and RaisedButton here.
+                      ])),
+                ),
+                Center(
+                  child: MaterialButton(
+                    child: Text("Olvidaste tu clave?"),
+                    onPressed: () {
+                      print("entrando");
+                    },
+                  ),
+                ),
+                // Container(
+                //   height: 100,
+                // ),
+                Container(
+                  width: 200,
+                  child: RaisedButton(
+                      child: Text(
+                        "Iniciar Sesion",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      TextFormField(
-                        controller: this.passwordController,
-                        decoration: InputDecoration(hintText: "Contrasena"),
-                        obscureText: true,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      )
-                      // Add TextFormFields and RaisedButton here.
-                    ])),
-              ),
-              Center(
-                child: MaterialButton(
-                  child: Text("Olvidaste tu clave?"),
-                  onPressed: () {
-                    print("entrando");
-                  },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(28.0),
+                          side: BorderSide(color: Color(0xff13e860))),
+                      color: Color(0xff13e860),
+                      onPressed: () async {
+                        
+                        if(this.correoController.text == '' || this.passwordController.text == ''){
+                            _notification(context, 'Error de inicio de sesion!. Uno o mas campos se encuentran vacios.');
+                            return;
+                        }
+
+                        Map<String,dynamic> response = await context.bloc<LoginCubit>().loginInto(
+                            correo: this.correoController.text,
+                            password: this.passwordController.text);
+
+                        if(response['error'] == '1'){
+                          _notification(context,'Error de inicio de sesion!. ' + response['descripcion']);
+                          return;
+                        }
+
+                        bool rpta = true;
+                        print(context.bloc<LoginCubit>().res);
+                        //obtiene los clases/solicitudes presentes
+                        await context
+                            .bloc<SolicitudesCubit>()
+                            .getSolicitudes(context.bloc<LoginCubit>().res['id']);
+                        //id cliente en agregar solicitud
+                        await context
+                            .bloc<AgregarSolicitudCubit>()
+                            .setIdCliente(context.bloc<LoginCubit>().res['id']);
+
+                        //obtiene las clases pasadas
+                        await context
+                            .bloc<ComprarMembresiasCubit>()
+                            .setIdCliente(context.bloc<LoginCubit>().res['id']);
+                        print("id cliente >>> " +
+                            context.bloc<ComprarMembresiasCubit>().idCliente);
+                        //pide las clases/solicitudes pasadas
+                        // await context.bloc<sol>()
+
+                        await context
+                            .bloc<SolicitudesPasadasCubit>()
+                            .getSolicitudesPasadas(
+                                context.bloc<LoginCubit>().res['id']);
+                        if (!rpta) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MainMenu()),
+                            // MaterialPageRoute(builder: (context) => Membresias()),
+                          );
+                        }
+                      }),
                 ),
-              ),
-              // Container(
-              //   height: 100,
-              // ),
-              Container(
-                width: 200,
-                child: RaisedButton(
-                    child: Text(
-                      "Iniciar Sesion",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(28.0),
-                        side: BorderSide(color: Color(0xff13e860))),
-                    color: Color(0xff13e860),
-                    onPressed: () async {
-                      bool rpta = await context.bloc<LoginCubit>().loginInto(
-                          correo: this.correoController.text,
-                          password: this.passwordController.text);
-
-                      print(rpta);
-                      print(context.bloc<LoginCubit>().res);
-                      //obtiene los clases/solicitudes presentes
-                      await context
-                          .bloc<SolicitudesCubit>()
-                          .getSolicitudes(context.bloc<LoginCubit>().res['id']);
-                      //id cliente en agregar solicitud
-                      await context
-                          .bloc<AgregarSolicitudCubit>()
-                          .setIdCliente(context.bloc<LoginCubit>().res['id']);
-
-                      //obtiene las clases pasadas
-                      await context
-                          .bloc<ComprarMembresiasCubit>()
-                          .setIdCliente(context.bloc<LoginCubit>().res['id']);
-                      print("id cliente >>> " +
-                          context.bloc<ComprarMembresiasCubit>().idCliente);
-                      //pide las clases/solicitudes pasadas
-                      // await context.bloc<sol>()
-
-                      await context
-                          .bloc<SolicitudesPasadasCubit>()
-                          .getSolicitudesPasadas(
-                              context.bloc<LoginCubit>().res['id']);
-                      if (!rpta) {
+                Container(
+                  width: 200,
+                  child: RaisedButton(
+                      child: Text(
+                        "Crear Cuenta",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(28.0),
+                          side: BorderSide(color: Color(0xbf0781e5))),
+                      color: Color(0xbf0781e5),
+                      onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MainMenu()),
-                          // MaterialPageRoute(builder: (context) => Membresias()),
+                          MaterialPageRoute(builder: (context) => Register()),
                         );
-                      }
-                    }),
-              ),
-              Container(
-                width: 200,
-                child: RaisedButton(
-                    child: Text(
-                      "Crear Cuenta",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(28.0),
-                        side: BorderSide(color: Color(0xbf0781e5))),
-                    color: Color(0xbf0781e5),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Register()),
-                      );
-                      print("probando");
-                    }),
-              ),
-              // Container(
-              //   height: 10,
-              //   child: BlocBuilder<CounterCubit, int>(
-              //     builder: (context, count) => Center(child: Text('$count')),
-              //   ),
-              // ),
+                        print("probando");
+                      }),
+                ),
+                // Container(
+                //   height: 10,
+                //   child: BlocBuilder<CounterCubit, int>(
+                //     builder: (context, count) => Center(child: Text('$count')),
+                //   ),
+                // ),
 
-              // MaterialButton(
-              //     child: Text("data"),
-              //     onPressed: () => context.bloc<LoginCubit>().loginInto(
-              //         this.correoController.text, this.passwordController.text))
-            ],
+                // MaterialButton(
+                //     child: Text("data"),
+                //     onPressed: () => context.bloc<LoginCubit>().loginInto(
+                //         this.correoController.text, this.passwordController.text))
+              ],
+            ),
           ),
         ),
+      )
+    );
+  }
+
+    void _notification(BuildContext context, String message) {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
       ),
     );
   }

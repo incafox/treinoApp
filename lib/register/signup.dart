@@ -27,7 +27,6 @@ class _LoginState extends State<Register> {
   _getCiudades() async{
     GetCiudadesRequest getCiudadesRequest = GetCiudadesRequest(); 
     List<dynamic> ciudades =  await getCiudadesRequest.getCiudades();
-    print(ciudades);
     for(int i = 0; i<ciudades.length; i++){
       setState(() {
         this._ciudades.add(ciudades[i]['nombre']);  
