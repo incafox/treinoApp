@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:treino/recover_password/recover_password.dart';
 import 'package:treino/register/signup.dart';
 import 'package:treino/Mainmenu/MainMenu.dart';
 import 'package:treino/membresias/membresias.dart';
@@ -26,6 +27,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    this.correoController.text = "";
+    this.passwordController.text = "";
     return Scaffold(
       // appBar: AppBar(),
       body: Builder(
@@ -106,6 +109,7 @@ class _LoginState extends State<Login> {
                             _notification(context, 'Error de inicio de sesion!. Uno o mas campos se encuentran vacios.');
                             return;
                         }
+
 
                         Map<String,dynamic> response = await context.bloc<LoginCubit>().loginInto(
                             correo: this.correoController.text,

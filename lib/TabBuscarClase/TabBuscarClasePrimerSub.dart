@@ -1,5 +1,7 @@
 // import 'dart:html';
 
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,10 +26,11 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
   List letras = ["D", "L", "M", "M", "J", "V", "S", "ads"];
   Widget semana() {
     return Container(
+      height: 80,
       color: Colors.black87,
       child: GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
+        // physics: NeverScrollableScrollPhysics(),
+        // shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 7,
           crossAxisSpacing: 1.0,
@@ -46,7 +49,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(6.0),
+                    padding: const EdgeInsets.all(1.0),
                     child: Text(
                       letras[index],
                       style: TextStyle(
@@ -73,6 +76,45 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
     );
   }
 
+  Widget day(String day) {
+    return Expanded(
+        child: Container(
+            height: 50,
+            color: Color(0xef0781e5),
+            child: Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  day,
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                    DateTime.now().day.toString() +
+                        "/" +
+                        DateTime.now().month.toString(),
+                    style: TextStyle(color: Colors.white)),
+              ],
+            ))));
+  }
+
+  Widget semanita() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          day("D"),
+          day("L"),
+          day("M"),
+          day("M"),
+          day("J"),
+          day("V"),
+          day("S"),
+        ],
+      ),
+    );
+  }
   // Widget dias() {
   //   return Wrap(
   //     runAlignment: WrapAlignment.center,
@@ -174,55 +216,138 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
     return BlocBuilder<ClassesPerGymCubit, List<dynamic>>(
         builder: (context, val) => val != null
             ? Container(
+                width: MediaQuery.of(context).size.width,
                 color: Colors.grey[200],
                 child: Column(
                   // crossAxisCount: val.length,
                   children: val
-                      .map((e) => FlatButton(
-                            onPressed: () {
-                              //setea la id de clase para la compra
-                              context
-                                  .bloc<AgregarSolicitudCubit>()
-                                  .setIdClase(e['idClase']);
+                      .map((e) => Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              children: [
+                                FlatButton(
+                                  // minWidth: MediaQuery.of(context).size.width,
+                                  onPressed: () {
+                                    //setea la id de clase para la compra
+                                    context
+                                        .bloc<AgregarSolicitudCubit>()
+                                        .setIdClase(e['idClase']);
 
-                              //setea los detalles de clase
-                              context
-                                  .bloc<ClassDetailCubit>()
-                                  .getClaseByID(e['idClase']);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ClassDetail()),
-                              );
-                              print("as");
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                color: Colors.grey[200],
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        e['nombreClase'],
-                                        style: TextStyle(
-                                            color: Colors.blue,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
+                                    //setea los detalles de clase
+                                    context
+                                        .bloc<ClassDetailCubit>()
+                                        .getClaseByID(e['idClase']);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ClassDetail()),
+                                    );
+                                    print("as");
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 16, bottom: 16.0),
+                                    child: Container(
+                                      // width: MediaQuery.of(context).size.width,
+                                      color: Colors.grey[200],
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Center(
+                                                    child: CircleAvatar(
+                                                  radius: 30,
+                                                  backgroundColor: Colors.blue,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        e['creditosClase'],
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Text(
+                                                        "Creditos",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 11),
+                                                      )
+                                                    ],
+                                                  ),
+                                                )),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Container(
+                                                  // color: Colors.tealAccent,
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        e['horarioClase'] +
+                                                            "-" +
+                                                            e['duracionClase'] +
+                                                            "m",
+                                                        style: TextStyle(
+                                                            color: Colors.blue,
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Container(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        e['descripcionClase'],
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black54),
+                                                      ),
+                                                      Text(e['nombreClase'],
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .black54)),
+                                                      Text(
+                                                          "entrenador :" +
+                                                              e[
+                                                                  'nombreEntrenadorClase'],
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .black54)),
+                                                      // Text(e['nombreCategoria']),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          // Container(
+                                          //     width:
+                                          //         MediaQuery.of(context).size.width,
+                                          //     height: 4,
+                                          //     color: Colors.white),
+                                        ],
                                       ),
-                                      Container(
-                                        height: 5,
-                                      ),
-                                      Text("horario :" + e['horarioClase']),
-                                      Text("entrenador :" +
-                                          e['nombreEntrenadorClase']),
-                                      // Text(e['nombreCategoria']),
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
+                                Container(
+                                  height: 3,
+                                  color: Colors.white,
+                                  width: MediaQuery.of(context).size.width,
+                                )
+                              ],
                             ),
                           ))
                       .toList(),
@@ -234,30 +359,34 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        children: <Widget>[
-          Container(
-            child: GradientAppBar("buscando"),
-          ),
-          // dias(),
-          semana(),
-          Container(
-            color: Colors.grey[400],
-            width: double.infinity,
-            child: Text(
-              "Seleccione una Clase",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 17),
+      body: SingleChildScrollView(
+        child: Column(
+          // scrollDirection: Axis.vertical,
+          // physics: BouncingScrollPhysics(),
+          children: <Widget>[
+            Container(
+              child: GradientAppBar("buscando"),
             ),
-          ),
-          //     // opciones(),
-          //     BlocBuilder<ExternalControllerMisClasesCubit, int>(
-          //   builder: (context, val) => val==1? ),
-          // ),
-          opciones2(context)
-        ],
+            semanita(),
+            Container(
+              height: 30,
+              color: Colors.grey[400],
+              width: double.infinity,
+              child: Center(
+                child: Text(
+                  "Seleccione una Clase",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+              ),
+            ),
+            //     // opciones(),
+            //     BlocBuilder<ExternalControllerMisClasesCubit, int>(
+            //   builder: (context, val) => val==1? ),
+            // ),
+            opciones2(context)
+          ],
+        ),
       ),
     );
   }
