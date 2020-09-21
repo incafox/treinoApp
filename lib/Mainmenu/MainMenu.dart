@@ -85,78 +85,81 @@ class _MainMenuState extends State<MainMenu>
             ],
           ),
           backgroundColor: Color(0xef0781e5),
-          bottomNavigationBar: PreferredSize(
-            preferredSize: Size(200.0, 70.0),
-            child: Container(
-              height: 40,
-              child: Center(
-                child: TabBar(
-                  controller: tabController,
-                  onTap: (index) {
-                    tabController.animateTo(index);
-                    // context
-                    //     .bloc<ExternalControllerMainTabsCubit>()
-                    //     .tabber
-                    //     .animateTo(index);
-                  },
-                  // indicatorWeight: 1,
-                  tabs: [
-                    Tab(
-                      icon: Container(
-                        height: 100,
-                        child: Column(
-                          children: <Widget>[
-                            Icon(Icons.home),
-                            Text("Inicio", style: TextStyle(fontSize: 10))
-                          ],
+          bottomNavigationBar: Container(
+            height: 55,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Center(
+                  child: TabBar(
+                    controller: tabController,
+                    onTap: (index) {
+                      tabController.animateTo(index);
+                      // context
+                      //     .bloc<ExternalControllerMainTabsCubit>()
+                      //     .tabber
+                      //     .animateTo(index);
+                    },
+                    // indicatorWeight: 1,
+                    tabs: [
+                      Tab(
+                        icon: Container(
+                          height: 100,
+                          child: Column(
+                            children: <Widget>[
+                              Icon(Icons.home),
+                              Text("Inicio", style: TextStyle(fontSize: 10))
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Tab(
-                      icon: Container(
-                        height: 100,
-                        child: Column(
-                          children: <Widget>[
-                            Icon(Icons.search),
-                            Text(
-                              "Buscar Clase",
-                              style: TextStyle(fontSize: 10),
-                            )
-                          ],
+                      Tab(
+                        icon: Container(
+                          height: 100,
+                          child: Column(
+                            children: <Widget>[
+                              Icon(Icons.search),
+                              Text(
+                                "Buscar Clase",
+                                style: TextStyle(fontSize: 10),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Tab(
-                      icon: Container(
-                        height: 100,
-                        child: Column(
-                          children: <Widget>[
-                            Icon(Icons.fitness_center),
-                            Text("Mis Clases", style: TextStyle(fontSize: 10))
-                          ],
+                      Tab(
+                        icon: Container(
+                          height: 100,
+                          child: Column(
+                            children: <Widget>[
+                              Icon(Icons.fitness_center),
+                              Text("Mis Clases", style: TextStyle(fontSize: 10))
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Tab(
-                      icon: Container(
-                        height: 100,
-                        child: Column(
-                          children: <Widget>[
-                            Icon(Icons.person),
-                            Text("Perfil", style: TextStyle(fontSize: 10))
-                          ],
+                      Tab(
+                        icon: Container(
+                          height: 100,
+                          child: Column(
+                            children: <Widget>[
+                              Icon(Icons.person),
+                              Text("Perfil", style: TextStyle(fontSize: 10))
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.white,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicatorPadding: EdgeInsets.all(0.0),
-                  labelStyle: TextStyle(fontSize: 12),
-                  indicatorColor: Colors.white,
+                      )
+                    ],
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.white,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    indicatorPadding: EdgeInsets.all(0.0),
+                    labelStyle: TextStyle(fontSize: 12),
+                    indicatorColor: Colors.white,
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),
