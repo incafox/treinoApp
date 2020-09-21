@@ -408,23 +408,41 @@ class GradientAppBar extends StatelessWidget {
       height: statusbarHeight + barHeight,
       child: Row(
         children: <Widget>[
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(13.0),
-              child: Container(
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: IconButton(
+                  icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pop(
+                      context,
+                      // new ClassDetail(),
+                    );
+                  }),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Container(
+              child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                      child: TextField(
-                    decoration: null,
-                  )),
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                          child: TextField(
+                        decoration: null,
+                      )),
+                    ),
+                    height: 35,
+                    width: 200,
+                    decoration: BoxDecoration(
+                        // border:,
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(30))),
+                  ),
                 ),
-                height: 35,
-                width: 220,
-                decoration: BoxDecoration(
-                    // border:,
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
               ),
             ),
           ),
@@ -445,60 +463,70 @@ class GradientAppBar extends StatelessWidget {
           //       // ),
           //       ),
           // ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: MaterialButton(
-              minWidth: 6,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TabBuscarMap()),
-                  // new ClassDetail(),
-                );
-                print("as");
-              },
-              child: Center(
-                  child: Icon(
-                Icons.place,
-                size: 40,
-                color: Colors.white,
-              )
-                  // Text(
-                  //   "Search",
-                  //   style: TextStyle(
-                  //       fontSize: 25.0,
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.bold),
-                  // ),
-                  ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(0),
+                child: MaterialButton(
+                  minWidth: 3,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TabBuscarMap()),
+                      // new ClassDetail(),
+                    );
+                    print("as");
+                  },
+                  child: Center(
+                      child: Icon(
+                    Icons.place,
+                    size: 30,
+                    color: Colors.white,
+                  )
+                      // Text(
+                      //   "Search",
+                      //   style: TextStyle(
+                      //       fontSize: 25.0,
+                      //       color: Colors.white,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
+                      ),
+                ),
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: MaterialButton(
-              minWidth: 6,
-              onPressed: () {
-                print("as");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TabBuscarClase()),
-                  // MaterialPageRoute(builder: (context) => Membresias()),
-                );
-              },
-              child: Center(
-                  child: Icon(
-                Icons.tune,
-                size: 40,
-                color: Colors.white,
-              )
-                  // Text(
-                  //   "Search",
-                  //   style: TextStyle(
-                  //       fontSize: 25.0,
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.bold),
-                  // ),
-                  ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: FlatButton(
+                  minWidth: 2,
+                  onPressed: () {
+                    print("as");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TabBuscarClase()),
+                      // MaterialPageRoute(builder: (context) => Membresias()),
+                    );
+                  },
+                  child: Center(
+                      child: Icon(
+                    Icons.tune,
+                    size: 25,
+                    color: Colors.white,
+                  )
+                      // Text(
+                      //   "Search",
+                      //   style: TextStyle(
+                      //       fontSize: 25.0,
+                      //       color: Colors.white,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
+                      ),
+                ),
+              ),
             ),
           ),
         ],

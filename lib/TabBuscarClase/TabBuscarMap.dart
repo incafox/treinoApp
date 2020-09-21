@@ -71,7 +71,7 @@ class _TabBuscarMapState extends State<TabBuscarMap> {
   var gradesRange = RangeValues(0, 5);
 
   Widget mapi() {
-    return MapsDemo();
+    return MapCoordinatesPage();
   }
 
   // Widget mapi() {
@@ -113,7 +113,7 @@ class _TabBuscarMapState extends State<TabBuscarMap> {
           Container(
             child: GradientAppBar("buscando"),
           ),
-          Container(height: 500, width: 400, child: mapi())
+          Container(child: mapi())
         ],
       ),
     );
@@ -162,14 +162,15 @@ class GradientAppBar extends StatelessWidget {
                 // );
               },
               child: Center(
-                child: Text(
-                  "Reiniciar",
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
+                  // child:
+                  // Text(
+                  //   "Reiniciar",
+                  //   style: TextStyle(
+                  //       fontSize: 25.0,
+                  //       color: Colors.white,
+                  //       fontWeight: FontWeight.bold),
+                  // ),
+                  ),
             ),
           ),
           Padding(
@@ -185,14 +186,14 @@ class GradientAppBar extends StatelessWidget {
                 // );
               },
               child: Center(
-                child: Text(
-                  "Aplicar",
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
+                  // child: Text(
+                  //   "Aplicar",
+                  //   style: TextStyle(
+                  //       fontSize: 25.0,
+                  //       color: Colors.white,
+                  //       fontWeight: FontWeight.bold),
+                  // ),
+                  ),
             ),
           ),
         ],

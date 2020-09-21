@@ -44,22 +44,25 @@ class _ClassDetailState extends State<ClassDetail> {
           children: [
             GradientAppBar("title"),
             BlocBuilder<ClassDetailCubit, dynamic>(
-              builder: (context, res) => Column(
-                children: [
-                  // Text(res['nombreGimnasio'],
-                  //     style: TextStyle(color: Colors.black54, fontSize: 22)),
-                  Text(res['nombreCategoria'],
-                      style: TextStyle(color: Colors.black54, fontSize: 22)),
-                  Text('Nombre de gimnasio: ' + res['nombre'],
-                      style: TextStyle(color: Colors.black54, fontSize: 22)),
-                  Text('Duracion :' + res['duracion'],
-                      style: TextStyle(color: Colors.black54, fontSize: 22)),
-                  Text('Horario :' + res['horario'],
-                      style: TextStyle(color: Colors.black54, fontSize: 22)),
-                  Text('Que Traer :' + res['queTraer'],
-                      style: TextStyle(color: Colors.black54, fontSize: 22)),
-                  // Image.network(res['galeria1'])
-                ],
+              builder: (context, res) => Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    // Text(res['nombreGimnasio'],
+                    //     style: TextStyle(color: Colors.black54, fontSize: 22)),
+                    // Text(res['nombreCategoria'],
+                    // style: TextStyle(color: Colors.black54, fontSize: 22)),
+                    Text('Nombre de gimnasio: ' + res['nombre'],
+                        style: TextStyle(color: Colors.black54, fontSize: 18)),
+                    Text('Duracion :' + res['duracion'],
+                        style: TextStyle(color: Colors.black54, fontSize: 18)),
+                    Text('Horario :' + res['horario'],
+                        style: TextStyle(color: Colors.black54, fontSize: 18)),
+                    Text('Que Traer :' + res['queTraer'],
+                        style: TextStyle(color: Colors.black54, fontSize: 18)),
+                    // Image.network(res['galeria1'])
+                  ],
+                ),
               ),
             ),
             Container(
@@ -108,7 +111,7 @@ class _ClassDetailState extends State<ClassDetail> {
                       Text(
                         "Es indispensable traer identificacion oficial para poder ingresar",
                         style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 22),
+                            TextStyle(color: Colors.blueAccent, fontSize: 18),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -131,142 +134,198 @@ class _ClassDetailState extends State<ClassDetail> {
                   Row(
                       //crossAxisCount: 4,
                       children: <Widget>[
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                  child: CircleAvatar(
-                                      foregroundColor: Colors.green,
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Opacity(
-                                            opacity: 0.0,
-                                            child: Container(
-                                                decoration: new BoxDecoration(
-                                                    color: Colors.blue,
-                                                    borderRadius:
-                                                        new BorderRadius.all(
-                                                            Radius.circular(100)))),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                      child: CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          foregroundColor: Colors.blue,
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Opacity(
+                                                opacity: 0.0,
+                                                child: Container(
+                                                    decoration: new BoxDecoration(
+                                                        color: Colors.blue,
+                                                        borderRadius:
+                                                            new BorderRadius
+                                                                    .all(
+                                                                Radius.circular(
+                                                                    100)))),
+                                              ),
+                                              Center(
+                                                child: Icon(
+                                                  Icons.water_damage,
+                                                  size: 40,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Center(
-                                            child: Icon(
-                                              Icons.check_box_outline_blank,
-                                              size: 80,
-                                            ),
-                                          ),
-                                        ],
+                                          radius: 40,
+                                          backgroundImage: null)
+                                      // NetworkImage(
+                                      //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
                                       ),
-                                      radius: 45,
-                                      backgroundImage: null)
-                                  // NetworkImage(
-                                  //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
-                                  ),
-                            ),
-                            Text("data")
-                          ],
-                        ),
-                        Column(
-                          children: [ 
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                  child: CircleAvatar(
-                                      foregroundColor: Colors.green,
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Opacity(
-                                            opacity: 0.0,
-                                            child: Container(
-                                                decoration: new BoxDecoration(
-                                                    color: Colors.blue,
-                                                    borderRadius:
-                                                        new BorderRadius.all(
-                                                            Radius.circular(100)))),
-                                          ),
-                                          Center(
-                                            child: Icon(
-                                              Icons.change_history,
-                                              size: 80,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      radius: 45,
-                                      backgroundImage: null)
-                                  // NetworkImage(
-                                  //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
-                                  ),
-                            ),
-                            Text("data")
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                  child: CircleAvatar(
-                                      foregroundColor: Colors.green,
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Opacity(
-                                            opacity: 0.0,
-                                            child: Container(
-                                                decoration: new BoxDecoration(
-                                                    color: Colors.blue,
-                                                    borderRadius:
-                                                        new BorderRadius.all(
-                                                            Radius.circular(100)))),
-                                          ),
-                                          Center(
-                                            child: Icon(
-                                              Icons.bubble_chart,
-                                              size: 80,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      radius: 45,
-                                      backgroundImage: null)
-                                  // NetworkImage(
-                                  //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
-                                  ),
-                            ),
-                            Text("data")
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Center(
-                                child: CircleAvatar(
-                                    foregroundColor: Colors.green,
-                                    child: Stack(
-                                      children: <Widget>[
-                                        Opacity(
-                                          opacity: 0.0,
-                                          child: Container(
-                                              decoration: new BoxDecoration(
-                                                  color: Colors.blue,
-                                                  borderRadius:
-                                                      new BorderRadius.all(
-                                                          Radius.circular(100)))),
-                                        ),
-                                        Center(
-                                          child: Icon(
-                                            Icons.bubble_chart,
-                                            size: 80,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    radius: 45,
-                                    backgroundImage: null)
-                                // NetworkImage(
-                                //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
                                 ),
-                                Text("data")
-                          ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "data",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                      child: CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          foregroundColor: Colors.blue,
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Opacity(
+                                                opacity: 0.0,
+                                                child: Container(
+                                                    decoration: new BoxDecoration(
+                                                        color: Colors.blue,
+                                                        borderRadius:
+                                                            new BorderRadius
+                                                                    .all(
+                                                                Radius.circular(
+                                                                    100)))),
+                                              ),
+                                              Center(
+                                                child: Icon(
+                                                  Icons.lock_outline_rounded,
+                                                  size: 40,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          radius: 40,
+                                          backgroundImage: null)
+                                      // NetworkImage(
+                                      //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
+                                      ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "data",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                      child: CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          foregroundColor: Colors.blue,
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Opacity(
+                                                opacity: 0.0,
+                                                child: Container(
+                                                    decoration: new BoxDecoration(
+                                                        color: Colors.blue,
+                                                        borderRadius:
+                                                            new BorderRadius
+                                                                    .all(
+                                                                Radius.circular(
+                                                                    100)))),
+                                              ),
+                                              Center(
+                                                child: Icon(
+                                                  Icons.person,
+                                                  size: 40,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          radius: 40,
+                                          backgroundImage: null)
+                                      // NetworkImage(
+                                      //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
+                                      ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "data",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Center(
+                                    child: CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        foregroundColor: Colors.blue,
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Opacity(
+                                              opacity: 0.0,
+                                              child: Container(
+                                                  decoration: new BoxDecoration(
+                                                      color: Colors.blue,
+                                                      borderRadius:
+                                                          new BorderRadius.all(
+                                                              Radius.circular(
+                                                                  100)))),
+                                            ),
+                                            Center(
+                                              child: Icon(
+                                                Icons
+                                                    .label_important_outline_rounded,
+                                                size: 40,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        radius: 40,
+                                        backgroundImage: null)
+                                    // NetworkImage(
+                                    //     'https://cdn3.vectorstock.com/i/1000x1000/96/87/dumbbell-in-gym-icon-isolated-contour-vector-28379687.jpg')),
+                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "data",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         )
                       ]),
                 ],
@@ -474,9 +533,10 @@ class GradientAppBar extends StatelessWidget {
                                         ],
                                       ),
                                       radius: 65,
-                                      // backgroundImage:
-                                          // NetworkImage(detail['logotipo'])
-                                          ),
+                                      backgroundImage:
+                                          detail['logotipo'] != null
+                                              ? NetworkImage(detail['logotipo'])
+                                              : null),
                                 ),
                               ),
                             ),

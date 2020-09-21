@@ -10,7 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'page.dart';
 
 const CameraPosition _kInitialPosition =
-    CameraPosition(target: LatLng(-33.852, 151.211), zoom: 11.0);
+    CameraPosition(target: LatLng(23.332, -102.331), zoom: 11.0);
 
 class MapCoordinatesPage extends GoogleMapExampleAppPage {
   MapCoordinatesPage() : super(const Icon(Icons.map), 'Map coordinates');
@@ -49,8 +49,8 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
         padding: const EdgeInsets.all(10.0),
         child: Center(
           child: SizedBox(
-            width: 300.0,
-            height: 200.0,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 1.5,
             child: googleMap,
           ),
         ),
@@ -62,7 +62,7 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
           '\nnortheast: ${_visibleRegion.northeast},'
           '\nsouthwest: ${_visibleRegion.southwest}';
       columnChildren.add(Center(child: Text(currentVisibleRegion)));
-      columnChildren.add(_getVisibleRegionButton());
+      // columnChildren.add(_getVisibleRegionButton());
     }
 
     return Column(
@@ -82,7 +82,7 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
 
   Widget _getVisibleRegionButton() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(2.0),
       child: RaisedButton(
         child: const Text('Get Visible Region Bounds'),
         onPressed: () async {
