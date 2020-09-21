@@ -99,7 +99,6 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                         String message = res ? 
                           'Se ha enviado las indicaciones de recuperacion a su correo electronico' :
                           'Error!. El correo ingresado es invalido' ;
-
                        _notification(context, message);     
               }),
                    ],
