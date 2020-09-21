@@ -10,13 +10,14 @@ class RecuperarPasswordCubit extends Cubit<bool> {
   // UserInfo info = new UserInfo();
 
   Future<bool> recuperarPassword(String correo) async {
-    // print(correo + " = " + password);
+    print(correo);
     try {
-      await http.post("https://treino.club/demo/api/AppMovil/recuperarPassword",
-          body: {'id': correo}).then((value) {
-        print(value.body);
-        var error = (json.decode(value.body)['error']);
-        if (error == "1") {
+      final response = await http.post("https://treino.club/demo/api/AppMovil/recuperarPassword",
+          body: jsonEncode({'correo': correo}));
+          
+        Map<String, dynamic> responseData = json.decode(response.body);
+        print(responseData);
+        if (responseData["error"] == 1) {
           emit(false);
           print("hay un error");
           return false;
@@ -24,8 +25,7 @@ class RecuperarPasswordCubit extends Cubit<bool> {
           emit(true);
           print("parse la info");
           return true;
-        }
-      });
+        }    
     } catch (e) {
       print(e);
     }

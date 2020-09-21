@@ -86,6 +86,10 @@ class _LoginState extends State<Login> {
                     child: Text("Olvidaste tu clave?"),
                     onPressed: () {
                       print("entrando");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RecoverPasswordPage()),
+                      );
                     },
                   ),
                 ),
@@ -120,7 +124,7 @@ class _LoginState extends State<Login> {
                           return;
                         }
 
-                        bool rpta = true;
+                        bool rpta = false;
                         print(context.bloc<LoginCubit>().res);
                         //obtiene los clases/solicitudes presentes
                         await context
