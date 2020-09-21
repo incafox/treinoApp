@@ -217,8 +217,16 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                                       // Text(jsonDecode(
                                       //     jsonEncode(e['direccion']))),
                                       // Text((e['informacion'])),
-                                      Text((e['informacion'])),
-                                      Text(e['direccion']),
+                                      Text(
+                                        (e['informacion']),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        e['direccion'],
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                       Text(e['nombreCiudad']),
                                       Divider()
                                     ],
