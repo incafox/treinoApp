@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treino/classdetail/ClassDetail.dart';
+import 'package:treino/loaders/minimal_loader.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
 import 'package:treino/states/classDetail.dart';
 import 'package:treino/states/classesPerGym.dart';
@@ -353,7 +354,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
                       .toList(),
                 ),
               )
-            : Text("cargando"));
+            : MinimalLoader());
   }
 
   @override
