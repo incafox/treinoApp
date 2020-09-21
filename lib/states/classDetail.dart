@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class ClassDetailCubit extends Cubit<dynamic> {
-  ClassDetailCubit() : super(0);
+  ClassDetailCubit() : super(null);
   // UserInfo info = new UserInfo();
   dynamic response;
 

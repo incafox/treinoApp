@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class GymDetailCubit extends Cubit<int> {
-  GymDetailCubit() : super(0);
+  GymDetailCubit() : super(null);
   var response;
   void getGymById(String id) async {
     var dio = Dio();
@@ -24,5 +24,6 @@ class GymDetailCubit extends Cubit<int> {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"id": id}));
     print(jsonDecode(response.body));
+    emit(jsonDecode(response.body));
   }
 }

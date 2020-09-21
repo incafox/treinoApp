@@ -149,56 +149,59 @@ class _TabBuscarClaseState extends State<TabBuscarClase> {
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                                 decoration: BoxDecoration(
-                                color: Colors.lightGreen[300],
-
+                                    color: Colors.lightGreen[300],
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 height: 50,
                                 width: 50,
                                 // color: Colors.lightGreen[300],
                                 child: Center(
-                                    child: Icon(Icons.battery_charging_full,color: Colors.white))),
+                                    child: Icon(Icons.battery_charging_full,
+                                        color: Colors.white))),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                                 decoration: BoxDecoration(
-                                color: Colors.lightGreen[300],
-
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                height: 50,
-                                width: 50,
-                                // color: Colors.lightGreen[300],
-                                child: Center(child: Icon(Icons.lock_open,color: Colors.white))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                color: Colors.lightGreen[300],
-
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                height: 50,
-                                width: 50,
-                                // color: Colors.lightGreen[300],
-                                child:
-                                    Center(child: Icon(Icons.view_carousel,color: Colors.white,))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                color: Colors.lightGreen[300],
-
+                                    color: Colors.lightGreen[300],
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 height: 50,
                                 width: 50,
                                 // color: Colors.lightGreen[300],
                                 child: Center(
-                                    child: Icon(Icons.not_listed_location,color: Colors.white))),
+                                    child: Icon(Icons.lock_open,
+                                        color: Colors.white))),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.lightGreen[300],
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                height: 50,
+                                width: 50,
+                                // color: Colors.lightGreen[300],
+                                child: Center(
+                                    child: Icon(
+                                  Icons.view_carousel,
+                                  color: Colors.white,
+                                ))),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.lightGreen[300],
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                height: 50,
+                                width: 50,
+                                // color: Colors.lightGreen[300],
+                                child: Center(
+                                    child: Icon(Icons.not_listed_location,
+                                        color: Colors.white))),
                           ),
                         ],
                       ),
@@ -217,14 +220,13 @@ class _TabBuscarClaseState extends State<TabBuscarClase> {
 class GradientAppBar extends StatelessWidget {
   final String title;
   final double barHeight = 70.0;
-
   GradientAppBar(this.title);
 
   @override
   Widget build(BuildContext context) {
     final double statusbarHeight = MediaQuery.of(context).padding.top;
 
-    return new Container(
+    return Container(
       padding: EdgeInsets.only(top: statusbarHeight),
       height: statusbarHeight + barHeight,
       child: Row(
@@ -245,11 +247,6 @@ class GradientAppBar extends StatelessWidget {
               minWidth: 6,
               onPressed: () {
                 print("as");
-                // Navigator.push(
-                // context,
-                // MaterialPageRoute(builder: (context) => TabBuscarClase()),
-                // MaterialPageRoute(builder: (context) => Membresias()),
-                // );
               },
               child: Center(
                 child: Text(
@@ -268,11 +265,6 @@ class GradientAppBar extends StatelessWidget {
               minWidth: 6,
               onPressed: () {
                 print("as");
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => TabBuscarClase()),
-                // MaterialPageRoute(builder: (context) => Membresias()),
-                // );
               },
               child: Center(
                 child: Text(
