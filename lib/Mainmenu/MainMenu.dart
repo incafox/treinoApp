@@ -69,14 +69,20 @@ class _MainMenuState extends State<MainMenu>
           body: TabBarView(
             controller: tabController,
             children: [
-              ListView(
-                physics: BouncingScrollPhysics(),
-                children: <Widget>[
-                  // Expanded(child: TabInicio()),
-                  GradientAppBar("Treino"),
-                  Container(width: 100, child: TabInicio(this.tabController)),
-                  // TabInicio(),
-                ],
+              Container(
+                color: Colors.white,
+                child: Column(
+                  // physics: BouncingScrollPhysics(),
+                  children: <Widget>[
+                    // Expanded(child: TabInicio()),
+                    GradientAppBar("Treino"),
+                    Container(
+                        color: Colors.white,
+                        // width: 100,
+                        child: TabInicio(this.tabController)),
+                    // TabInicio(),
+                  ],
+                ),
               ),
               // TabBuscarClase(),
               TabBuscarClasePrimer(),
