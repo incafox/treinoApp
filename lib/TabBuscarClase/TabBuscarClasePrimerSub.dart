@@ -502,7 +502,7 @@ class GradientAppBar extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: FlatButton(
-                  minWidth: 2,
+                //  minWidth: 2,
                   onPressed: () {
                     print("as");
                     Navigator.push(

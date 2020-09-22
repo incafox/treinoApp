@@ -160,7 +160,7 @@ class _ClassDetailState extends State<ClassDetail> {
                                               ),
                                               Center(
                                                 child: Icon(
-                                                  Icons.water_damage,
+                                                  Icons.watch_later,
                                                   size: 40,
                                                 ),
                                               ),
@@ -209,7 +209,7 @@ class _ClassDetailState extends State<ClassDetail> {
                                               ),
                                               Center(
                                                 child: Icon(
-                                                  Icons.lock_outline_rounded,
+                                                  Icons.looks,
                                                   size: 40,
                                                 ),
                                               ),
@@ -304,8 +304,7 @@ class _ClassDetailState extends State<ClassDetail> {
                                             ),
                                             Center(
                                               child: Icon(
-                                                Icons
-                                                    .label_important_outline_rounded,
+                                                Icons.label_important,
                                                 size: 40,
                                               ),
                                             ),

@@ -180,7 +180,7 @@ class GradientAppBar extends StatelessWidget {
         child: GridView.count(crossAxisCount: 2, children: <Widget>[
           Center(
             child: CircleAvatar(
-                foregroundColor: Colors.green,
+                 foregroundColor: Colors.green,
                 child: Stack(
                   children: <Widget>[
                     Opacity(
