@@ -94,7 +94,10 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                         }
 
                         bool res = await context.bloc<RecuperarPasswordCubit>().recuperarPassword(this.input.text);
-                        print(res);
+                        
+                        if(res) {
+                          this.input.text = '';
+                        }
 
                         String message = res ? 
                           'Se ha enviado las indicaciones de recuperacion a su correo electronico' :
