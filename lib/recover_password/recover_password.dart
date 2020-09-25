@@ -53,6 +53,7 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                   flex: 1,
                   child:
                    Container(
+                    alignment: Alignment(0,-0.5),
                     margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                     child: Icon(
                       Icons.email,
@@ -61,13 +62,31 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                     ),
                   ), 
                 ),
-               Expanded(
-                 flex: 1,
-                 child: Column(
-                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
-                      child: TextFormField(
+                Expanded(
+                  flex:  1,
+                  child: Container(
+                    alignment: Alignment(0.0, -1),
+                    margin: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+                    child: 
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                          child: Text("Introduce tu correo electronico y te enviaremos las instrucccuines para recuperar tu cuenta", 
+                            style: TextStyle( 
+                              //fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Color(0xbf0781e5),
+                              decorationColor: Colors.blue,
+                            ),
+                          ),
+                        )
+                  ),
+                ),
+                Expanded(
+                  flex: 1, 
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+                    alignment: Alignment(0, -1),
+                    child: TextFormField(
                         controller: this.input,
                         decoration: InputDecoration(hintText: "Correo electronico"),
                         validator: (value) {
@@ -78,7 +97,13 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                         },
                       ),
                     ),
-                      RaisedButton(
+                  ),
+                  
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      alignment: Alignment(0.0, -1.0),
+                      child:   RaisedButton(
                       child: Text(
                         "Enviar Solicitud",
                         style: TextStyle(color: Colors.white),
@@ -103,16 +128,9 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                           'Se ha enviado las indicaciones de recuperacion a su correo electronico' :
                           'Error!. El correo ingresado es invalido' ;
                        _notification(context, message);     
-              }),
-                   ],
-                 ) 
-                 
-               
-               ),
-               Expanded(
-                 flex: 1,
-                 child: Text('')
-               ),
+                      }),
+                    )
+                  ),
             ],)
           ,),
           ),
