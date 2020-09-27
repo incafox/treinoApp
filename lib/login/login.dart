@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:treino/recover_password/recover_password.dart';
 import 'package:treino/register/signup.dart';
 import 'package:treino/Mainmenu/MainMenu.dart';
-import 'package:treino/membresias/membresias.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
 import 'package:treino/states/buyMembresias.dart';
@@ -35,68 +34,90 @@ class _LoginState extends State<Login> {
       body: Builder(
         builder: (context) => 
           Padding(
-          padding: const EdgeInsets.all(38.0),
+          padding: const EdgeInsets.fromLTRB(38.0, 0.0, 38.0, 0.0),
           child: Container(
             child: Column(
               children: <Widget>[
-                Center(
-                  child: Opacity(
-                    opacity: 1,
-                    child: Image(
-                        // color: Colors.white,
-                        // colorBlendMode: BlendMode.srcIn,
-                        fit: BoxFit.fitWidth,
-                        height: 90,
-                        width: 180,
-                        image: AssetImage('assets/images/Path 8@2x.png')),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    alignment: Alignment(0.0, 1.0),
+                    child: Opacity(
+                      opacity: 1,
+                      child: Image(
+                          // color: Colors.white,
+                          // colorBlendMode: BlendMode.srcIn,
+                          fit: BoxFit.fitWidth,
+                          height: 90,
+                          width: 180,
+                          image: AssetImage('assets/images/Path 8@2x.png')),
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Form(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                        TextFormField(
-                          controller: this.correoController,
-                          decoration:
-                              InputDecoration(hintText: "Correo electronico"),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                        ),
-                        TextFormField(
-                          controller: this.passwordController,
-                          decoration: InputDecoration(hintText: "Contrasena"),
-                          obscureText: true,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                        )
-                        // Add TextFormFields and RaisedButton here.
-                      ])),
-                ),
-                Center(
-                  child:  
-                  
-                  MaterialButton(
-                    child: Text("Olvidaste tu clave?"),
-                    onPressed: () {
-                      print("entrando");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RecoverPasswordPage()),
-                      );
-                    },
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    alignment: Alignment(-1, 1),
+                    child: Center(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  alignment: Alignment(0.0, 1.0),
+                                  child: TextFormField(
+                                  controller: this.correoController,
+                                  decoration:
+                                      InputDecoration(hintText: "Correo electronico"),
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                ), 
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Center(
+                                  child:  TextFormField(
+                                  controller: this.passwordController,
+                                  decoration: InputDecoration(hintText: "Contrasena"),
+                                  obscureText: true,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    return null;
+                                  },
+                                ), 
+                                )  
+                              ),
+                          // Add TextFormFields and RaisedButton here.
+                        ])),
                   ),
                 ),
-                Container(
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    child: MaterialButton(
+                      child: Text("Olvidaste tu contraseña?"),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RecoverPasswordPage()),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                  alignment: Alignment(0.0, -1.0),
                   child: BlocConsumer<LoginCubit, LoginCubitState>(
                     listener: (context, state) {
                       if(state is LoginCubitApiError){
@@ -133,7 +154,10 @@ class _LoginState extends State<Login> {
                           );
                       }
                       
-                      return Column(
+                      return Container(
+                        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                        alignment: Alignment(0.0, 0.0),
+                        child: Column(
                         children: [
                             Container(
                               width: 200,
@@ -180,23 +204,13 @@ class _LoginState extends State<Login> {
                                 }),
                           ),
                         ],
+                      ) 
                       );
-                    } 
-                      
-                    ,
+                
+                    },
                   ),
                 ),
-                // Container(
-                //   height: 10,
-                //   child: BlocBuilder<CounterCubit, int>(
-                //     builder: (context, count) => Center(child: Text('$count')),
-                //   ),
-                // ),
-
-                // MaterialButton(
-                //     child: Text("data"),
-                //     onPressed: () => context.bloc<LoginCubit>().loginInto(
-                //         this.correoController.text, this.passwordController.text))
+                ),
               ],
             ),
           ),
