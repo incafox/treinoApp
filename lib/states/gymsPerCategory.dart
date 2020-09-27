@@ -35,12 +35,12 @@ class GymsPerCategoryCubit extends Cubit<List<dynamic>> {
     this.items = json.decode(response.body)['items'];
     // String temp = Rabbit.zg2uni(json.encode(this.items));
 
-    // print("============");
-    print(response.body);
+    print("============");
+    print(this.items);
     // print(json.encode(this.items));
     // print(temp);
     // print(String.fromCharCodes(response.bodyBytes));
-    // print("============");
+    print("============");
 
     // var combining = RegExp(r"[\u0300-\u036F]/g");
     // String text = temp;

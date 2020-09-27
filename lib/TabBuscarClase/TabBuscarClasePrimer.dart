@@ -9,6 +9,7 @@ import 'package:treino/loaders/minimal_loader.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
 import 'package:treino/states/classesPerGym.dart';
 import 'package:treino/states/externalControlTab.dart';
+import 'package:treino/states/gym_coordinates.dart';
 import 'package:treino/states/gymsPerCategory.dart';
 import 'TabBuscarClase.dart';
 import 'TabBuscarMap.dart';
@@ -179,61 +180,74 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                 child: Column(
                   // crossAxisCount: val.length,
                   children: val
-                      .map((e) => FlatButton(
-                            onPressed: () {
-                              print("hacia sub ");
-                              context
-                                  .bloc<ClassesPerGymCubit>()
-                                  .getClassesByGym(e['idGym']);
-                              context
-                                  .bloc<AgregarSolicitudCubit>()
-                                  .setIdGym(e['idGym']);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TabBuscarClasePrimerSub()),
-                              );
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                color: Colors.grey[200],
+                      .map((e) => Column(
+                            children: [
+                              MaterialButton(
+                                onPressed: () {
+                                  print("hacia ");
+                                  print("hacia " + e['idGym'].toString());
+                                  print("lat " + e['latitud'].toString());
+                                  print("long " + e['longitud'].toString());
+                                  context
+                                      .bloc<CoordinatesCubit>()
+                                      .setCoordinates(
+                                          e['latitud'], e['longitud']);
+                                  context
+                                      .bloc<ClassesPerGymCubit>()
+                                      .getClassesByGym(e['idGym']);
+                                  context
+                                      .bloc<AgregarSolicitudCubit>()
+                                      .setIdGym(e['idGym']);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            TabBuscarClasePrimerSub()),
+                                  );
+                                },
                                 child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        (e['nombreGym']),
-                                        style: TextStyle(
-                                            color: Colors.blue,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
+                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    color: Colors.grey[200],
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Column(
+                                        children: [
+                                          Text((e['nombreGym']),
+                                              style: TextStyle(
+                                                  color: Colors.blue,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center),
+                                          Container(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            (e['informacion']),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Text(e['direccion'],
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center),
+                                          Text(e['nombreCiudad'],
+                                              textAlign: TextAlign.center),
+                                          // Divider()
+                                        ],
                                       ),
-                                      Container(
-                                        height: 5,
-                                      ),
-                                      // Text(jsonDecode(
-                                      //     jsonEncode(e['direccion']))),
-                                      // Text((e['informacion'])),
-                                      Text(
-                                        (e['informacion']),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text(
-                                        e['direccion'],
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text(e['nombreCiudad']),
-                                      Divider()
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                              Container(
+                                height: 10,
+                                color: Colors.white,
+                                width: MediaQuery.of(context).size.width,
+                              )
+                            ],
                           ))
                       .toList(),
                 ),
@@ -289,82 +303,105 @@ class GradientAppBar extends StatelessWidget {
       padding: EdgeInsets.only(top: statusbarHeight),
       height: statusbarHeight + barHeight,
       child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(13.0),
-              child: Container(
+          Expanded(
+            flex: 5,
+            child: Container(
+              child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                      child: TextField(
-                    decoration: null,
-                  )),
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Center(
+                          child: Row(
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: Icon(
+                                  Icons.search,
+                                  color: Colors.grey,
+                                ),
+                              )),
+                          Expanded(
+                            flex: 10,
+                            child: Container(
+                              child: TextField(
+                                cursorColor: Colors.black,
+                                // keyboardType: inputType,
+                                decoration: InputDecoration(
+                                  hintText: "Buscar Gimnasio",
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none,
+                                  contentPadding: EdgeInsets.only(
+                                      left: 15, bottom: 11, top: 5, right: 15),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                    ),
+                    height: 35,
+                    // width: 250,
+                    decoration: BoxDecoration(
+                        // border:,
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(30))),
+                  ),
                 ),
-                height: 35,
-                width: 220,
-                decoration: BoxDecoration(
-                    // border:,
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: MaterialButton(
-              minWidth: 6,
-              onPressed: () {
-                // context.bloc<ClassesPerGymCubit>().getClassesByGym(idGym)
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TabBuscarMap()),
-                  // new ClassDetail(),
-                );
-                print("as");
-              },
-              child: Center(
-                  child: Icon(
-                Icons.place,
-                size: 40,
-                color: Colors.white,
-              )
-                  // Text(
-                  //   "Search",
-                  //   style: TextStyle(
-                  //       fontSize: 25.0,
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.bold),
-                  // ),
-                  ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: MaterialButton(
-              minWidth: 6,
-              onPressed: () {
-                print("as");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TabBuscarClase()),
-                  // MaterialPageRoute(builder: (context) => Membresias()),
-                );
-              },
-              child: Center(
-                  child: Icon(
-                Icons.tune,
-                size: 40,
-                color: Colors.white,
-              )
-                  // Text(
-                  //   "Search",
-                  //   style: TextStyle(
-                  //       fontSize: 25.0,
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.bold),
-                  // ),
-                  ),
+          // Padding(
+          //   padding: const EdgeInsets.all(5.0),
+          //   child: MaterialButton(
+          //     minWidth: 6,
+          //     onPressed: () {
+          //       // context.bloc<ClassesPerGymCubit>().getClassesByGym(idGym)
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => TabBuscarMap()),
+          //         // new ClassDetail(),
+          //       );
+          //       print("as");
+          //     },
+          //     child: Center(
+          //         child: Icon(
+          //       Icons.place,
+          //       size: 40,
+          //       color: Colors.white,
+          //     )),
+          //   ),
+          // ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: MaterialButton(
+                  minWidth: 6,
+                  onPressed: () {
+                    print("as");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TabBuscarClase()),
+                      // MaterialPageRoute(builder: (context) => Membresias()),
+                    );
+                  },
+                  child: Center(
+                      child: Icon(
+                    Icons.tune,
+                    size: 40,
+                    color: Colors.white,
+                  )),
+                ),
+              ),
             ),
           ),
         ],

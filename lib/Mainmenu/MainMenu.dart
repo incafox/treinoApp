@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,125 +48,165 @@ class _MainMenuState extends State<MainMenu>
         false;
   }
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            content: Container(
+              // color: Colors.brown,
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      child: Center(
+                        child: new GestureDetector(
+                          onTap: () => Navigator.of(context).pop(false),
+                          child: Text("No"),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // SizedBox(height: 16),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      child: Center(
+                        child: new GestureDetector(
+                          onTap: () => SystemNavigator.pop(),
+                          child: Text("Si"),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            title: new Text('Seguro que deseas salir?'),
+            // content: new Text('Deseas salir?'),
+            // actions: <Widget>[],
+          ),
+        ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     context.bloc<CategoriesCubit>().getAllCategorias();
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: DefaultTabController(
-        // initialIndex: 1,
-        length: 4,
-        child: Scaffold(
-          // appBar: PreferredSize(
-          //     preferredSize: Size.fromHeight(100.0),
-          //     child: AppBar(
-          //       title: Container(child: Text("data")),
-          //       flexibleSpace: Container(
-          //         height: 0,
-          //         child: Text(" dasqd"),
-          //       ),
-          //     )),
-          body: TabBarView(
-            controller: tabController,
-            children: [
-              Container(
-                color: Colors.white,
-                child: Column(
-                  // physics: BouncingScrollPhysics(),
-                  children: <Widget>[
-                    // Expanded(child: TabInicio()),
-                    GradientAppBar("Treino"),
-                    Container(
-                        color: Colors.white,
-                        // width: 100,
-                        child: TabInicio(this.tabController)),
-                    // TabInicio(),
-                  ],
-                ),
-              ),
-              // TabBuscarClase(),
-              TabBuscarClasePrimer(),
-              TabMisClases(),
-              TabPerfil(),
-            ],
-          ),
-          backgroundColor: Color(0xef0781e5),
-          bottomNavigationBar: Container(
-            height: 55,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: DefaultTabController(
+          length: 4,
+          child: Scaffold(
+            body: TabBarView(
+              controller: tabController,
               children: [
-                Center(
-                  child: TabBar(
-                    controller: tabController,
-                    onTap: (index) {
-                      tabController.animateTo(index);
-                      // context
-                      //     .bloc<ExternalControllerMainTabsCubit>()
-                      //     .tabber
-                      //     .animateTo(index);
-                    },
-                    // indicatorWeight: 1,
-                    tabs: [
-                      Tab(
+                Container(
+                  color: Colors.white,
+                  child: Column(
+                    // physics: BouncingScrollPhysics(),
+                    children: <Widget>[
+                      // Expanded(child: TabInicio()),
+                      GradientAppBar("Treino"),
+                      Container(
+                          color: Colors.white,
+                          // width: 100,
+                          child: TabInicio(this.tabController)),
+                      // TabInicio(),
+                    ],
+                  ),
+                ),
+                // TabBuscarClase(),
+                TabBuscarClasePrimer(),
+                TabMisClases(),
+                TabPerfil(),
+              ],
+            ),
+            backgroundColor: Color(0xef0781e5),
+            bottomNavigationBar: Container(
+              height: 80,
+              child: Center(
+                child: TabBar(
+                  // indicator: TextDecoration.overline ,
+                  controller: tabController,
+                  onTap: (index) {
+                    tabController.animateTo(index);
+                    // context
+                    //     .bloc<ExternalControllerMainTabsCubit>()
+                    //     .tabber
+                    //     .animateTo(index);
+                  },
+                  // indicatorWeight: 1,
+                  tabs: [
+                    Container(
+                      // height: 60,
+                      child: Tab(
+                        text: "Inicio",
                         icon: Container(
-                          height: 100,
+                          // height: 100,
                           child: Column(
                             children: <Widget>[
                               Icon(Icons.home),
-                              Text("Inicio", style: TextStyle(fontSize: 10))
+                              // Text("Inicio", style: TextStyle(fontSize: 10))
                             ],
                           ),
                         ),
                       ),
-                      Tab(
-                        icon: Container(
-                          height: 100,
-                          child: Column(
-                            children: <Widget>[
-                              Icon(Icons.search),
-                              Text(
-                                "Buscar Clase",
-                                style: TextStyle(fontSize: 10),
-                              )
-                            ],
-                          ),
+                    ),
+                    Tab(
+                      text: "Buscar",
+                      icon: Container(
+                        // height: 100,
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.search),
+                            // Text(
+                            //   "Buscar Clase",
+                            //   style: TextStyle(fontSize: 10),
+                            // )
+                          ],
                         ),
                       ),
-                      Tab(
-                        icon: Container(
-                          height: 100,
-                          child: Column(
-                            children: <Widget>[
-                              Icon(Icons.fitness_center),
-                              Text("Mis Clases", style: TextStyle(fontSize: 10))
-                            ],
-                          ),
+                    ),
+                    Tab(
+                      text: "Mis Clases",
+                      icon: Container(
+                        // height: 100,
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.fitness_center),
+                            // Text("Mis Clases", style: TextStyle(fontSize: 10))
+                          ],
                         ),
                       ),
-                      Tab(
-                        icon: Container(
-                          height: 100,
-                          child: Column(
-                            children: <Widget>[
-                              Icon(Icons.person),
-                              Text("Perfil", style: TextStyle(fontSize: 10))
-                            ],
-                          ),
+                    ),
+                    Tab(
+                      text: "Perfil",
+                      icon: Container(
+                        // height: 100,
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.person),
+                            // Text("Perfil", style: TextStyle(fontSize: 10))
+                          ],
                         ),
-                      )
-                    ],
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.white,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    indicatorPadding: EdgeInsets.all(0.0),
-                    labelStyle: TextStyle(fontSize: 12),
-                    indicatorColor: Colors.white,
-                  ),
+                      ),
+                    )
+                  ],
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.white,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorPadding: EdgeInsets.all(0.0),
+                  labelStyle: TextStyle(fontSize: 12),
+                  indicatorColor: Colors.white,
                 ),
-              ],
+              ),
             ),
           ),
         ),

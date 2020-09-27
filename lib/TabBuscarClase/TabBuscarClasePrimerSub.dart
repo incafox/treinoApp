@@ -359,34 +359,40 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          // scrollDirection: Axis.vertical,
-          // physics: BouncingScrollPhysics(),
-          children: <Widget>[
-            Container(
-              child: GradientAppBar("buscando"),
-            ),
-            semanita(),
-            Container(
-              height: 30,
-              color: Colors.grey[400],
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  "Seleccione una Clase",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 17),
+    return WillPopScope(
+      onWillPop: (){
+        context.bloc<ClassesPerGymCubit>().reset();
+        return Future.value(true);
+      },
+          child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            // scrollDirection: Axis.vertical,
+            // physics: BouncingScrollPhysics(),
+            children: <Widget>[
+              Container(
+                child: GradientAppBar("buscando"),
+              ),
+              semanita(),
+              Container(
+                height: 30,
+                color: Colors.grey[400],
+                width: double.infinity,
+                child: Center(
+                  child: Text(
+                    "Seleccione una Clase",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 17),
+                  ),
                 ),
               ),
-            ),
-            //     // opciones(),
-            //     BlocBuilder<ExternalControllerMisClasesCubit, int>(
-            //   builder: (context, val) => val==1? ),
-            // ),
-            opciones2(context)
-          ],
+              //     // opciones(),
+              //     BlocBuilder<ExternalControllerMisClasesCubit, int>(
+              //   builder: (context, val) => val==1? ),
+              // ),
+              opciones2(context)
+            ],
+          ),
         ),
       ),
     );

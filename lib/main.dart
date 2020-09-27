@@ -9,6 +9,7 @@ import 'package:treino/states/detailGym.dart';
 import 'package:treino/states/externalControlTab.dart';
 import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
+import 'package:treino/states/gym_coordinates.dart';
 import 'package:treino/states/gymsPerCategory.dart';
 import 'package:treino/states/solicitarfactura.dart';
 import 'package:treino/states/login.dart';
@@ -79,6 +80,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<ClassesPerGymCubit>(
             create: (BuildContext context) => ClassesPerGymCubit(),
           ),
+          BlocProvider<CoordinatesCubit>(
+            create: (BuildContext context) => CoordinatesCubit(),
+          ),
         ],
         child: GestureDetector(
           onTap: () {
@@ -86,7 +90,7 @@ class MyApp extends StatelessWidget {
             FocusScopeNode currentFocus = FocusScope.of(context);
 
             // if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.unfocus();
+            currentFocus.unfocus();
             // }
           },
           child: MaterialApp(
