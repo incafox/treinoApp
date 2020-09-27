@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:treino/states/recoverpass.dart';
+import 'package:treino/states/recoverpassword/recoverpass.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:treino/states/recoverpassword/recoverpassstate.dart';
 
 class RecoverPasswordPage extends StatefulWidget {
   @override
@@ -101,35 +102,64 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                   
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      alignment: Alignment(0.0, -1.0),
-                      child:   RaisedButton(
-                      child: Text(
-                        "Enviar Solicitud",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(28.0),
-                          side: BorderSide(color: Color(0xbf0781e5))),
-                      color: Color(0xbf0781e5),
-                      onPressed: () async {
-                        if(this.input.text == ''){
-                          _notification(context, 'Error!. No se ha ingresado un correo electronico');
+                    child:  BlocConsumer<RecuperarPasswordCubit, RecoverPassState>(
+                      listener: (context, state){
+                        if(state is RecoverPassError){
+                          _notification(context, "Error!. " + state.error);
                           return;
                         }
 
-                        bool res = await context.bloc<RecuperarPasswordCubit>().recuperarPassword(this.input.text);
-                        
-                        if(res) {
-                          this.input.text = '';
+                        if(state is RecoverPassRequestError){
+                           _notification(context, 'Error de conexion!. Intentole mas tarde');
+                          return;
                         }
 
-                        String message = res ? 
-                          'Se ha enviado las indicaciones de recuperacion a su correo electronico' :
-                          'Error!. El correo ingresado es invalido' ;
-                       _notification(context, message);     
-                      }),
+                        if(state is RecoverPassSuccess) {
+                          _notification(context, 'Se ha enviado las indicaciones de recuperacion a su correo electronico');
+                          return;
+                        }
+                      },
+                      builder: (context, state){
+                        if(state is RecoverPassLoading) {
+                          return Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 60.0,
+                                  padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 12.0),
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: Colors.blueAccent,
+                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+
+                        return Container(
+                          alignment: Alignment(0.0, -1.0),
+                          child:   RaisedButton(
+                          child: Text(
+                            "Enviar Solicitud",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(28.0),
+                            side: BorderSide(color: Color(0xbf0781e5))),
+                            color: Color(0xbf0781e5),
+                            onPressed: () async {
+                              if(this.input.text == ''){
+                                _notification(context, 'Error!. No se ha ingresado un correo electronico');
+                                return;
+                              }
+
+                              await context.bloc<RecuperarPasswordCubit>().recuperarPassword(this.input.text);
+                            }),
+                        );
+                      },
                     )
+                  
                   ),
             ],)
           ,),

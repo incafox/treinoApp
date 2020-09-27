@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:treino/states/solicitarfactura.dart';
+import 'package:treino/states/solicitarfactura/solicitarfactura.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:treino/states/solicitarfactura/solicitarfacturastate.dart';
 
 class SolicitaFactura extends StatefulWidget {
   @override
@@ -219,35 +220,72 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
               ),
               Expanded(
                 flex: 1,
-                child: Center(
-                  child: RaisedButton(
-                    elevation: 5,
-                    child: Text(
-                      "Enviar",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(28.0),
-                        side: BorderSide(color: Color(0xff0781e5))),
-                    color: Color(0xff0781e5),
-                    onPressed: () {
-                      if(
-                        this.email.text == '' || this.razonSocial.text == '' || this.rfc.text == '' || 
-                        this.ciudad.text == '' || this.colonia.text == '' || this.direccion.text == '' ||
-                        this.cp.text == ''
-                      ){
-                        print(this.email.text);
-                        _notification(context, "Error!. Uno o mas campos de texto se encuentran vacios");
-                        return; 
-                      }
+                child: BlocConsumer<SolicitarFacturaCubit, SolicitarFacturaState>(
+                  listener: (context, state){
+                    if(state is SolicitarFacturaError) {
+                      _notification(context, "Error!. " + state.error);
+                      return;
+                    }
 
-                      context.bloc<SolicitarFacturaCubit>().facturaRequest(
-                        this.email.text, this.razonSocial.text, this.rfc.text,
-                        this.ciudad.text, this.colonia.text, this.direccion.text,
-                        this.cp.text
-                      );
+                    if(state is SolicitarFacturaRequestError){
+                      _notification(context, 'Error de conexion!. Intentole mas tarde');
+                      return;
+                    }
 
-                    }),
+                    if(state is SolicitarFacturaSuccess){
+                      _notification(context, "La factura ha sido enviada con exito!");
+                      return;
+                    }
+                  },
+                  builder: (context, state) {
+                    if(state is SolicitarFacturaLoading) {
+                        return Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 60.0,
+                                  padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 12.0),
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: Colors.blueAccent,
+                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                    }
+                    
+                    return Center(
+                      child: RaisedButton(
+                        elevation: 5,
+                        child: Text(
+                          "Enviar",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(28.0),
+                            side: BorderSide(color: Color(0xff0781e5))),
+                        color: Color(0xff0781e5),
+                        onPressed: () {
+                          if(
+                            this.email.text == '' || this.razonSocial.text == '' || this.rfc.text == '' || 
+                            this.ciudad.text == '' || this.colonia.text == '' || this.direccion.text == '' ||
+                            this.cp.text == ''
+                          ){
+                            print(this.email.text);
+                            _notification(context, "Error!. Uno o mas campos de texto se encuentran vacios");
+                            return; 
+                          }
+
+                          context.bloc<SolicitarFacturaCubit>().facturaRequest(
+                            this.email.text, this.razonSocial.text, this.rfc.text,
+                            this.ciudad.text, this.colonia.text, this.direccion.text,
+                            this.cp.text
+                          );
+
+                        }),
+                    ); 
+                  },
                 ), 
               ),
             ],

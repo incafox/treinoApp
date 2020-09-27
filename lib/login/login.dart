@@ -105,7 +105,7 @@ class _LoginState extends State<Login> {
                       }
                       
                       if(state is LoginCubitRequestError){
-                         _notification(context, 'Error de inicio de conexion!. Intentole mas tarde');
+                         _notification(context, 'Error de conexion!. Intentole mas tarde');
                         return;
                       }
 

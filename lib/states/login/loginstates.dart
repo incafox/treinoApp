@@ -9,9 +9,8 @@ class LoginCubitApiError extends LoginCubitState {
 
   LoginCubitApiError(this._error);
 
-  String get error  {
-    return this._error;
-  }
+  String get error =>  this._error;
+  
 }
 
 class LoginCubitSuccess extends LoginCubitState{}

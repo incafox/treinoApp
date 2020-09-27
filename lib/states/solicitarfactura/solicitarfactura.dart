@@ -1,20 +1,21 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:treino/states/solicitarfactura/solicitarfacturastate.dart';
 
-class SolicitarFacturaCubit extends Cubit<String>{
-  SolicitarFacturaCubit() : super(null);
+class SolicitarFacturaCubit extends Cubit<SolicitarFacturaState>{
+  SolicitarFacturaCubit() : super(InitialState());
 
-  Future<String> facturaRequest(
+  Future<void> facturaRequest(
     String email, String razonSocial,
     String rfc, String ciudad,
     String colonia, String direccion,
     String cp
   ) async {
-    emit("Loading"); 
+    emit(SolicitarFacturaLoading()); 
     try{
       final response = await http 
-            .post('https://treino.club/demo/api/AppMovil/registrar', 
+            .post('https://treino.club/demo/api/AppMovil/facturacion', 
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
           'email': email,
@@ -29,11 +30,16 @@ class SolicitarFacturaCubit extends Cubit<String>{
 
         Map<String, dynamic> responseData = jsonDecode(response.body);
     
+        if(responseData["error"] == '1'){
+          emit(SolicitarFacturaError(responseData["descripcion"]));
+          return;
+        }
+
+        emit(SolicitarFacturaSuccess());
     } on Exception {
       print("");
+      emit(SolicitarFacturaRequestError());
     }
-
-    return "";
   }
 
 

@@ -22,7 +22,7 @@ class LoginCubit extends Cubit<LoginCubitState> {
         body: jsonEncode({"correo": correo, "password": password}));
         
         Map<String,dynamic> responseData = jsonDecode(response.body);
-        
+        this.res = responseData;
          if(responseData['error'] == '1'){
             emit(LoginCubitApiError(responseData['descripcion']));
             return;

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/login/login.dart';
 import 'package:treino/membresias/membresias.dart';
 import 'package:treino/solicita_factura/solicita_factura.dart';
-import 'package:treino/states/login.dart';
+import 'package:treino/states/login/login.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:treino/states/membresias.dart';
 

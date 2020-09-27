@@ -10,10 +10,10 @@ import 'package:treino/states/externalControlTab.dart';
 import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
 import 'package:treino/states/gymsPerCategory.dart';
-import 'package:treino/states/solicitarfactura.dart';
+import 'package:treino/states/solicitarfactura/solicitarfactura.dart';
 import 'package:treino/states/login/login.dart';
 import 'package:treino/states/membresias.dart';
-import 'package:treino/states/recoverpass.dart';
+import 'package:treino/states/recoverpassword/recoverpass.dart';
 import 'package:treino/states/register.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
 
