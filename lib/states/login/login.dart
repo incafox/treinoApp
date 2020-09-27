@@ -6,21 +6,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-class LoginCubit extends Cubit<int> {
-  LoginCubit() : super(0);
+import 'loginstates.dart';
+
+class LoginCubit extends Cubit<LoginCubitState> {
+  LoginCubit() : super(InitialState());
   UserInfo info = new UserInfo();
   dynamic res;
 
-  Future<Map<String,dynamic>> loginInto({String correo, String password}) async {
+  Future<void> loginInto({String correo, String password}) async {
+    emit(LoginCubitLoading());
     try{
        final response = await http.post(
         'https://treino.club/demo/api/AppMovil/login',
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"correo": correo, "password": password}));
-        this.res = jsonDecode(response.body);
-        return res;
+        
+        Map<String,dynamic> responseData = jsonDecode(response.body);
+        
+         if(responseData['error'] == '1'){
+            emit(LoginCubitApiError(responseData['descripcion']));
+            return;
+          }
+
+        emit(LoginCubitSuccess());
     } on Exception {
-      print('error');
+      emit(LoginCubitRequestError());
     }
     return Map<String,dynamic>();
   }

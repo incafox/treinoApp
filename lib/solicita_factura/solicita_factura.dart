@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treino/states/solicitarfactura.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SolicitaFactura extends StatefulWidget {
   @override
@@ -231,15 +232,20 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
                     color: Color(0xff0781e5),
                     onPressed: () {
                       if(
-                        this.email.text == '' || this.razonSocial.text == '' || this.email.text == '' || 
+                        this.email.text == '' || this.razonSocial.text == '' || this.rfc.text == '' || 
                         this.ciudad.text == '' || this.colonia.text == '' || this.direccion.text == '' ||
                         this.cp.text == ''
                       ){
+                        print(this.email.text);
                         _notification(context, "Error!. Uno o mas campos de texto se encuentran vacios");
                         return; 
                       }
 
-                      //context.bloc<SolicitarFacturaCubit>().facturaRequest();
+                      context.bloc<SolicitarFacturaCubit>().facturaRequest(
+                        this.email.text, this.razonSocial.text, this.rfc.text,
+                        this.ciudad.text, this.colonia.text, this.direccion.text,
+                        this.cp.text
+                      );
 
                     }),
                 ), 

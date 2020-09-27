@@ -11,7 +11,7 @@ import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
 import 'package:treino/states/gymsPerCategory.dart';
 import 'package:treino/states/solicitarfactura.dart';
-import 'package:treino/states/login.dart';
+import 'package:treino/states/login/login.dart';
 import 'package:treino/states/membresias.dart';
 import 'package:treino/states/recoverpass.dart';
 import 'package:treino/states/register.dart';
