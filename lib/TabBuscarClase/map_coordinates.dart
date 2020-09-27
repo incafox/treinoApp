@@ -6,30 +6,42 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:treino/states/gym_coordinates.dart';
 import 'page.dart';
 
-const CameraPosition _kInitialPosition =
-    CameraPosition(target: LatLng(23.332, -102.331), zoom: 11.0);
+// const CameraPosition _kInitialPosition =
+//     CameraPosition(target: LatLng(23.332, -102.331), zoom: 11.0);
 
 class MapCoordinatesPage extends GoogleMapExampleAppPage {
-  MapCoordinatesPage() : super(const Icon(Icons.map), 'Map coordinates');
+  final String lat;
+  final String lon;
+  MapCoordinatesPage({this.lat, this.lon})
+      : super(const Icon(Icons.map), 'Map coordinates');
 
   @override
   Widget build(BuildContext context) {
-    return const _MapCoordinatesBody();
+    return BlocBuilder<CoordinatesCubit, List<String>>(
+      builder: (context, val) => _MapCoordinatesBody(
+        lat: val[0],
+        lon: val[1],
+      ),
+    );
   }
 }
 
 class _MapCoordinatesBody extends StatefulWidget {
-  const _MapCoordinatesBody();
-
+  const _MapCoordinatesBody({this.lat, this.lon});
+  final String lat;
+  final String lon;
   @override
   State<StatefulWidget> createState() => _MapCoordinatesBodyState();
 }
 
 class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
   _MapCoordinatesBodyState();
+  CameraPosition initialPos;
 
   GoogleMapController mapController;
   LatLngBounds _visibleRegion = LatLngBounds(
@@ -39,21 +51,19 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
 
   @override
   Widget build(BuildContext context) {
+    this.initialPos = CameraPosition(
+        target: LatLng(double.parse(widget.lat), double.parse(widget.lon)),
+        zoom: 15.0);
+
+    print("recibiendo >> " + widget.lat + " // " + widget.lon);
     final GoogleMap googleMap = GoogleMap(
-      onMapCreated: onMapCreated,
-      initialCameraPosition: _kInitialPosition,
-    );
+        onMapCreated: onMapCreated, initialCameraPosition: this.initialPos);
 
     final List<Widget> columnChildren = <Widget>[
-      Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Center(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 1.5,
-            child: googleMap,
-          ),
-        ),
+      Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height - 100,
+        child: googleMap,
       ),
     ];
 
@@ -61,7 +71,7 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
       final String currentVisibleRegion = 'VisibleRegion:'
           '\nnortheast: ${_visibleRegion.northeast},'
           '\nsouthwest: ${_visibleRegion.southwest}';
-      columnChildren.add(Center(child: Text(currentVisibleRegion)));
+      // columnChildren.add(Center(child: Text(currentVisibleRegion)));
       // columnChildren.add(_getVisibleRegionButton());
     }
 

@@ -38,13 +38,11 @@ class _TabInicioState extends State<TabInicio> {
                         children: [
                           Text(
                             '0',
-                            style:
-                                TextStyle(fontSize: 19, color: Colors.white),
+                            style: TextStyle(fontSize: 19, color: Colors.white),
                           ),
                           Text(
                             'Reservadas',
-                            style:
-                                TextStyle(fontSize: 14, color: Colors.white),
+                            style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                         ],
                       ))),
@@ -55,8 +53,7 @@ class _TabInicioState extends State<TabInicio> {
                         children: [
                           Text(
                             '0',
-                            style:
-                                TextStyle(fontSize: 19, color: Colors.white),
+                            style: TextStyle(fontSize: 19, color: Colors.white),
                           ),
                           Center(
                               child: Text('Asistidas',
@@ -99,6 +96,9 @@ class _TabInicioState extends State<TabInicio> {
                                     //         ExternalControllerMainTabsCubit>()
                                     //     .tabber
                                     //     .animateTo(2);
+                                    print("----");
+                                    print(e);
+                                    print("----");
                                   },
                                   child: CircleAvatar(
                                       backgroundImage:

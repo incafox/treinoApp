@@ -1,9 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:treino/states/gym_coordinates.dart';
 import 'lite_mode.dart';
 import 'animate_camera.dart';
 import 'map_click.dart';
@@ -70,8 +72,15 @@ class TabBuscarMap extends StatefulWidget {
 class _TabBuscarMapState extends State<TabBuscarMap> {
   var gradesRange = RangeValues(0, 5);
 
-  Widget mapi() {
-    return MapCoordinatesPage();
+  Widget mapi(BuildContext context) {
+    return BlocBuilder<CoordinatesCubit, List<String>>(
+      builder: (context, latLon) => latLon != null
+          ? MapCoordinatesPage(
+              lat: latLon[0],
+              lon: latLon[1],
+            )
+          : Container(),
+    );
   }
 
   // Widget mapi() {
@@ -113,7 +122,7 @@ class _TabBuscarMapState extends State<TabBuscarMap> {
           Container(
             child: GradientAppBar("buscando"),
           ),
-          Container(child: mapi())
+          Container(child: mapi(context))
         ],
       ),
     );
