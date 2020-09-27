@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:treino/states/register/registerstate.dart';
 
-class RegisterCubit extends Cubit<int> {
-  RegisterCubit() : super(0);
+class RegisterCubit extends Cubit<RegisterState> {
+  RegisterCubit() : super(InitialState());
   // UserInfo info = new UserInfo();
 
-  Future<String> register(
+  Future<void> register(
       {String correo,
       String password,
       String nombre,
@@ -17,7 +18,7 @@ class RegisterCubit extends Cubit<int> {
       String ciudad,
       String fechaNac,
       String genero}) async {
-    
+      emit(RegisterLoading());
       try{
         final response = await http
             .post('https://treino.club/demo/api/AppMovil/registrar', body: jsonEncode({
@@ -33,12 +34,15 @@ class RegisterCubit extends Cubit<int> {
         print(response.body);
         Map<String, dynamic> responseData = jsonDecode(response.body);
         
-        String successStatus = responseData["error"] == "1" ? "Error de registro!. " : ''; 
-        if(successStatus == '') return responseData["error"];
-        return successStatus + responseData["descripcion"];
+        if(responseData["error"] == "1"){
+          emit(RegisterError("Error de registro!. ${responseData["descripcion"]}"));
+          return;
+        }
+        
+        emit(RegisterSuccess());
       } on SocketException {
         print('error');  
+        emit(RegisterRequestError());
       }
-      return 'Error de servidor. Intentelo mas tarde';
   }
 }

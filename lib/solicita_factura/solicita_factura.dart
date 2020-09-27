@@ -203,6 +203,7 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
                         alignment: Alignment(-1,0),
                         child:  TextFormField(
                           //controller: this.correoController,
+                          keyboardType: TextInputType.number,
                           controller: this.cp,
                           decoration: InputDecoration(hintText: "CP"),
                           validator: (value) {

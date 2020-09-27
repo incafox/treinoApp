@@ -2,7 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:treino/states/register.dart';
+import 'package:treino/states/register/register.dart';
+import 'package:treino/states/register/registerstate.dart';
 import '../states/getCiudadesRequest.dart';
 
 
@@ -65,6 +66,7 @@ class _LoginState extends State<Register> {
   String dropdownValue = 'Ciudad actual';
   String dropdownValue2 = 'Genero';
   DateTime selectedDate = DateTime.now();
+  String _datePickerLabel = "Fecha de nacimiento";
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +228,7 @@ class _LoginState extends State<Register> {
                               side: BorderSide(color: Colors.white70)),
                           onPressed: () => _selectDate(context), // Refer step 3
                           child: Text(
-                            'Fecha de nacimiento',
+                            _datePickerLabel,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
@@ -272,7 +274,44 @@ class _LoginState extends State<Register> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 34.0, right: 34),
-                child: RaisedButton(
+                child: BlocConsumer<RegisterCubit, RegisterState>(
+                  listener: (context, state){
+                      
+                      if(state is RegisterError){
+                        _notification(context, state.error);
+                        return;
+                      }
+
+                      if(state is RegisterRequestError){
+                        _notification(context, 'Error de conexion!. Intentole mas tarde');
+                        return;
+                      }
+                      
+                      if(state is RegisterSuccess) {
+                        Navigator.pop(context);
+                        return;
+                      }
+                  },
+                  builder: (context, state) {
+                  
+                    if(state is RegisterLoading) {
+                      return Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 60.0,
+                                  padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 12.0),
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: Colors.blueAccent,
+                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                    }
+                  
+                  return RaisedButton(
                     child: Text(
                       "Registrar",
                       style: TextStyle(color: Colors.white),
@@ -283,43 +322,40 @@ class _LoginState extends State<Register> {
                     color: Colors.blue,
                     onPressed: () async {
 
-                       if(
-                        this.correo.text == '' || this.nombre.text == '' || this.telefono.text == '' || 
-                        this.password.text == '' || this.ciudad.text == '' || this.apellido.text == '' || 
-                        this.genero.text == '' || this.confirmPassword.text == ''
-                      ) {
-                        _notification(context, "Error de registro!. Algunos campos se encuentran vacios");
-                        return;
-                      }
+                        if(
+                          this.correo.text == '' || this.nombre.text == '' || this.telefono.text == '' || 
+                          this.password.text == '' || this.ciudad.text == '' || this.apellido.text == '' || 
+                          this.genero.text == '' || this.confirmPassword.text == ''
+                        ) {
+                          _notification(context, "Error de registro!. Algunos campos se encuentran vacios");
+                          return;
+                        }
 
-                      if(this.password.text != this.confirmPassword.text) {
-                         _notification(context, "Error de registro!. Las contraseñas no coinciden");
-                        return;
-                      }
+                        if(this.password.text != this.confirmPassword.text) {
+                          _notification(context, "Error de registro!. Las contraseñas no coinciden");
+                          return;
+                        }
 
-                      if((DateTime.now().year - this.selectedDate.year) < 10){
-                       _notification(context, 'Error de registro!. Fecha de nacimiento invalida');
-                       return; 
-                      }
+                        if((DateTime.now().year - this.selectedDate.year) < 10){
+                        _notification(context, 'Error de registro!. Fecha de nacimiento invalida');
+                        return; 
+                        }
 
-                      String response  =  await context.bloc<RegisterCubit>().register(
-                          correo: this.correo.text,
-                          nombre: this.nombre.text,
-                          genero: this.genero.text,
-                          password: this.password.text,
-                          telefono: this.telefono.text,
-                          fechaNac: this.selectedDate.toString(),
-                          ciudad: this.ciudad.text,
-                          apelli: this.apellido.text
-                      );
-                       
-                       if(response != '0') {
-                         _notification(context, response);
-                        return;
-                       } 
-              
-                      Navigator.pop(context);
-                    }),
+                       await context.bloc<RegisterCubit>().register(
+                            correo: this.correo.text,
+                            nombre: this.nombre.text,
+                            genero: this.genero.text,
+                            password: this.password.text,
+                            telefono: this.telefono.text,
+                            fechaNac: this.selectedDate.toString(),
+                            ciudad: this.ciudad.text,
+                            apelli: this.apellido.text
+                        );
+                      }
+                    );
+                  }
+                ),
+                
               )
             ],
           ),
@@ -348,6 +384,7 @@ class _LoginState extends State<Register> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+        _datePickerLabel = "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
         print(selectedDate.year);
       });
   }

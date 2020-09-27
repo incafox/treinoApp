@@ -10,7 +10,7 @@ import 'package:treino/TabPerfil/TabPerfil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/states/categories.dart';
 import 'package:treino/states/externalControlTab.dart';
-import 'package:treino/states/register.dart';
+import 'package:treino/states/register/register.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({Key key}) : super(key: key);

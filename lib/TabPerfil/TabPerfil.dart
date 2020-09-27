@@ -138,6 +138,7 @@ class _TabPerfilState extends State<TabPerfil> {
                         side: BorderSide(color: Color(0xff0781e5))),
                     color: Color(0xff0781e5),
                     onPressed: () {
+                      context.bloc<LoginCubit>().restoreState();
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => Login()),

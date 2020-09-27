@@ -34,6 +34,9 @@ class LoginCubit extends Cubit<LoginCubitState> {
     }
     return Map<String,dynamic>();
   }
+  void restoreState() async {
+    emit(InitialState());
+  }
 }
 
 class UserInfo {

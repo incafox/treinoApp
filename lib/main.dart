@@ -15,7 +15,7 @@ import 'package:treino/states/solicitarfactura/solicitarfactura.dart';
 import 'package:treino/states/login/login.dart';
 import 'package:treino/states/membresias.dart';
 import 'package:treino/states/recoverpassword/recoverpass.dart';
-import 'package:treino/states/register.dart';
+import 'package:treino/states/register/register.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
 
 void main() {
