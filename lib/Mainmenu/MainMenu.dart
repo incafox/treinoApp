@@ -43,7 +43,6 @@ class _MainMenuState extends State<MainMenu>
     return (Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => MainMenu()),
-          // MaterialPageRoute(builder: (context) => Membresias()),
         )) ??
         false;
   }
@@ -86,8 +85,6 @@ class _MainMenuState extends State<MainMenu>
               ),
             ),
             title: new Text('Seguro que deseas salir?'),
-            // content: new Text('Deseas salir?'),
-            // actions: <Widget>[],
           ),
         ) ??
         false;

@@ -177,7 +177,6 @@ class _LoginState extends State<Login> {
                                         return;
                                     }
 
-
                                     await context.bloc<LoginCubit>().loginInto(
                                         correo: this.correoController.text,
                                         password: this.passwordController.text); 

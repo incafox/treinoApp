@@ -196,6 +196,7 @@ class _LoginState extends State<Register> {
                       // CupertinoPicker(itemExtent: null, onSelectedItemChanged: null, children: null)
                       Center(
                         child: DropdownButton<String>(
+                          isExpanded: true,
                           value: dropdownValue,
                           icon: Icon(Icons.keyboard_arrow_down),
                           iconSize: 30,

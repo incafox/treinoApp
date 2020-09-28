@@ -9,6 +9,23 @@ class TabBuscarClase extends StatefulWidget {
 
 class _TabBuscarClaseState extends State<TabBuscarClase> {
   var gradesRange = RangeValues(0, 5);
+  
+  List<String> _ciudad, _distancia, _zona, _actividades;
+
+  @override
+  void initState(){
+    super.initState();
+    this._ciudad = List<String>();
+    this._distancia = List<String>();
+    this._zona = List<String>();
+    this._actividades = List<String>();
+
+    this._ciudad.add("Ciudad");
+    this._distancia.add("Distancia");
+    this._zona.add("Zona");
+    this._actividades.add("Actividades");
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +37,11 @@ class _TabBuscarClaseState extends State<TabBuscarClase> {
           Expanded(
             child: Container(
               // height: double.infinity,
+              padding: const EdgeInsets.fromLTRB(38.0, 0.0, 38.0, 0.0),
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
+                  Container(
                     child: Center(
                         child: Text(
                       "UBICACION",
@@ -35,44 +52,94 @@ class _TabBuscarClaseState extends State<TabBuscarClase> {
                           decorationColor: Colors.blue),
                     )),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                          TextFormField(
-                            decoration: InputDecoration(hintText: "Ciudad"),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                          DropdownButton<String>(
+                            isExpanded: true,
+                            value: "Ciudad",
+                            icon: Icon(Icons.keyboard_arrow_down),
+                            iconSize: 30,
+                            elevation: 5,
+                            style: TextStyle(fontSize: 17, color: Colors.black54),
+                            underline: Container(
+                              height: 0.7,
+                              color: Colors.black54,
+                            ),
+                            onChanged: (String newValue){
+
                             },
+                            items: this._ciudad.map<DropdownMenuItem<String>>((String value){
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
                           ),
-                          TextFormField(
-                            decoration: InputDecoration(hintText: "Distancia"),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(hintText: "Zona"),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  padding: const EdgeInsets.only(right: 20, top: 10),
+                                  child: DropdownButton<String>(
+                                    isExpanded: true,
+                                    value: "Distancia",
+                                    icon: Icon(Icons.keyboard_arrow_down),
+                                    iconSize: 30,
+                                    elevation: 5,
+                                    style: TextStyle(fontSize: 17, color: Colors.black54),
+                                    underline: Container(
+                                      height: 0.7,
+                                      color: Colors.black54,
+                                    ),
+                                    onChanged: (String newValue){
+
+                                    },
+                                    items: this._distancia.map<DropdownMenuItem<String>>((String value){
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  padding: const EdgeInsets.only(left: 20, top: 10),
+                                  child: DropdownButton<String>(
+                                    isExpanded: true,
+                                    value: "Zona",
+                                    icon: Icon(Icons.keyboard_arrow_down),
+                                    iconSize: 30,
+                                    elevation: 5,
+                                    style: TextStyle(fontSize: 17, color: Colors.black54),
+                                    underline: Container(
+                                      height: 0.7,
+                                      color: Colors.black54,
+                                    ),
+                                    onChanged: (String newValue){
+
+                                    },
+                                    items: this._zona.map<DropdownMenuItem<String>>((String value){
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           // Add TextFormFields and RaisedButton here.
-                        ])),
+                        ]),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.only(top: 40),
                     child: Center(
                         child: Text(
                       "HORARIO",
@@ -97,7 +164,7 @@ class _TabBuscarClaseState extends State<TabBuscarClase> {
                     },
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(top: 20),
                     child: Center(
                         child: Text(
                       "DETALLES DE CLASE",
@@ -109,26 +176,31 @@ class _TabBuscarClaseState extends State<TabBuscarClase> {
                     )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(13.0),
-                    child: Form(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                          TextFormField(
-                            decoration:
-                                InputDecoration(hintText: "Actividades"),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          )
-                          // Add TextFormFields and RaisedButton here.
-                        ])),
+                    padding: const EdgeInsets.only(top: 10),
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      value: "Actividades",
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      iconSize: 30,
+                      elevation: 5,
+                      style: TextStyle(fontSize: 17, color: Colors.black54),
+                        underline: Container(
+                          height: 0.7,
+                          color: Colors.black54,
+                                    ),
+                          onChanged: (String newValue){
+
+                          },
+                          items: this._actividades.map<DropdownMenuItem<String>>((String value){
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                          }).toList(),
+                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(top: 40),
                     child: Center(
                         child: Text(
                       "SERVICIOS",
@@ -140,16 +212,18 @@ class _TabBuscarClaseState extends State<TabBuscarClase> {
                     )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(top: 20),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(
+                            child: Column(
+                              children: [
+                                Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.lightGreen[300],
+                                    color: Color(0xff13e860),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 height: 50,
@@ -157,43 +231,76 @@ class _TabBuscarClaseState extends State<TabBuscarClase> {
                                 // color: Colors.lightGreen[300],
                                 child: Center(
                                     child: Icon(Icons.battery_charging_full,
-                                        color: Colors.white))),
+                                        color: Colors.white))
+                                ),
+                                Text("Regaderas", 
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    decorationColor: Colors.blue
+                                  ),
+                                )
+                              ],
+                            ) 
+                            
+                            
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(
+                            child: Column(
+                              children: [
+                                Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.lightGreen[300],
+                                    color: Color(0xff13e860),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 height: 50,
                                 width: 50,
                                 // color: Colors.lightGreen[300],
                                 child: Center(
-                                    child: Icon(Icons.lock_open,
-                                        color: Colors.white))),
+                                    child: Icon(Icons.battery_charging_full,
+                                        color: Colors.white))
+                                ),
+                                Text("Lockers", 
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    decorationColor: Colors.blue
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(
+                            child: Column(
+                              children: [
+                                Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.lightGreen[300],
+                                    color: Color(0xff13e860),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 height: 50,
                                 width: 50,
                                 // color: Colors.lightGreen[300],
                                 child: Center(
-                                    child: Icon(
-                                  Icons.view_carousel,
-                                  color: Colors.white,
-                                ))),
+                                    child: Icon(Icons.view_carousel,
+                                        color: Colors.white))
+                                ),
+                                Text("Valet", 
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    decorationColor: Colors.blue
+                                  ),
+                                )
+                              ],
+                            ) 
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(
+                            child: Column(
+                              children: [
+                                Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.lightGreen[300],
+                                    color: Color(0xff13e860),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 height: 50,
@@ -201,7 +308,16 @@ class _TabBuscarClaseState extends State<TabBuscarClase> {
                                 // color: Colors.lightGreen[300],
                                 child: Center(
                                     child: Icon(Icons.not_listed_location,
-                                        color: Colors.white))),
+                                        color: Colors.white))
+                                ),
+                                Text("Parking", 
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    decorationColor: Colors.blue
+                                  ),
+                                )
+                              ],
+                            )  
                           ),
                         ],
                       ),
@@ -231,7 +347,9 @@ class GradientAppBar extends StatelessWidget {
       height: statusbarHeight + barHeight,
       child: Row(
         children: <Widget>[
-          IconButton(
+          Expanded(
+            flex: 1,
+            child: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
                 size: 38,
@@ -240,41 +358,54 @@ class GradientAppBar extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
                 print("object");
-              }),
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: MaterialButton(
-              minWidth: 6,
-              onPressed: () {
-                print("as");
-              },
-              child: Center(
-                child: Text(
-                  "Reiniciar",
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+              }), 
           ),
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: MaterialButton(
-              minWidth: 6,
-              onPressed: () {
-                print("as");
-              },
-              child: Center(
-                child: Text(
-                  "Aplicar",
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+          Expanded(
+            flex: 4,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: MaterialButton(
+                      minWidth: 6,
+                      onPressed: () {
+                        print("as");
+                      },
+                      child: Center(
+                        child: Text(
+                          "Reiniciar",
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: MaterialButton(
+                      minWidth: 6,
+                      onPressed: () {
+                        print("as");
+                      },
+                      child: Center(
+                        child: Text(
+                          "Aplicar",
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
