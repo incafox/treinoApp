@@ -360,11 +360,11 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: (){
+      onWillPop: () {
         context.bloc<ClassesPerGymCubit>().reset();
         return Future.value(true);
       },
-          child: Scaffold(
+      child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
             // scrollDirection: Axis.vertical,
@@ -452,23 +452,6 @@ class GradientAppBar extends StatelessWidget {
               ),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(5.0),
-          //   child: Center(
-          //       child: Icon(
-          //     Icons.search,
-          //     size: 40,
-          //     color: Colors.white,
-          //   )
-          //       // Text(
-          //       //   "Search",
-          //       //   style: TextStyle(
-          //       //       fontSize: 25.0,
-          //       //       color: Colors.white,
-          //       //       fontWeight: FontWeight.bold),
-          //       // ),
-          //       ),
-          // ),
           Expanded(
             flex: 2,
             child: Container(
@@ -508,7 +491,7 @@ class GradientAppBar extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: FlatButton(
-                //  minWidth: 2,
+                  //  minWidth: 2,
                   onPressed: () {
                     print("as");
                     Navigator.push(

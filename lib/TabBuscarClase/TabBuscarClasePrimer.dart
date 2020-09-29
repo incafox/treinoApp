@@ -11,6 +11,7 @@ import 'package:treino/states/classesPerGym.dart';
 import 'package:treino/states/externalControlTab.dart';
 import 'package:treino/states/gym_coordinates.dart';
 import 'package:treino/states/gymsPerCategory.dart';
+import 'package:treino/states/login/login.dart';
 import 'TabBuscarClase.dart';
 import 'TabBuscarMap.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -182,66 +183,78 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                   children: val
                       .map((e) => Column(
                             children: [
-                              MaterialButton(
-                                onPressed: () {
-                                  print("hacia ");
-                                  print("hacia " + e['idGym'].toString());
-                                  print("lat " + e['latitud'].toString());
-                                  print("long " + e['longitud'].toString());
-                                  context
-                                      .bloc<CoordinatesCubit>()
-                                      .setCoordinates(
-                                          e['latitud'], e['longitud']);
-                                  context
-                                      .bloc<ClassesPerGymCubit>()
-                                      .getClassesByGym(e['idGym']);
-                                  context
-                                      .bloc<AgregarSolicitudCubit>()
-                                      .setIdGym(e['idGym']);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            TabBuscarClasePrimerSub()),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 5.0),
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    color: Colors.grey[200],
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                        children: [
-                                          Text((e['nombreGym']),
-                                              style: TextStyle(
-                                                  color: Colors.blue,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.center),
-                                          Container(
-                                            height: 5,
+                              e['nombreCiudad'] ==
+                                      context.bloc<LoginCubit>().res['ciudad']
+                                  ? MaterialButton(
+                                      onPressed: () {
+                                        print("hacia ");
+                                        print("hacia " + e['idGym'].toString());
+                                        print("lat " + e['latitud'].toString());
+                                        print(
+                                            "long " + e['longitud'].toString());
+                                        context
+                                            .bloc<CoordinatesCubit>()
+                                            .setCoordinates(
+                                                e['latitud'], e['longitud']);
+                                        context
+                                            .bloc<ClassesPerGymCubit>()
+                                            .getClassesByGym(e['idGym']);
+                                        context
+                                            .bloc<AgregarSolicitudCubit>()
+                                            .setIdGym(e['idGym']);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TabBuscarClasePrimerSub()),
+                                        );
+                                      },
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 5.0),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          color: Colors.grey[200],
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(12.0),
+                                            child: Column(
+                                              children: [
+                                                Text((e['nombreGym']),
+                                                    style: TextStyle(
+                                                        color: Colors.blue,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    textAlign:
+                                                        TextAlign.center),
+                                                Container(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  (e['informacion']),
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                Text(e['direccion'],
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign:
+                                                        TextAlign.center),
+                                                Text(e['nombreCiudad'],
+                                                    textAlign:
+                                                        TextAlign.center),
+                                                // Divider()
+                                              ],
+                                            ),
                                           ),
-                                          Text(
-                                            (e['informacion']),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          Text(e['direccion'],
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.center),
-                                          Text(e['nombreCiudad'],
-                                              textAlign: TextAlign.center),
-                                          // Divider()
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                                    )
+                                  : Container(),
                               Container(
                                 height: 10,
                                 color: Colors.white,
