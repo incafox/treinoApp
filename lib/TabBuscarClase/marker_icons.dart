@@ -40,9 +40,9 @@ class MarkerIconsBodyState extends State<MarkerIconsBody> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Center(
-          child: SizedBox(
-            width: 350.0,
-            height: 300.0,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             child: GoogleMap(
               initialCameraPosition: const CameraPosition(
                 target: _kMapCenter,
@@ -62,7 +62,7 @@ class MarkerIconsBodyState extends State<MarkerIconsBody> {
     // https://github.com/flutter/flutter/issues/28312
     // ignore: prefer_collection_literals
     return <Marker>[
-      Marker(
+      Marker(onTap: (){print("la tuya ");},
         markerId: MarkerId("marker_1"),
         position: _kMapCenter,
         icon: _markerIcon,

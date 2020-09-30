@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:treino/TabBuscarClase/TabBuscarMap.dart';
 import 'package:treino/TabInicio/TabInicio.dart';
 import 'package:treino/TabBuscarClase/TabBuscarClase.dart';
 import 'package:treino/TabBuscarClase/TabBuscarClasePrimer.dart';
@@ -95,120 +96,124 @@ class _MainMenuState extends State<MainMenu>
     context.bloc<CategoriesCubit>().getAllCategorias();
 
     return WillPopScope(
-      onWillPop: _onBackPressed,
+        onWillPop: _onBackPressed,
+        child: Scaffold(
+    backgroundColor: Colors.white,
+    body: DefaultTabController(
+      length: 4,
       child: Scaffold(
-        backgroundColor: Colors.white,
-        body: DefaultTabController(
-          length: 4,
-          child: Scaffold(
-            body: TabBarView(
-              controller: tabController,
-              children: [
-                Container(
-                  color: Colors.white,
-                  child: Column(
-                    // physics: BouncingScrollPhysics(),
-                    children: <Widget>[
-                      // Expanded(child: TabInicio()),
-                      GradientAppBar("Treino"),
-                      Container(
-                          color: Colors.white,
-                          // width: 100,
-                          child: TabInicio(this.tabController)),
-                      // TabInicio(),
-                    ],
-                  ),
-                ),
-                // TabBuscarClase(),
-                TabBuscarClasePrimer(),
-                TabMisClases(),
-                TabPerfil(),
-              ],
-            ),
-            backgroundColor: Color(0xef0781e5),
-            bottomNavigationBar: Container(
-              height: 80,
-              child: Center(
-                child: TabBar(
-                  // indicator: TextDecoration.overline ,
-                  controller: tabController,
-                  onTap: (index) {
-                    tabController.animateTo(index);
-                    // context
-                    //     .bloc<ExternalControllerMainTabsCubit>()
-                    //     .tabber
-                    //     .animateTo(index);
-                  },
-                  // indicatorWeight: 1,
-                  tabs: [
+        body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: tabController,
+          children: [
+            SingleChildScrollView(
+                          child: Container(
+                color: Colors.white,
+                child: Column(
+                  // physics: BouncingScrollPhysics(),
+                  children: <Widget>[
+                    // Expanded(child: TabInicio()),
+                    GradientAppBar("Treino"),
                     Container(
-                      // height: 60,
-                      child: Tab(
-                        text: "Inicio",
-                        icon: Container(
-                          // height: 100,
-                          child: Column(
-                            children: <Widget>[
-                              Icon(Icons.home),
-                              // Text("Inicio", style: TextStyle(fontSize: 10))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      text: "Buscar",
-                      icon: Container(
-                        // height: 100,
-                        child: Column(
-                          children: <Widget>[
-                            Icon(Icons.search),
-                            // Text(
-                            //   "Buscar Clase",
-                            //   style: TextStyle(fontSize: 10),
-                            // )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      text: "Mis Clases",
-                      icon: Container(
-                        // height: 100,
-                        child: Column(
-                          children: <Widget>[
-                            Icon(Icons.fitness_center),
-                            // Text("Mis Clases", style: TextStyle(fontSize: 10))
-                          ],
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      text: "Perfil",
-                      icon: Container(
-                        // height: 100,
-                        child: Column(
-                          children: <Widget>[
-                            Icon(Icons.person),
-                            // Text("Perfil", style: TextStyle(fontSize: 10))
-                          ],
-                        ),
-                      ),
-                    )
+                        color: Colors.white,
+                        // width: 100,
+                        child: TabInicio(this.tabController)),
+                    // TabInicio(),
                   ],
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.white,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicatorPadding: EdgeInsets.all(0.0),
-                  labelStyle: TextStyle(fontSize: 12),
-                  indicatorColor: Colors.white,
                 ),
               ),
+            ),
+            // TabBuscarClase(),
+            TabBuscarMap(),
+            // TabBuscarClasePrimer(),
+            TabMisClases(),
+            TabPerfil(),
+          ],
+        ),
+        backgroundColor: Color(0xef0781e5),
+        bottomNavigationBar: Container(
+          height: 80,
+          child: Center(
+            child: TabBar(
+              // indicator: TextDecoration.overline ,
+              controller: tabController,
+              onTap: (index) {
+                tabController.animateTo(index);
+                // context
+                //     .bloc<ExternalControllerMainTabsCubit>()
+                //     .tabber
+                //     .animateTo(index);
+              },
+              // indicatorWeight: 1,
+              tabs: [
+                Container(
+                  // height: 60,
+                  child: Tab(
+                    text: "Inicio",
+                    icon: Container(
+                      // height: 100,
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.home),
+                          // Text("Inicio", style: TextStyle(fontSize: 10))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Tab(
+                  text: "Buscar",
+                  icon: Container(
+                    // height: 100,
+                    child: Column(
+                      children: <Widget>[
+                        Icon(Icons.search),
+                        // Text(
+                        //   "Buscar Clase",
+                        //   style: TextStyle(fontSize: 10),
+                        // )
+                      ],
+                    ),
+                  ),
+                ),
+                Tab(
+                  text: "Mis Clases",
+                  icon: Container(
+                    // height: 100,
+                    child: Column(
+                      children: <Widget>[
+                        Icon(Icons.fitness_center),
+                        // Text("Mis Clases", style: TextStyle(fontSize: 10))
+                      ],
+                    ),
+                  ),
+                ),
+                Tab(
+                  text: "Perfil",
+                  icon: Container(
+                    // height: 100,
+                    child: Column(
+                      children: <Widget>[
+                        Icon(Icons.person),
+                        // Text("Perfil", style: TextStyle(fontSize: 10))
+                      ],
+                    ),
+                  ),
+                )
+              ],
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.white,
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorPadding: EdgeInsets.all(0.0),
+              labelStyle: TextStyle(fontSize: 12),
+              indicatorColor: Colors.white,
             ),
           ),
         ),
       ),
-    );
+    ),
+        ),
+      );
   }
 }
 
