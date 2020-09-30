@@ -6,7 +6,7 @@ import 'package:treino/states/categories.dart';
 import 'package:treino/states/classDetail.dart';
 import 'package:treino/states/classesPerGym.dart';
 import 'package:treino/states/detailGym.dart';
-import 'package:treino/states/externalControlTab.dart';
+import 'package:treino/states/externalcontroltab/externalControlTab.dart';
 import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
 import 'package:treino/states/gym_coordinates.dart';

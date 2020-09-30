@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:treino/loaders/minimal_loader.dart';
 import 'package:treino/states/categories.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:treino/states/externalControlTab.dart';
 import 'package:treino/states/gymsPerCategory.dart';
 
 class TabInicio extends StatefulWidget {

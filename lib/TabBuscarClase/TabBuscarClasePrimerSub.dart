@@ -10,7 +10,6 @@ import 'package:treino/loaders/minimal_loader.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
 import 'package:treino/states/classDetail.dart';
 import 'package:treino/states/classesPerGym.dart';
-import 'package:treino/states/externalControlTab.dart';
 import 'package:treino/states/gymsPerCategory.dart';
 import 'TabBuscarClase.dart';
 import 'TabBuscarMap.dart';

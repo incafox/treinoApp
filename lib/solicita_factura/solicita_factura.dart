@@ -52,9 +52,13 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
                       Expanded(
                         flex: 4, 
                         child: Container(
-                        alignment: Alignment(-0.5,0.2),
-                          child: Text(
-                              "Solicitar Factura",
+                        alignment: Alignment(0.8,0.2),
+                          child: GestureDetector(
+                            onTap: () {
+                              
+                            },
+                            child: Text(
+                              "Enviar",
                               style: TextStyle( 
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22,
@@ -62,6 +66,8 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
                                 decorationColor: Colors.blue,
                               ),
                             ),
+                          ) 
+                        
                         ) 
                       ),
                   ],

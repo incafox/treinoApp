@@ -2,7 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:treino/states/externalControlTab.dart';
+import 'package:treino/states/externalcontroltab/externalControlTab.dart';
+import 'package:treino/states/externalcontroltab/externalcontroltabstates.dart';
 import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
 
@@ -14,6 +15,12 @@ class TabMisClases extends StatefulWidget {
 bool controlClasesVista = false;
 
 class _TabMisClasesState extends State<TabMisClases> {
+
+  @override
+  void initState(){
+    super.initState();
+  }
+
   Widget reservadas(BuildContext context) {
     return BlocBuilder<SolicitudesCubit, List<dynamic>>(
       builder: (context, items) => items != null
@@ -38,7 +45,8 @@ class _TabMisClasesState extends State<TabMisClases> {
   Widget build(BuildContext context) {
     return //Demo();
         Scaffold(
-      body: Column(
+      body:  
+       ListView(
         // physics: BouncingScrollPhysics(),
         children: <Widget>[
           GradientAppBar("a"),
@@ -70,11 +78,112 @@ class _TabMisClasesState extends State<TabMisClases> {
               ],
             ),
           ),
-          BlocBuilder<ExternalControllerMisClasesCubit, int>(
+          BlocBuilder<ExternalControllerMisClasesCubit, ExternalControllTabState>(
+            builder: (context, state){
+
+              if(state is InitState){
+                context.bloc<ExternalControllerMisClasesCubit>().getClases();
+              }
+
+              if(state is Success){
+
+                if(state.list.length == 0){
+                  return Container(
+                      alignment: Alignment(0.0, 1),
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text("No se encontraron resultados"),
+                    );
+                
+                }
+
+                return ListView.builder(
+                padding: const EdgeInsets.all(8),
+                physics: NeverScrollableScrollPhysics(), ///
+                shrinkWrap: true, ///
+                scrollDirection: Axis.vertical, //
+                itemCount: state.list.length,
+                itemBuilder: (BuildContext context, int index) {
+
+               if(index >= state.list.length) {
+                  return Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 60.0,
+                                  padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 12.0),
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: Colors.blueAccent,
+                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ); 
+                }
+                
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  height: 80,
+                  color: Colors.black12,
+                  child: Center(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(10, 2, 0, 2),
+                            child: Text("${state.list[index].number}", 
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                                decorationColor: Colors.blue)
+                            ),
+                          ),
+                        ),
+                         Expanded(
+                          flex: 2,
+                          child: Center(
+                            child: Text("${state.list[index].value}"),
+                          ),
+                        ),
+                         Expanded(
+                          flex: 2,
+                          child: Center(
+                            child: Text("${state.list[index].status}"),
+                          ),
+                        ),
+                      ],
+                    )
+                  ),
+                );
+              }
+             );
+
+              }
+
+              return Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 60.0,
+                                  padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 12.0),
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: Colors.blueAccent,
+                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ); 
+            },
+          ),
+          /*BlocBuilder<ExternalControllerMisClasesCubit, int>(
               builder: (context, val) =>
-                  val == 1 ? this.reservadas(context) : this.pasadas(context)),
+                  val == 1 ? this.reservadas(context) : this.pasadas(context)
+          )*/
         ],
-      ),
+      )
+
     );
   }
 }
@@ -115,9 +224,7 @@ class _CustomTabSelectorState extends State<CustomTabSelector> {
                         color: this.def1,
                         // height: double.infinity,
                         onPressed: () {
-                          context
-                              .bloc<ExternalControllerMisClasesCubit>()
-                              .setVal(1);
+                          context.bloc<ExternalControllerMisClasesCubit>().getClases();
                           setState(() {
                             this.def1 = Colors.white;
                             this.def1font = Colors.blue;
@@ -127,7 +234,7 @@ class _CustomTabSelectorState extends State<CustomTabSelector> {
                         },
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(28.0),
-                            side: BorderSide(color: Colors.blue)),
+                            side: BorderSide(color: Colors.blue)),    
                         child: Container(
                           // margin: EdgeInsets.all(1),
                           alignment: Alignment.center,
@@ -152,9 +259,8 @@ class _CustomTabSelectorState extends State<CustomTabSelector> {
                               borderRadius: new BorderRadius.circular(28.0),
                               side: BorderSide(color: Colors.blue)),
                           onPressed: () {
-                            context
-                                .bloc<ExternalControllerMisClasesCubit>()
-                                .setVal(2);
+                            print('pasadas');
+                            context.bloc<ExternalControllerMisClasesCubit>().getClasesPasadas();
                             setState(() {
                               this.def1 = Colors.blue;
                               this.def1font = Colors.white;

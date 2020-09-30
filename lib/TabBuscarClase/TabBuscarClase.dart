@@ -366,8 +366,7 @@ class GradientAppBar extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(18.0),
+                  child: Center(
                     child: MaterialButton(
                       minWidth: 6,
                       onPressed: () {
