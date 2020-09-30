@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:treino/TabBuscarClase/TabBuscarMap.dart';
 import 'package:treino/TabInicio/TabInicio.dart';
 import 'package:treino/TabBuscarClase/TabBuscarClase.dart';
 import 'package:treino/TabBuscarClase/TabBuscarClasePrimer.dart';
@@ -102,6 +103,7 @@ class _MainMenuState extends State<MainMenu>
       length: 4,
       child: Scaffold(
         body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           controller: tabController,
           children: [
             SingleChildScrollView(
@@ -122,7 +124,8 @@ class _MainMenuState extends State<MainMenu>
               ),
             ),
             // TabBuscarClase(),
-            TabBuscarClasePrimer(),
+            TabBuscarMap(),
+            // TabBuscarClasePrimer(),
             TabMisClases(),
             TabPerfil(),
           ],

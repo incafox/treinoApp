@@ -319,6 +319,19 @@ class GradientAppBar extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Expanded(
+            flex: 1,
+            child: Container(
+              child: IconButton(
+                  icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pop(
+                      context,
+                      // new ClassDetail(),
+                    );
+                  }),
+            ),
+          ),
+          Expanded(
             flex: 5,
             child: Container(
               child: Center(
@@ -410,7 +423,7 @@ class GradientAppBar extends StatelessWidget {
                   child: Center(
                       child: Icon(
                     Icons.tune,
-                    size: 40,
+                    // size: 20,
                     color: Colors.white,
                   )),
                 ),

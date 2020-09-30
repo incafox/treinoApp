@@ -75,10 +75,12 @@ class _TabBuscarMapState extends State<TabBuscarMap> {
   Widget mapi(BuildContext context) {
     return BlocBuilder<CoordinatesCubit, List<String>>(
       builder: (context, latLon) => latLon != null
-          ? MapCoordinatesPage(
-              lat: latLon[0],
-              lon: latLon[1],
-            )
+          ? Container(child: MarkerIconsPage())
+          // MarkerIconsPage()
+          //  MapCoordinatesPage(
+          //     lat: latLon[0],
+          //     lon: latLon[1],
+          //   )
           : Container(),
     );
   }
@@ -143,68 +145,71 @@ class GradientAppBar extends StatelessWidget {
       padding: EdgeInsets.only(top: statusbarHeight),
       height: statusbarHeight + barHeight,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          MaterialButton(
-            onPressed: () {
-              Navigator.pop(
-                context,
-              );
-            },
-            child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  size: 38,
-                  color: Colors.white,
+          // MaterialButton(
+          //   onPressed: () {
+          //     Navigator.pop(
+          //       context,
+          //     );
+          //   },
+          //   child: IconButton(
+          //       icon: Icon(
+          //         Icons.arrow_back_ios,
+          //         size: 38,
+          //         color: Colors.white,
+          //       ),
+          //       onPressed: null),
+          // ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: MaterialButton(
+                minWidth: 6,
+                onPressed: () {
+                  print("as");
+                  // Navigator.push(
+                  // context,
+                  // MaterialPageRoute(builder: (context) => TabBuscarClase()),
+                  // MaterialPageRoute(builder: (context) => Membresias()),
+                  // );
+                },
+                child: Center(
+                  child: Text(
+                    "Gimnasios Cerca",
+                    style: TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-                onPressed: null),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: MaterialButton(
-              minWidth: 6,
-              onPressed: () {
-                print("as");
-                // Navigator.push(
-                // context,
-                // MaterialPageRoute(builder: (context) => TabBuscarClase()),
-                // MaterialPageRoute(builder: (context) => Membresias()),
-                // );
-              },
-              child: Center(
-                  // child:
-                  // Text(
-                  //   "Reiniciar",
-                  //   style: TextStyle(
-                  //       fontSize: 25.0,
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.bold),
-                  // ),
-                  ),
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: MaterialButton(
-              minWidth: 6,
-              onPressed: () {
-                print("as");
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => TabBuscarClase()),
-                // MaterialPageRoute(builder: (context) => Membresias()),
-                // );
-              },
-              child: Center(
-                  // child: Text(
-                  //   "Aplicar",
-                  //   style: TextStyle(
-                  //       fontSize: 25.0,
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.bold),
-                  // ),
-                  ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(18.0),
+          //   child: MaterialButton(
+          //     minWidth: 6,
+          //     onPressed: () {
+          //       print("as");
+          //       // Navigator.push(
+          //       //   context,
+          //       //   MaterialPageRoute(builder: (context) => TabBuscarClase()),
+          //       // MaterialPageRoute(builder: (context) => Membresias()),
+          //       // );
+          //     },
+          //     child: Center(
+          //         // child: Text(
+          //         //   "Aplicar",
+          //         //   style: TextStyle(
+          //         //       fontSize: 25.0,
+          //         //       color: Colors.white,
+          //         //       fontWeight: FontWeight.bold),
+          //         // ),
+          //         ),
+          //   ),
+          // ),
         ],
       ),
       decoration: BoxDecoration(

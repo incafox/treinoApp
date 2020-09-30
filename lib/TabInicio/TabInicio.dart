@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:treino/TabBuscarClase/TabBuscarClasePrimer.dart';
+import 'package:treino/TabBuscarClase/TabBuscarMap.dart';
 import 'package:treino/loaders/minimal_loader.dart';
 import 'package:treino/states/categories.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,14 +84,11 @@ class _TabInicioState extends State<TabInicio> {
                                   context
                                       .bloc<GymsPerCategoryCubit>()
                                       .setIdCategoria(e["id"]);
-                                  context
-                                      .bloc<GymsPerCategoryCubit>()
-                                      .reset();
+                                  context.bloc<GymsPerCategoryCubit>().reset();
                                   context
                                       .bloc<GymsPerCategoryCubit>()
                                       .getGymByCategoria(e['id']);
-                                  widget.tabCcontroller.animateTo(1);
-                                  // widget.keyController.currentState.
+                                  // widget.tabCcontroller.animateTo(1);
                                   // context
                                   //     .bloc<
                                   //         ExternalControllerMainTabsCubit>()
@@ -98,10 +97,15 @@ class _TabInicioState extends State<TabInicio> {
                                   print("----");
                                   print(e);
                                   print("----");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TabBuscarClasePrimer()),
+                                    // new ClassDetail(),
+                                  );
                                 },
                                 child: CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(e['imagen']),
+                                    backgroundImage: NetworkImage(e['imagen']),
                                     radius: 75,
                                     child: Stack(
                                       children: <Widget>[
@@ -111,10 +115,9 @@ class _TabInicioState extends State<TabInicio> {
                                               // width: 80,height: 80,
                                               decoration: new BoxDecoration(
                                                   color: Color(0xef0763e5),
-                                                  borderRadius:
-                                                      new BorderRadius.all(
-                                                          Radius.circular(
-                                                              100)))),
+                                                  borderRadius: new BorderRadius
+                                                          .all(
+                                                      Radius.circular(100)))),
                                         ),
                                         Center(
                                           child: Text(e['nombre'],
