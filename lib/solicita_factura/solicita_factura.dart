@@ -51,24 +51,75 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
                       ),
                       Expanded(
                         flex: 4, 
-                        child: Container(
-                        alignment: Alignment(0.8,0.2),
-                          child: GestureDetector(
-                            onTap: () {
-                              
-                            },
-                            child: Text(
-                              "Enviar",
-                              style: TextStyle( 
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                                color: Colors.white,
-                                decorationColor: Colors.blue,
-                              ),
-                            ),
-                          ) 
-                        
-                        ) 
+                        child: BlocConsumer<SolicitarFacturaCubit, SolicitarFacturaState>(
+                          listener: (context, state){
+                            if(state is SolicitarFacturaError) {
+                              _notification(context, "Error!. " + state.error);
+                              return;
+                            }
+
+                            if(state is SolicitarFacturaRequestError){
+                              _notification(context, 'Error de conexion!. Intentole mas tarde');
+                              return;
+                            }
+
+                            if(state is SolicitarFacturaSuccess){
+                              _notification(context, "La factura ha sido enviada con exito!");
+                              return;
+                            }
+                          },
+                          builder: (context, state) {
+                            if(state is SolicitarFacturaLoading) {
+                                return Container(
+                                    alignment: Alignment(0.8,0.2),
+                                    child: Container(
+                                        height: 60.0,
+                                        padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 12.0),
+                                        child: CircularProgressIndicator(
+                                          backgroundColor: Colors.blueAccent,
+                                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                        ),
+                                    ),
+                                  );
+                            }
+                            
+
+                               return  Container(
+                                  alignment: Alignment(0.8,0.2),
+                                  child:  
+                               GestureDetector(
+                                      onTap: () {
+                                        if(
+                                          this.email.text == '' || this.razonSocial.text == '' || this.rfc.text == '' || 
+                                          this.ciudad.text == '' || this.colonia.text == '' || this.direccion.text == '' ||
+                                          this.cp.text == ''
+                                      ){
+                                        print(this.email.text);
+                                        _notification(context, "Error!. Uno o mas campos de texto se encuentran vacios");
+                                        return; 
+                                      }
+
+                                        context.bloc<SolicitarFacturaCubit>().facturaRequest(
+                                          this.email.text, this.razonSocial.text, this.rfc.text,
+                                          this.ciudad.text, this.colonia.text, this.direccion.text,
+                                          this.cp.text
+                                        );
+
+                                      },
+                                        child: Text(
+                                          "Enviar",
+                                          style: TextStyle( 
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22,
+                                            color: Colors.white,
+                                            decorationColor: Colors.blue,
+                                          ),
+                                        ),
+                                      )
+                               ); 
+                          },
+                        ),  
+                     
                       ),
                   ],
                  )
@@ -77,14 +128,14 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
                Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
                   child: Column(
                     children: [
                       Expanded(
                         flex: 1,
                         child: Container(
                           padding: EdgeInsets.fromLTRB(0.0, 0, 30.0, 0),
-                          alignment: Alignment(0,0),
+                          alignment: Alignment(0,1),
                           child:  Text(
                             """Para solicitar tu factura del pago efectuado en el mes actual, por favor envíanos la siguiente información:
                           """),
@@ -95,10 +146,10 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
                 ),
               ),
                Expanded(
-                flex: 3,
+                flex: 5,
                 child: Container(
                   padding: EdgeInsets.fromLTRB(30.0, 0, 30.0, 10),
-                  alignment: Alignment(-1,0),
+                  alignment: Alignment(0,-1),
                   child: Column(
                   children: [
                     Expanded(
@@ -223,76 +274,6 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
                     ),
                   ],
                 ),
-                ), 
-              ),
-              Expanded(
-                flex: 1,
-                child: BlocConsumer<SolicitarFacturaCubit, SolicitarFacturaState>(
-                  listener: (context, state){
-                    if(state is SolicitarFacturaError) {
-                      _notification(context, "Error!. " + state.error);
-                      return;
-                    }
-
-                    if(state is SolicitarFacturaRequestError){
-                      _notification(context, 'Error de conexion!. Intentole mas tarde');
-                      return;
-                    }
-
-                    if(state is SolicitarFacturaSuccess){
-                      _notification(context, "La factura ha sido enviada con exito!");
-                      return;
-                    }
-                  },
-                  builder: (context, state) {
-                    if(state is SolicitarFacturaLoading) {
-                        return Container(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 60.0,
-                                  padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 12.0),
-                                  child: CircularProgressIndicator(
-                                    backgroundColor: Colors.blueAccent,
-                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                    }
-                    
-                    return Center(
-                      child: RaisedButton(
-                        elevation: 5,
-                        child: Text(
-                          "Enviar",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(28.0),
-                            side: BorderSide(color: Color(0xff0781e5))),
-                        color: Color(0xff0781e5),
-                        onPressed: () {
-                          if(
-                            this.email.text == '' || this.razonSocial.text == '' || this.rfc.text == '' || 
-                            this.ciudad.text == '' || this.colonia.text == '' || this.direccion.text == '' ||
-                            this.cp.text == ''
-                          ){
-                            print(this.email.text);
-                            _notification(context, "Error!. Uno o mas campos de texto se encuentran vacios");
-                            return; 
-                          }
-
-                          context.bloc<SolicitarFacturaCubit>().facturaRequest(
-                            this.email.text, this.razonSocial.text, this.rfc.text,
-                            this.ciudad.text, this.colonia.text, this.direccion.text,
-                            this.cp.text
-                          );
-
-                        }),
-                    ); 
-                  },
                 ), 
               ),
             ],

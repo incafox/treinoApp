@@ -305,7 +305,7 @@ class GradientAppBar extends StatelessWidget {
     final double statusbarHeight = MediaQuery.of(context).padding.top;
 
     return new Container(
-      padding: EdgeInsets.only(top: statusbarHeight),
+      padding: EdgeInsets.only(top: 0),
       height: statusbarHeight + barHeight,
       child: Row(
         children: <Widget>[
