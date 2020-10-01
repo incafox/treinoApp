@@ -6,6 +6,7 @@ import 'package:treino/states/externalcontroltab/externalControlTab.dart';
 import 'package:treino/states/externalcontroltab/externalcontroltabstates.dart';
 import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
+import 'package:treino/states/login/login.dart';
 
 class TabMisClases extends StatefulWidget {
   @override
@@ -82,7 +83,9 @@ class _TabMisClasesState extends State<TabMisClases> {
             builder: (context, state){
 
               if(state is InitState){
-                context.bloc<ExternalControllerMisClasesCubit>().getClases();
+                context.bloc<ExternalControllerMisClasesCubit>().getClases(
+                  context.bloc<LoginCubit>().res['id']
+                );
               }
 
               if(state is Success){
@@ -224,7 +227,9 @@ class _CustomTabSelectorState extends State<CustomTabSelector> {
                         color: this.def1,
                         // height: double.infinity,
                         onPressed: () {
-                          context.bloc<ExternalControllerMisClasesCubit>().getClases();
+                          context.bloc<ExternalControllerMisClasesCubit>().getClases(
+                            context.bloc<LoginCubit>().res['id']
+                          );
                           setState(() {
                             this.def1 = Colors.white;
                             this.def1font = Colors.blue;

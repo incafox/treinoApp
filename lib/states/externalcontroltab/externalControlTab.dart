@@ -17,18 +17,17 @@ class ExternalControllerMainTabsCubit extends Cubit<dynamic> {
 class ExternalControllerMisClasesCubit extends Cubit<ExternalControllTabState>{
   ExternalControllerMisClasesCubit() : super(InitState());
       
-  Future<List<Result>> getClases() async {
+  Future<List<Result>> getClases(String idCliente) async {
    List<Result> results = List<Result>();
    emit(RequestState("presentes"));
     try{
        final response = await http.post(
         'https://treino.club/demo/api/AppMovil/getSolicitudes',
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({"idCliente": "12"}));
-        
+        body: jsonEncode({"idCliente": "$idCliente"}));
+
         Map<String,dynamic> responseData = jsonDecode(response.body);
         print(responseData);
-        print(responseData["items"][0]["numeroControl"]);
 
         for(int i = 0; i<responseData["items"].length; i++){
             results.add(
