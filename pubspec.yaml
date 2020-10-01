@@ -34,6 +34,8 @@ dependencies:
   rabbit_converter: ^1.0.0
   unorm_dart: ^0.1.2
   # stripe_payment: ^1.0.7
+  stripe_payment: ^1.0.8
+  # stripe_sdk: ^3.0.1+1
 
 dev_dependencies:
   flutter_test:
