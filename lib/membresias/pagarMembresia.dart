@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stripe_payment/stripe_payment.dart';
 import 'package:treino/Mainmenu/MainMenu.dart';
+import 'package:treino/membresias/teststripe.dart';
 import 'package:treino/states/buyMembresias.dart';
 
 class PagarMembresia extends StatefulWidget {
@@ -21,7 +23,10 @@ class _PagarMembresiaState extends State<PagarMembresia> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Center(child: Text("Mensualidad : \$1,000")),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(child: Text("Mensualidad : \$1,000")),
+            ),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Form(
@@ -57,60 +62,65 @@ class _PagarMembresiaState extends State<PagarMembresia> {
                   // );
                   print("probando");
                 }),
+            Container(
+                height: 300,
+                width: MediaQuery.of(context).size.width,
+                child: StripeDemo()),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Form(
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                    TextFormField(
-                      // controller: this.correoController,
-                      decoration:
-                          InputDecoration(hintText: "Nombre de titular"),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      // controller: this.correoController,
-                      decoration:
-                          InputDecoration(hintText: "Numero de tarjeta"),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      // controller: this.correoController,
-                      decoration:
-                          InputDecoration(hintText: "Fecha de vencimiento"),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      // controller: this.correoController,
-                      decoration:
-                          InputDecoration(hintText: "Numero de seguridad"),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
+                    // TextFormField(
+                    //   // controller: this.correoController,
+                    //   decoration:
+                    //       InputDecoration(hintText: "Nombre de titular"),
+                    //   validator: (value) {
+                    //     if (value.isEmpty) {
+                    //       return 'Please enter some text';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
+                    // TextFormField(
+                    //   // controller: this.correoController,
+                    //   decoration:
+                    //       InputDecoration(hintText: "Numero de tarjeta"),
+                    //   validator: (value) {
+                    //     if (value.isEmpty) {
+                    //       return 'Please enter some text';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
+                    // TextFormField(
+                    //   // controller: this.correoController,
+                    //   decoration:
+                    //       InputDecoration(hintText: "Fecha de vencimiento"),
+                    //   validator: (value) {
+                    //     if (value.isEmpty) {
+                    //       return 'Please enter some text';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
+                    // TextFormField(
+                    //   // controller: this.correoController,
+                    //   decoration:
+                    //       InputDecoration(hintText: "Numero de seguridad"),
+                    //   validator: (value) {
+                    //     if (value.isEmpty) {
+                    //       return 'Please enter some text';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
 
                     // Add TextFormFields and RaisedButton here.
                   ])),
             ),
+            MaterialButton(onPressed: () {}),
             RaisedButton(
                 child: Text(
                   "Comprar Membresia",
@@ -130,7 +140,7 @@ class _PagarMembresiaState extends State<PagarMembresia> {
                       context: context,
                       idCliente: this.idCliente.text,
                       idMembresia: this.idMembresia.text);
-                })
+                }),
           ],
         ),
       ),
