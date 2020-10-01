@@ -23,20 +23,20 @@ import 'scrolling_map.dart';
 import 'snapshot.dart';
 
 final List<GoogleMapExampleAppPage> _allPages = <GoogleMapExampleAppPage>[
-  MapUiPage(),
-  MapCoordinatesPage(),
-  MapClickPage(),
-  AnimateCameraPage(),
-  MoveCameraPage(),
-  PlaceMarkerPage(),
+  // MapUiPage(),
+  // MapCoordinatesPage(),
+  // MapClickPage(),
+  // AnimateCameraPage(),
+  // MoveCameraPage(),
+  // PlaceMarkerPage(),
   MarkerIconsPage(),
-  ScrollingMapPage(),
-  PlacePolylinePage(),
-  PlacePolygonPage(),
-  PlaceCirclePage(),
-  PaddingPage(),
-  SnapshotPage(),
-  LiteModePage(),
+  // ScrollingMapPage(),
+  // PlacePolylinePage(),
+  // PlacePolygonPage(),
+  // PlaceCirclePage(),
+  // PaddingPage(),
+  // SnapshotPage(),
+  // LiteModePage(),
 ];
 
 class MapsDemo extends StatelessWidget {
