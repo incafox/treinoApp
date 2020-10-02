@@ -4,6 +4,7 @@ import 'package:stripe_payment/stripe_payment.dart';
 import 'package:treino/Mainmenu/MainMenu.dart';
 import 'package:treino/membresias/teststripe.dart';
 import 'package:treino/states/buyMembresias.dart';
+import 'package:treino/states/payment.dart';
 
 class PagarMembresia extends StatefulWidget {
   @override
@@ -24,11 +25,11 @@ class _PagarMembresiaState extends State<PagarMembresia> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(child: Text("Mensualidad : \$1,000")),
+              padding: const EdgeInsets.all(0),
+              // child: Center(child: Text("Mensualidad : \$1,000")),
             ),
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.all(26.0),
               child: Form(
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,8 +54,8 @@ class _PagarMembresiaState extends State<PagarMembresia> {
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(28.0),
-                    side: BorderSide(color: Colors.lightGreen)),
-                color: Colors.lightGreen,
+                    side: BorderSide(color: Colors.lime)),
+                color: Colors.lime,
                 onPressed: () {
                   // Navigator.push(
                   //   context,
@@ -130,11 +131,13 @@ class _PagarMembresiaState extends State<PagarMembresia> {
                     borderRadius: new BorderRadius.circular(28.0),
                     side: BorderSide(color: Colors.blue)),
                 color: Colors.blue,
-                onPressed: () {
+                onPressed: () async {
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(builder: (context) => MainMenu()),
                   // );
+                  //actualiza id de membresia a comprar
+                  await context.bloc<PayMembresiasCubit>().payMembresia();
                   print("comprando");
                   this.comprarMembresia(
                       context: context,

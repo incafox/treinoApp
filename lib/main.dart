@@ -11,6 +11,7 @@ import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
 import 'package:treino/states/gym_coordinates.dart';
 import 'package:treino/states/gymsPerCategory.dart';
+import 'package:treino/states/payment.dart';
 import 'package:treino/states/solicitarfactura/solicitarfactura.dart';
 import 'package:treino/states/login/login.dart';
 import 'package:treino/states/membresias.dart';
@@ -82,6 +83,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<CoordinatesCubit>(
             create: (BuildContext context) => CoordinatesCubit(),
+          ),
+          BlocProvider<PayMembresiasCubit>(
+            create: (BuildContext context) => PayMembresiasCubit(),
           ),
         ],
         child: GestureDetector(

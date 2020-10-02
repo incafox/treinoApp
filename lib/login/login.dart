@@ -11,6 +11,7 @@ import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
 import 'package:treino/states/login/login.dart';
 import 'package:treino/states/login/loginstates.dart';
+import 'package:treino/states/payment.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -225,6 +226,10 @@ class _LoginState extends State<Login> {
       await context
         .bloc<SolicitudesCubit>()
         .getSolicitudes(context.bloc<LoginCubit>().res['id']);
+      //agrega id cliente a cubit pago
+      await context
+        .bloc<PayMembresiasCubit>()
+        .setIdCliente(context.bloc<LoginCubit>().res['id']);
       //id cliente en agregar solicitud
       await context
         .bloc<AgregarSolicitudCubit>()
