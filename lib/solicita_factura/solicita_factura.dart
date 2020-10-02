@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treino/solicita_factura/exito.dart';
 import 'package:treino/states/solicitarfactura/solicitarfactura.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/states/solicitarfactura/solicitarfacturastate.dart';
@@ -64,7 +65,11 @@ class _SolicitaFacturaState extends State<SolicitaFactura> {
                             }
 
                             if(state is SolicitarFacturaSuccess){
-                              _notification(context, "La factura ha sido enviada con exito!");
+                               Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ExitoFactura()),
+                                // MaterialPageRoute(builder: (context) => Membresias()),
+                                );
                               return;
                             }
                           },
