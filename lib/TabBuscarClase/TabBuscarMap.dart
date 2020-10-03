@@ -23,16 +23,16 @@ import 'scrolling_map.dart';
 import 'snapshot.dart';
 
 final List<GoogleMapExampleAppPage> _allPages = <GoogleMapExampleAppPage>[
-  // MapUiPage(),
-  // MapCoordinatesPage(),
-  // MapClickPage(),
+  MapUiPage(),
+  MapCoordinatesPage(),
+  MapClickPage(),
   // AnimateCameraPage(),
   // MoveCameraPage(),
-  // PlaceMarkerPage(),
+  PlaceMarkerPage(),
   MarkerIconsPage(),
   // ScrollingMapPage(),
   // PlacePolylinePage(),
-  // PlacePolygonPage(),
+  PlacePolygonPage(),
   // PlaceCirclePage(),
   // PaddingPage(),
   // SnapshotPage(),
@@ -75,12 +75,13 @@ class _TabBuscarMapState extends State<TabBuscarMap> {
   Widget mapi(BuildContext context) {
     return BlocBuilder<CoordinatesCubit, List<String>>(
       builder: (context, latLon) => latLon != null
-          ? Container(child: MarkerIconsPage())
+          ?
+          // Container(height: 400,width: 400,child: MarkerIconsPage())
           // MarkerIconsPage()
-          //  MapCoordinatesPage(
-          //     lat: latLon[0],
-          //     lon: latLon[1],
-          //   )
+          MapCoordinatesPage(
+              lat: latLon[0],
+              lon: latLon[1],
+            )
           : Container(),
     );
   }
