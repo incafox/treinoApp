@@ -221,135 +221,145 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
                 child: Column(
                   // crossAxisCount: val.length,
                   children: val
-                      .map((e) => Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              children: [
-                                FlatButton(
-                                  // minWidth: MediaQuery.of(context).size.width,
-                                  onPressed: () {
-                                    //setea la id de clase para la compra
-                                    context
-                                        .bloc<AgregarSolicitudCubit>()
-                                        .setIdClase(e['idClase']);
+                      .map((e) => (e['idCategoria'] ==
+                              context
+                                  .bloc<GymsPerCategoryCubit>()
+                                  .idCategoriaSeleccionado)
+                          ? Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                children: [
+                                  FlatButton(
+                                    // minWidth: MediaQuery.of(context).size.width,
+                                    onPressed: () {
+                                      //setea la id de clase para la compra
+                                      context
+                                          .bloc<AgregarSolicitudCubit>()
+                                          .setIdClase(e['idClase']);
 
-                                    //setea los detalles de clase
-                                    context
-                                        .bloc<ClassDetailCubit>()
-                                        .getClaseByID(e['idClase']);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ClassDetail()),
-                                    );
-                                    print("as");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 16, bottom: 16.0),
-                                    child: Container(
-                                      // width: MediaQuery.of(context).size.width,
-                                      color: Colors.grey[200],
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Center(
-                                                    child: CircleAvatar(
-                                                  radius: 30,
-                                                  backgroundColor: Colors.blue,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        e['creditosClase'],
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      Text(
-                                                        "Creditos",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 11),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )),
-                                              ),
-                                              Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  // color: Colors.tealAccent,
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                        e['horarioClase'] +
-                                                            "-" +
-                                                            e['duracionClase'] +
-                                                            "m",
-                                                        style: TextStyle(
-                                                            color: Colors.blue,
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      Container(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                        e['descripcionClase'],
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 1,
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black54),
-                                                      ),
-                                                      Text(e['nombreClase'],
+                                      //setea los detalles de clase
+                                      context
+                                          .bloc<ClassDetailCubit>()
+                                          .getClaseByID(e['idClase']);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ClassDetail()),
+                                      );
+                                      print("as");
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 16, bottom: 16.0),
+                                      child: Container(
+                                        // width: MediaQuery.of(context).size.width,
+                                        color: Colors.grey[200],
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Center(
+                                                      child: CircleAvatar(
+                                                    radius: 30,
+                                                    backgroundColor:
+                                                        Colors.blue,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          e['creditosClase'],
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        Text(
+                                                          "Creditos",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 11),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )),
+                                                ),
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: Container(
+                                                    // color: Colors.tealAccent,
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          e['horarioClase'] +
+                                                              "-" +
+                                                              e['duracionClase'] +
+                                                              "m",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.blue,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        Container(
+                                                          height: 5,
+                                                        ),
+                                                        Text(
+                                                          e['descripcionClase'],
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
                                                           style: TextStyle(
                                                               color: Colors
-                                                                  .black54)),
-                                                      Text(
-                                                          "entrenador :" +
-                                                              e[
-                                                                  'nombreEntrenadorClase'],
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black54)),
-                                                      // Text(e['nombreCategoria']),
-                                                    ],
+                                                                  .black54),
+                                                        ),
+                                                        Text(e['nombreClase'],
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black54)),
+                                                        Text(
+                                                            "entrenador :" +
+                                                                e[
+                                                                    'nombreEntrenadorClase'],
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black54)),
+                                                        // Text(e['nombreCategoria']),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          // Container(
-                                          //     width:
-                                          //         MediaQuery.of(context).size.width,
-                                          //     height: 4,
-                                          //     color: Colors.white),
-                                        ],
+                                              ],
+                                            ),
+                                            // Container(
+                                            //     width:
+                                            //         MediaQuery.of(context).size.width,
+                                            //     height: 4,
+                                            //     color: Colors.white),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  height: 3,
-                                  color: Colors.white,
-                                  width: MediaQuery.of(context).size.width,
-                                )
-                              ],
-                            ),
-                          ))
+                                  Container(
+                                    height: 3,
+                                    color: Colors.white,
+                                    width: MediaQuery.of(context).size.width,
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container())
                       .toList(),
                 ),
               )

@@ -40,6 +40,12 @@ class PayMembresiasCubit extends Cubit<int> {
     //     " || " +
     //     "id membresia " +
     //     this.idMembresiaSelected);
+    print("----compra----");
+    print("token :" + this.token);
+    print("idCard :" + this.idCard);
+    print("idCliente :" + this.idCliente);
+    print("idMembresia :" + this.idMembresiaSelected);
+
     var dio = Dio();
     try {
       await dio.post(
@@ -47,7 +53,7 @@ class PayMembresiasCubit extends Cubit<int> {
           data: {
             "idMembresia": this.idMembresiaSelected,
             "idCliente": this.idCliente,
-            "idCard": this.idCard, 
+            "idCard": this.idCard,
             "token": this.token
           }).then((value) {
         print(value.data);
