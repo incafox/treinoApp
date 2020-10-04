@@ -339,6 +339,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimerSub> {
                                                     ),
                                                   ),
                                                 ),
+                                                Expanded(flex: 1,child: Container())
                                               ],
                                             ),
                                             // Container(
@@ -437,7 +438,7 @@ class GradientAppBar extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Container(
               child: Center(
                 child: Padding(
@@ -451,7 +452,7 @@ class GradientAppBar extends StatelessWidget {
                       )),
                     ),
                     height: 35,
-                    width: 200,
+                    // width: 200,
                     decoration: BoxDecoration(
                         // border:,
                         color: Colors.white,
@@ -462,7 +463,7 @@ class GradientAppBar extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 1,
             child: Container(
               child: Padding(
                 padding: const EdgeInsets.all(0),
@@ -494,39 +495,39 @@ class GradientAppBar extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(0.0),
-                child: FlatButton(
-                  //  minWidth: 2,
-                  onPressed: () {
-                    print("as");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TabBuscarClase()),
-                      // MaterialPageRoute(builder: (context) => Membresias()),
-                    );
-                  },
-                  child: Center(
-                      child: Icon(
-                    Icons.tune,
-                    size: 25,
-                    color: Colors.white,
-                  )
-                      // Text(
-                      //   "Search",
-                      //   style: TextStyle(
-                      //       fontSize: 25.0,
-                      //       color: Colors.white,
-                      //       fontWeight: FontWeight.bold),
-                      // ),
-                      ),
-                ),
-              ),
-            ),
-          ),
+          // Expanded(
+          //   flex: 2,
+          //   child: Container(
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(0.0),
+          //       child: FlatButton(
+          //         //  minWidth: 2,
+          //         onPressed: () {
+          //           print("as");
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(builder: (context) => TabBuscarClase()),
+          //             // MaterialPageRoute(builder: (context) => Membresias()),
+          //           );
+          //         },
+          //         child: Center(
+          //             child: Icon(
+          //           Icons.tune,
+          //           size: 25,
+          //           color: Colors.white,
+          //         )
+          //             // Text(
+          //             //   "Search",
+          //             //   style: TextStyle(
+          //             //       fontSize: 25.0,
+          //             //       color: Colors.white,
+          //             //       fontWeight: FontWeight.bold),
+          //             // ),
+          //             ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
       decoration: BoxDecoration(

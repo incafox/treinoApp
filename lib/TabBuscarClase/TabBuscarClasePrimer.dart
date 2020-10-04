@@ -230,22 +230,26 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                                                 Container(
                                                   height: 5,
                                                 ),
-                                                Text(
-                                                  (e['informacion']),
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.center,
-                                                ),
+                                                Text((e['informacion']),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.black54)),
                                                 Text(e['direccion'],
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
-                                                    textAlign:
-                                                        TextAlign.center),
-                                                Text(e['nombreCiudad'],
-                                                    textAlign:
-                                                        TextAlign.center),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.black54)),
+                                                Text(
+                                                  e['nombreCiudad'],
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
                                                 // Divider()
                                               ],
                                             ),
@@ -255,7 +259,7 @@ class _TabBuscarClasePrimerState extends State<TabBuscarClasePrimer> {
                                     )
                                   : Container(),
                               Container(
-                                height: 10,
+                                height: 3,
                                 color: Colors.white,
                                 width: MediaQuery.of(context).size.width,
                               )
@@ -383,6 +387,9 @@ class GradientAppBar extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            width: 30,
+          )
           // Padding(
           //   padding: const EdgeInsets.all(5.0),
           //   child: MaterialButton(
@@ -404,31 +411,31 @@ class GradientAppBar extends StatelessWidget {
           //     )),
           //   ),
           // ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: MaterialButton(
-                  minWidth: 6,
-                  onPressed: () {
-                    print("as");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TabBuscarClase()),
-                      // MaterialPageRoute(builder: (context) => Membresias()),
-                    );
-                  },
-                  child: Center(
-                      child: Icon(
-                    Icons.tune,
-                    // size: 20,
-                    color: Colors.white,
-                  )),
-                ),
-              ),
-            ),
-          ),
+          // Expanded(
+          //   flex: 1,
+          //   child: Container(
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(5.0),
+          //       child: MaterialButton(
+          //         minWidth: 6,
+          //         onPressed: () {
+          //           print("as");
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(builder: (context) => TabBuscarClase()),
+          //             // MaterialPageRoute(builder: (context) => Membresias()),
+          //           );
+          //         },
+          //         child: Center(
+          //             child: Icon(
+          //           Icons.tune,
+          //           // size: 20,
+          //           color: Colors.white,
+          //         )),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
       decoration: BoxDecoration(
