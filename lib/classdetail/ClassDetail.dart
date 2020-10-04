@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:treino/TabBuscarClase/TabBuscarMap.dart';
 import 'package:treino/loaders/minimal_loader.dart';
-import 'package:treino/states/agregarSolicitudClase.dart';
+import 'package:treino/states/agregarsolicitudclase/agregarSolicitudClase.dart';
 import 'package:treino/states/classDetail.dart';
 
 class ClassDetail extends StatefulWidget {

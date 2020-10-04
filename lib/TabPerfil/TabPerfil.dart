@@ -7,6 +7,7 @@ import 'package:stripe_payment/stripe_payment.dart';
 import 'package:treino/creditos/creditos.dart';
 import 'package:treino/login/login.dart';
 import 'package:treino/membresias/membresias.dart';
+import 'package:treino/reservacionnotification/reservacionnotification.dart';
 import 'package:treino/solicita_factura/solicita_factura.dart';
 import 'package:treino/states/login/login.dart';
 import 'package:treino/states/membership/membresiacubit.dart';
@@ -95,7 +96,12 @@ class _TabPerfilState extends State<TabPerfil> {
                 })),
             Align(
                 alignment: Alignment.bottomLeft,
-                child: link("Historial de pago", () {})),
+                child: link("Historial de pago", () {
+                  /*Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ReservationNotification())); */
+                })),
             Align(
                 alignment: Alignment.bottomLeft,
                 child: link("Solicita tu factura", () {

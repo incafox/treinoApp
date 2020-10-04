@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:treino/TabBuscarClase/TabBuscarClasePrimerSub.dart';
 import 'package:treino/classdetail/ClassDetail.dart';
 import 'package:treino/loaders/minimal_loader.dart';
-import 'package:treino/states/agregarSolicitudClase.dart';
+import 'package:treino/states/agregarsolicitudclase/agregarSolicitudClase.dart';
 import 'package:treino/states/classesPerGym.dart';
 import 'package:treino/states/gym_coordinates.dart';
 import 'package:treino/states/gymsPerCategory.dart';

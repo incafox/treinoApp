@@ -5,7 +5,7 @@ import 'package:treino/recover_password/recover_password.dart';
 import 'package:treino/register/signup.dart';
 import 'package:treino/Mainmenu/MainMenu.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:treino/states/agregarSolicitudClase.dart';
+import 'package:treino/states/agregarsolicitudclase/agregarSolicitudClase.dart';
 import 'package:treino/states/buyMembresias.dart';
 import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';

@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:dio/dio.dart';
+import 'package:treino/states/agregarsolicitudclase/agregarsolicitudclasestate.dart';
 
-class AgregarSolicitudCubit extends Cubit<dynamic> {
-  AgregarSolicitudCubit() : super(0);
+class AgregarSolicitudCubit extends Cubit<AgregarSolicitudClaseState> {
+  AgregarSolicitudCubit() : super(InitState());
   dynamic response;
   String idClase = "-";
   String idCliente = "-";
@@ -21,7 +20,6 @@ class AgregarSolicitudCubit extends Cubit<dynamic> {
 
 //{String idClase, String idCliente, String idGym, String fecha}
   Future<bool> agregarSolicitud() async {
-    // var dio = Dio();
     bool respuesta = false;
     print("clase " + this.idClase);
     print("cliente " + this.idCliente);
@@ -41,8 +39,10 @@ class AgregarSolicitudCubit extends Cubit<dynamic> {
         this.response = (json.decode(value.body));
         if (this.response['error'] == "0") {
           response = true;
+          emit(Success());
         } else {
           response = false;
+          emit(Error());
         }
         emit(this.response);
       });
