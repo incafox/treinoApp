@@ -45,14 +45,14 @@ class ExternalControllerMisClasesCubit extends Cubit<ExternalControllTabState>{
     }
   }
 
-  Future<List<Result>> getClasesPasadas() async {
+  Future<List<Result>> getClasesPasadas(String idCliente) async {
    List<Result> results = List<Result>();
    emit(RequestState("pasadas"));
     try{
        final response = await http.post(
         'https://treino.club/demo/api/AppMovil/getSolicitudesPasadas',
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({"idCliente": "12"}));
+        body: jsonEncode({"idCliente": "$idCliente"}));
         
         Map<String,dynamic> responseData = jsonDecode(response.body);
         print(responseData);

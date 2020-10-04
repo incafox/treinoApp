@@ -5,6 +5,7 @@ import 'package:treino/states/buyMembresias.dart';
 import 'package:treino/states/categories.dart';
 import 'package:treino/states/classDetail.dart';
 import 'package:treino/states/classesPerGym.dart';
+import 'package:treino/states/creditos/creditoscubit.dart';
 import 'package:treino/states/detailGym.dart';
 import 'package:treino/states/externalcontroltab/externalControlTab.dart';
 import 'package:treino/states/getSolicitudes.dart';
@@ -17,6 +18,7 @@ import 'package:treino/states/membresias.dart';
 import 'package:treino/states/recoverpassword/recoverpass.dart';
 import 'package:treino/states/register/register.dart';
 import 'package:treino/states/agregarSolicitudClase.dart';
+import 'package:treino/states/tabperfil/tabperfil.dart';
 
 void main() {
   // Bloc.observer = SimpleBlocObserver();
@@ -69,6 +71,12 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<AgregarSolicitudCubit>(
             create: (BuildContext context) => AgregarSolicitudCubit(),
+          ),
+          BlocProvider<TabPerfilCubit>(
+            create: (BuildContext context) => TabPerfilCubit(0),
+          ),
+           BlocProvider<CreditosCubit>(
+            create: (BuildContext context) => CreditosCubit(),
           ),
           // BlocProvider<ExternalControllerMainTabsCubit>(
           //   create: (BuildContext context) => ExternalControllerMainTabsCubit(),

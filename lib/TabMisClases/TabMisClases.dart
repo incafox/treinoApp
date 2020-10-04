@@ -265,7 +265,9 @@ class _CustomTabSelectorState extends State<CustomTabSelector> {
                               side: BorderSide(color: Colors.blue)),
                           onPressed: () {
                             print('pasadas');
-                            context.bloc<ExternalControllerMisClasesCubit>().getClasesPasadas();
+                            context.bloc<ExternalControllerMisClasesCubit>().getClasesPasadas(
+                              context.bloc<LoginCubit>().res['id']
+                            );
                             setState(() {
                               this.def1 = Colors.blue;
                               this.def1font = Colors.white;

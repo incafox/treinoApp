@@ -2,10 +2,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:stripe_payment/stripe_payment.dart';
+import 'package:treino/creditos/creditos.dart';
 import 'package:treino/login/login.dart';
 import 'package:treino/membresias/membresias.dart';
 import 'package:treino/solicita_factura/solicita_factura.dart';
 import 'package:treino/states/login/login.dart';
+import 'package:treino/states/tabperfil/tabperfil.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:treino/states/membresias.dart';
 
@@ -79,6 +83,13 @@ class _TabPerfilState extends State<TabPerfil> {
                   await context.bloc<MembresiasCubit>().getMembresias();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Membresias()));
+                })),
+                Align(
+                alignment: Alignment.bottomLeft,
+                child: link("Creditos", () async {
+                  await context.bloc<MembresiasCubit>().getMembresias();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Creditos()));
                 })),
             Align(
                 alignment: Alignment.bottomLeft,
@@ -180,7 +191,14 @@ class GradientAppBar extends StatelessWidget {
         padding: const EdgeInsets.only(top: 0),
         child: GridView.count(crossAxisCount: 2, children: <Widget>[
           Center(
-            child: CircleAvatar(
+            child: GestureDetector(
+              onTap: () async{
+                final picker = ImagePicker();
+                final pickedFile = await picker.getImage(source: ImageSource.gallery);
+                print(pickedFile.path);
+                context.bloc<TabPerfilCubit>().sendPerfilPhoto(context.bloc<LoginCubit>().res['id'], pickedFile.path);
+              },
+              child:  CircleAvatar(
                 foregroundColor: Colors.green,
                 child: Stack(
                   children: <Widget>[
@@ -201,6 +219,8 @@ class GradientAppBar extends StatelessWidget {
                 radius: 65,
                 backgroundImage: NetworkImage(
                     'https://journeypurebowlinggreen.com/wp-content/uploads/2018/05/placeholder-person.jpg')),
+            ) 
+           
           ),
           Center(
             child: Container(
