@@ -9,6 +9,8 @@ import 'package:treino/login/login.dart';
 import 'package:treino/membresias/membresias.dart';
 import 'package:treino/solicita_factura/solicita_factura.dart';
 import 'package:treino/states/login/login.dart';
+import 'package:treino/states/membership/membresiacubit.dart';
+import 'package:treino/states/membership/membresiastate.dart';
 import 'package:treino/states/tabperfil/tabperfil.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:treino/states/membresias.dart';
@@ -195,8 +197,10 @@ class GradientAppBar extends StatelessWidget {
               onTap: () async{
                 final picker = ImagePicker();
                 final pickedFile = await picker.getImage(source: ImageSource.gallery);
-                print(pickedFile.path);
-                context.bloc<TabPerfilCubit>().sendPerfilPhoto(context.bloc<LoginCubit>().res['id'], pickedFile.path);
+                if(pickedFile != null) {
+                   context.bloc<TabPerfilCubit>().sendPerfilPhoto(context.bloc<LoginCubit>().res['id'], pickedFile.readAsBytes());
+                }
+               
               },
               child:  CircleAvatar(
                 foregroundColor: Colors.green,
@@ -248,20 +252,37 @@ class GradientAppBar extends StatelessWidget {
                           style: TextStyle(color: Colors.white, fontSize: 15),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Membresia: ",
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
+                      BlocConsumer<MembresiaCubit, MembresiaState>(
+                        listener: (context, state){},
+                        builder: (context, state){
+                           
+                           if(state is InitState){
+                             context.bloc<MembresiaCubit>().getMembresia(
+                               context.bloc<LoginCubit>().res["id"]
+                             );
+                           }
+                           
+                           return Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text( 
+                                  (state is Success) ? "Membresia: ${state.name}" : "Membresia:",
+                                  style: TextStyle(color: Colors.white, fontSize: 15),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  (state is Success) ? "Expira: ${state.date}" : "Expira:",
+                                  style: TextStyle(color: Colors.white, fontSize: 15),
+                                ),
+                              ),
+                            ],  
+                          );
+                        },
                       ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Expira: ",
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                      ),
+                     
                     ],
                   ),
                 ),
