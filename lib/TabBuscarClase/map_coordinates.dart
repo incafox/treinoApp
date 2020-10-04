@@ -42,12 +42,28 @@ class _MapCoordinatesBody extends StatefulWidget {
 class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
   _MapCoordinatesBodyState();
   CameraPosition initialPos;
-
+  BitmapDescriptor _markerIcon;
   GoogleMapController mapController;
   LatLngBounds _visibleRegion = LatLngBounds(
     southwest: const LatLng(0, 0),
     northeast: const LatLng(0, 0),
   );
+
+  Set<Marker> _createMarker() {
+    // TODO(iskakaushik): Remove this when collection literals makes it to stable.
+    // https://github.com/flutter/flutter/issues/28312
+    // ignore: prefer_collection_literals
+    return <Marker>[
+      Marker(
+        onTap: () {
+          print("la tuya ");
+        },
+        markerId: MarkerId("marker_1"),
+        position: LatLng(double.parse(widget.lat), double.parse(widget.lon)),
+        icon: _markerIcon,
+      ),
+    ].toSet();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +73,10 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
 
     print("recibiendo >> " + widget.lat + " // " + widget.lon);
     final GoogleMap googleMap = GoogleMap(
-        onMapCreated: onMapCreated, initialCameraPosition: this.initialPos);
+      onMapCreated: onMapCreated,
+      initialCameraPosition: this.initialPos,
+      markers: this._createMarker(),
+    );
 
     final List<Widget> columnChildren = <Widget>[
       Container(

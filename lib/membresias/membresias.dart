@@ -10,6 +10,7 @@ import 'package:treino/membresias/comprarMembresia.dart';
 import 'package:treino/membresias/pagarMembresia.dart';
 import 'package:treino/states/buyMembresias.dart';
 import 'package:treino/states/membresias.dart';
+import 'package:treino/states/payment.dart';
 
 class Membresias extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _MembresiasState extends State<Membresias> {
       appBar: PreferredSize(
           child: GradientAppBar(""), preferredSize: Size.fromHeight(70)),
       body: SingleChildScrollView(
-              child: Column(
+        child: Column(
           children: [
             Center(
               child: Padding(
@@ -51,7 +52,8 @@ class _MembresiasState extends State<Membresias> {
                                         borderRadius: new BorderRadius.only(
                                           topLeft: const Radius.circular(40.0),
                                           topRight: const Radius.circular(40.0),
-                                          bottomLeft: const Radius.circular(40.0),
+                                          bottomLeft:
+                                              const Radius.circular(40.0),
                                           bottomRight:
                                               const Radius.circular(40.0),
                                         )),
@@ -106,19 +108,27 @@ class _MembresiasState extends State<Membresias> {
                                                 ),
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
-                                                        new BorderRadius.circular(
-                                                            28.0),
+                                                        new BorderRadius
+                                                            .circular(28.0),
                                                     side: BorderSide(
-                                                        color: Colors.cyan[200])),
+                                                        color:
+                                                            Colors.cyan[200])),
                                                 color: Colors.cyan[200],
                                                 onPressed: () async {
                                                   //actualiza id de membresia a comprar
                                                   await context
                                                       .bloc<
+                                                          PayMembresiasCubit>()
+                                                      .setIdMembresia(e['id']);
+
+                                                  //actualiza id de membresia a comprar
+                                                  await context
+                                                      .bloc<
                                                           ComprarMembresiasCubit>()
                                                       .setIdMembresia(e['id']);
-                                                  print("id membresia elegida " +
-                                                      e['id']);
+                                                  print(
+                                                      "id membresia elegida " +
+                                                          e['id']);
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -142,8 +152,8 @@ class _MembresiasState extends State<Membresias> {
                                                 ),
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
-                                                        new BorderRadius.circular(
-                                                            28.0),
+                                                        new BorderRadius
+                                                            .circular(28.0),
                                                     side: BorderSide(
                                                         color:
                                                             Colors.lightGreen)),
@@ -151,11 +161,13 @@ class _MembresiasState extends State<Membresias> {
                                                 onPressed: () {
                                                   //actualiza id de membresia a comprar
                                                   context
-                                                      .bloc<
-                                                          ComprarMembresiasCubit>()
-                                                      .idMembresiaSelected = e['id'];
-                                                  print("id membresia elegida " +
-                                                      e['id']);
+                                                          .bloc<
+                                                              ComprarMembresiasCubit>()
+                                                          .idMembresiaSelected =
+                                                      e['id'];
+                                                  print(
+                                                      "id membresia elegida " +
+                                                          e['id']);
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -172,7 +184,7 @@ class _MembresiasState extends State<Membresias> {
                                 ))
                             .toList(),
                       )
-                    :  MinimalLoader() ),
+                    : MinimalLoader()),
 
             // Padding(
             //   padding: const EdgeInsets.all(18.0),
@@ -302,11 +314,10 @@ class _MembresiasState extends State<Membresias> {
                 child: RaisedButton(
                     // minWidth: 100,
                     elevation: 2,
-                    
                     child: Text(
                       "Cancelar mi plan",
-                      style:
-                          TextStyle(fontSize: this.fontSize, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: this.fontSize, color: Colors.white),
                     ),
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(28.0),
@@ -344,7 +355,7 @@ class GradientAppBar extends StatelessWidget {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top:10.0),
+            padding: const EdgeInsets.only(top: 10.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -362,25 +373,24 @@ class GradientAppBar extends StatelessWidget {
                       ),
                       onPressed: null),
                 ),
-                
               ],
             ),
           ),
           Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      "Membresias",
-                      style: TextStyle(
-                          fontSize: 25.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  "Membresias",
+                  style: TextStyle(
+                      fontSize: 25.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
+            ),
+          ),
         ],
       ),
       decoration: BoxDecoration(

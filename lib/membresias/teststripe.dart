@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 import 'dart:io';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:treino/states/payment.dart';
 
 class StripeDemo extends StatefulWidget {
   @override
@@ -32,7 +34,8 @@ class _StripeDemoState extends State<StripeDemo> {
     super.initState();
 
     StripePayment.setOptions(StripeOptions(
-        publishableKey: "pk_test_aSaULNS8cJU6Tvo20VAXy6rp",
+        publishableKey:
+            "pk_test_51HHa1ZDMvatWijjUr4R4KGpw5HNa0PhCr1houTTdRnZn3A68kJk05Y0SsgdbrP0yGXi86FaFbLug7ah9B4ElFVf000Uuh1PjaG", //"pk_test_aSaULNS8cJU6Tvo20VAXy6rp",
         merchantId: "Test",
         androidPayMode: 'test'));
   }
@@ -103,8 +106,11 @@ class _StripeDemoState extends State<StripeDemo> {
                   .then((paymentMethod) {
                 _scaffoldKey.currentState.showSnackBar(
                     SnackBar(content: Text('Received ${paymentMethod.id}')));
-                setState(() {
+                setState(() async {
                   _paymentMethod = paymentMethod;
+                  await context
+                      .bloc<PayMembresiasCubit>()
+                      .setToken(this._paymentToken.tokenId);
                 });
               }).catchError(setError);
             },
