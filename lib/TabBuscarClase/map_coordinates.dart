@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:treino/states/gps_points.dart';
 import 'package:treino/states/gym_coordinates.dart';
 import 'page.dart';
 
@@ -75,7 +76,8 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
     final GoogleMap googleMap = GoogleMap(
       onMapCreated: onMapCreated,
       initialCameraPosition: this.initialPos,
-      markers: this._createMarker(),
+      // markers: this._createMarker(),
+      markers: context.bloc<PointsCubit>().markers.toSet(),
     );
 
     final List<Widget> columnChildren = <Widget>[

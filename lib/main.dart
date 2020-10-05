@@ -10,6 +10,7 @@ import 'package:treino/states/detailGym.dart';
 import 'package:treino/states/externalcontroltab/externalControlTab.dart';
 import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
+import 'package:treino/states/gps_points.dart';
 import 'package:treino/states/gym_coordinates.dart';
 import 'package:treino/states/gymsPerCategory.dart';
 import 'package:treino/states/membership/membresiacubit.dart';
@@ -78,7 +79,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<TabPerfilCubit>(
             create: (BuildContext context) => TabPerfilCubit(0),
           ),
-           BlocProvider<CreditosCubit>(
+          BlocProvider<CreditosCubit>(
             create: (BuildContext context) => CreditosCubit(),
           ),
           BlocProvider<MembresiaCubit>(
@@ -100,6 +101,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<PayMembresiasCubit>(
             create: (BuildContext context) => PayMembresiasCubit(),
           ),
+          BlocProvider<PointsCubit>(
+            create: (BuildContext context) => PointsCubit(),
+          )
         ],
         child: GestureDetector(
           onTap: () {
