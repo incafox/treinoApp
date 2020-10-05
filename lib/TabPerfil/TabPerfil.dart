@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:stripe_payment/stripe_payment.dart';
 import 'package:treino/creditos/creditos.dart';
 import 'package:treino/login/login.dart';
 import 'package:treino/membresias/membresias.dart';
-import 'package:treino/reservacionnotification/reservacionnotification.dart';
 import 'package:treino/solicita_factura/solicita_factura.dart';
 import 'package:treino/states/login/login.dart';
 import 'package:treino/states/membership/membresiacubit.dart';
@@ -15,6 +13,8 @@ import 'package:treino/states/membership/membresiastate.dart';
 import 'package:treino/states/tabperfil/tabperfil.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:treino/states/membresias.dart';
+import 'dart:io';
+
 
 class TabPerfil extends StatefulWidget {
   @override
@@ -22,6 +22,7 @@ class TabPerfil extends StatefulWidget {
 }
 
 class _TabPerfilState extends State<TabPerfil> {
+
   Widget link(String name, Function func) {
     return MaterialButton(
         child: Padding(
@@ -60,7 +61,7 @@ class _TabPerfilState extends State<TabPerfil> {
         child: Column(
           // physics: BouncingScrollPhysics(),
           children: <Widget>[
-            Container(child: GradientAppBar("title")),
+            Container(child: GradientAppBar()),
             Padding(
               padding: const EdgeInsets.only(top: 25.0),
               child: Center(
@@ -93,14 +94,6 @@ class _TabPerfilState extends State<TabPerfil> {
                   await context.bloc<MembresiasCubit>().getMembresias();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Creditos()));
-                })),
-            Align(
-                alignment: Alignment.bottomLeft,
-                child: link("Historial de pago", () {
-                  /*Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ReservationNotification())); */
                 })),
             Align(
                 alignment: Alignment.bottomLeft,
@@ -139,7 +132,18 @@ class _TabPerfilState extends State<TabPerfil> {
                 child: link("Politica de Privacidad", () async {
                   _launchURL("http://treino.club/demo/home/politicaPrivacidad");
                 })),
-            Align(alignment: Alignment.bottomLeft, child: link("Ayuda", () {})),
+            Align(alignment: Alignment.bottomLeft, child: link("Ayuda", () async{
+              final Uri _emailLaunchUri = Uri(
+                scheme: 'mailto',
+                path: 'karla@treino.club',
+                queryParameters: {
+                  'subject': 'Ayuda'
+                }
+              );
+              // mailto:smith@example.com?subject=Example+Subject+%26+Symbols+are+allowed%21
+             print(_emailLaunchUri.toString());
+             await launch(_emailLaunchUri.toString());
+            })),
             Padding(
               padding: const EdgeInsets.only(
                   bottom: 25, top: 17, left: 85, right: 85),
@@ -182,11 +186,16 @@ class _TabPerfilState extends State<TabPerfil> {
   }
 }
 
-class GradientAppBar extends StatelessWidget {
-  final String title;
+
+class GradientAppBar extends StatefulWidget {
+  @override
+  _GradientAppBarState createState() => _GradientAppBarState();
+}
+
+class _GradientAppBarState extends State<GradientAppBar> {
   final double barHeight = 200.0;
 
-  GradientAppBar(this.title);
+  String _avatar = 'https://journeypurebowlinggreen.com/wp-content/uploads/2018/05/placeholder-person.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -201,10 +210,14 @@ class GradientAppBar extends StatelessWidget {
           Center(
             child: GestureDetector(
               onTap: () async{
-                final picker = ImagePicker();
-                final pickedFile = await picker.getImage(source: ImageSource.gallery);
+                final ImagePicker picker = ImagePicker();
+                final PickedFile pickedFile = await picker.getImage(source: ImageSource.gallery);
                 if(pickedFile != null) {
-                   context.bloc<TabPerfilCubit>().sendPerfilPhoto(context.bloc<LoginCubit>().res['id'], pickedFile.readAsBytes());
+                  setState(() {
+                    this._avatar = pickedFile.path;
+                  });
+                  File file = File(pickedFile.path);
+                   context.bloc<TabPerfilCubit>().sendPerfilPhoto(context.bloc<LoginCubit>().res['id'], file);
                 }
                
               },
@@ -228,7 +241,7 @@ class GradientAppBar extends StatelessWidget {
                 ),
                 radius: 65,
                 backgroundImage: NetworkImage(
-                    'https://journeypurebowlinggreen.com/wp-content/uploads/2018/05/placeholder-person.jpg')),
+                    "${this._avatar}")),
             ) 
            
           ),
