@@ -44,3 +44,9 @@ class Success extends CreditosState {
   String get creditosTotales => this._creditosTotales;
   String get creditosGastos => this._creditosGastados;
 }
+
+class Error extends CreditosState {
+  @override
+  // TODO: implement list
+  List get list => throw UnimplementedError();
+}

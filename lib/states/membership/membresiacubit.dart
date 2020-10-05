@@ -13,6 +13,17 @@ class MembresiaCubit extends Cubit<MembresiaState> {
         body: jsonEncode({"idCliente": idCliente})
       );
 
+    if(jsonDecode(response.body).length == 0) {
+         emit(
+      Success(
+        "Sin membresia",
+        "Sin fecha de vencimiento"
+      )
+      );
+    return;
+    }
+
+    try{
     Map<String, dynamic> responseData = jsonDecode(response.body);
     
     String fechaVencimiento = responseData["fechaVencimiento"] == 
@@ -30,6 +41,10 @@ class MembresiaCubit extends Cubit<MembresiaState> {
       )
     );
 
+    } on Exception {
+   
+    }
+   
   }
 
 }

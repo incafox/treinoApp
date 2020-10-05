@@ -17,8 +17,15 @@ class CreditosCubit extends Cubit<CreditosState> {
         body: jsonEncode({"idCliente": "$idCliente"}));
   
         Map<String,dynamic> responseData = jsonDecode(response.body);
-        print(responseData); 
-        //print(responseData["items"]["clases"]);
+        print(responseData);
+
+        print(responseData["items"]["clases"]);
+
+        if(responseData["items"]["clases"] == false){
+          emit(Error());
+          return;
+        }
+
          for(int i = 0; i<responseData["items"]["clases"].length; i++){
             results.add(
               Result(

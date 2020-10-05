@@ -132,7 +132,7 @@ class _MainMenuState extends State<MainMenu>
         ),
         backgroundColor: Color(0xef0781e5),
         bottomNavigationBar: Container(
-          height: 80,
+          height: 60,
           child: Center(
             child: TabBar(
               // indicator: TextDecoration.overline ,

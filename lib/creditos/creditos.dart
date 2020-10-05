@@ -243,6 +243,19 @@ class Creditos extends StatelessWidget {
 
               }
 
+              if(state is Error){
+                return Container(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Center(
+                    child: Text("No se encontraron resultados",
+                      style: TextStyle(
+                        fontSize: 18
+                      )
+                    ),
+                  )
+                );
+              }
+
               return Container(
                 child: Column(
                   children: <Widget>[
