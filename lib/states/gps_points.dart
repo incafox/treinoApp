@@ -10,7 +10,8 @@ class PointsCubit extends Cubit<List<Marker>> {
   PointsCubit() : super(null);
   // UserInfo info = new UserInfo();
   BitmapDescriptor _markerIcon;
-  List<Marker> markers;
+  List<Marker> markers = List<Marker>();
+  List<LatLng> puntos = List<LatLng>();
 
   // Set<Marker> _createMarker() {
   //   // TODO(iskakaushik): Remove this when collection literals makes it to stable.
@@ -38,7 +39,6 @@ class PointsCubit extends Cubit<List<Marker>> {
     print(jsonDecode(response.body)['items']);
     // emit(jsonDecode(response.body));
     List<dynamic> res = jsonDecode(response.body)['items'];
-    List<LatLng> puntos;
     res.forEach((element) {
       LatLng tem = LatLng(
           double.parse(element['latitud']), double.parse(element['longitud']));
@@ -52,16 +52,16 @@ class PointsCubit extends Cubit<List<Marker>> {
     int i = 0;
     puntos.forEach((element) {
       i++;
-      this.markers.add(
-            Marker(
-              onTap: () {
-                print("la tuya ");
-              },
-              markerId: MarkerId(i.toString()),
-              position: LatLng(element.latitude, element.longitude),
-              icon: _markerIcon,
-            ),
-          );
+      print(element.latitude.toString() + " - " + element.longitude.toString());
+      var temp = Marker(
+        onTap: () {
+          print("la tuya ");
+        },
+        markerId: MarkerId(i.toString()),
+        position: LatLng(element.latitude, element.longitude),
+        icon: _markerIcon,
+      );
+      this.markers.add(temp);
     });
     emit(this.markers);
   }
