@@ -16,8 +16,14 @@ class PagarMembresia extends StatefulWidget {
 }
 
 class _PagarMembresiaState extends State<PagarMembresia> {
-  TextEditingController idMembresia = TextEditingController();
-  TextEditingController idCliente = TextEditingController();
+  TextEditingController _nombreTitular = TextEditingController();
+  TextEditingController _numeroTarjeta  = TextEditingController();
+  TextEditingController _numeroSeguridad  = TextEditingController();
+  TextEditingController _codigoPostal  = TextEditingController();
+  TextEditingController _telefono = TextEditingController();
+  String _datePickerLabel = "Fecha de nacimiento";
+  DateTime selectedDate = DateTime.now();
+  int _selectedRadio = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,7 @@ class _PagarMembresiaState extends State<PagarMembresia> {
               height: 50,
               child: Center(
                 child: TextFormField(
-                  //controller: this.passwordController,
+                  controller: this._nombreTitular,
                   decoration: InputDecoration(hintText: "Nombre del titular"),
                   validator: (value) {
                     if (value.isEmpty) {
@@ -60,7 +66,7 @@ class _PagarMembresiaState extends State<PagarMembresia> {
               height: 50,
               child: Center(
                 child: TextFormField(
-                  //controller: this.passwordController,
+                  controller: this._numeroTarjeta,
                   decoration: InputDecoration(hintText: "Numero de tarjeta"),
                   validator: (value) {
                     if (value.isEmpty) {
@@ -74,24 +80,28 @@ class _PagarMembresiaState extends State<PagarMembresia> {
             Container(
               height: 50,
               child: Center(
-                child: TextFormField(
-                  //controller: this.passwordController,
-                  decoration: InputDecoration(hintText: "Fecha de vencimiento"),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                ), 
+                        child: RaisedButton(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(35.0),
+                              side: BorderSide(color: Colors.white70)),
+                          onPressed: () => _selectDate(context), // Refer step 3
+                          child: Text(
+                            _datePickerLabel,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          color: Colors.white70,
+                        ),
+                      
               ),
             ),
                Container(
               height: 50,
               child: Center(
                 child: TextFormField(
-                  //controller: this.passwordController,
+                  controller: this._numeroSeguridad,
                   decoration: InputDecoration(hintText: "Numero de seguridad"),
                   validator: (value) {
                     if (value.isEmpty) {
@@ -113,7 +123,7 @@ class _PagarMembresiaState extends State<PagarMembresia> {
                       height: 50,
                       child: Center(
                         child: TextFormField(
-                          //controller: this.passwordController,
+                          controller: this._codigoPostal,
                           decoration: InputDecoration(hintText: "Codigo postal"),
                           obscureText: true,
                           validator: (value) {
@@ -133,7 +143,7 @@ class _PagarMembresiaState extends State<PagarMembresia> {
                       height: 50,
                       child: Center(
                         child: TextFormField(
-                          //controller: this.passwordController,
+                          controller: this._telefono,
                           decoration: InputDecoration(hintText: "Telefono"),
                           obscureText: true,
                           validator: (value) {
@@ -191,6 +201,19 @@ class _PagarMembresiaState extends State<PagarMembresia> {
               ),
             ),
             Container(
+              height: 30,
+              child: Radio(
+                value: this._selectedRadio,
+                groupValue: 1,
+                activeColor: Color(0xbf0781e5),
+                onChanged: (value) {
+                  setState(() {
+                    this._selectedRadio = (this._selectedRadio == 1) ? 0 : 0;                    
+                  });
+                },
+              ),
+            ),
+            Container(
                         padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                         alignment: Alignment(0.0, 0.0),
                         child: Column(
@@ -235,6 +258,21 @@ class _PagarMembresiaState extends State<PagarMembresia> {
       context,
       MaterialPageRoute(builder: (context) => MainMenu()),
     );
+  }
+
+    _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate, // Refer step 1
+      firstDate: DateTime(1960),
+      lastDate: DateTime(selectedDate.year + 5),
+    );
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+        _datePickerLabel = "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+        print(selectedDate.year);
+      });
   }
 }
 
@@ -303,4 +341,6 @@ class GradientAppBar extends StatelessWidget {
       ),
     );
   }
+
+  
 }
