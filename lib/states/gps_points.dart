@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:treino/PointPage/PointPage.dart';
 
 class PointsCubit extends Cubit<List<Marker>> {
   PointsCubit() : super(null);
@@ -12,6 +13,7 @@ class PointsCubit extends Cubit<List<Marker>> {
   BitmapDescriptor _markerIcon;
   List<Marker> markers = List<Marker>();
   List<LatLng> puntos = List<LatLng>();
+  List<String> idGyms = List<String>();
 
   // Set<Marker> _createMarker() {
   //   // TODO(iskakaushik): Remove this when collection literals makes it to stable.
@@ -29,7 +31,7 @@ class PointsCubit extends Cubit<List<Marker>> {
   //   ].toSet();
   // }
 
-  void setCoordinates(String ciudad) async {
+  void setCoordinates(String ciudad, BuildContext context) async {
     final response = await http.post(
         'https://treino.club/demo/api/AppMovil/getGymsByFiltros',
         headers: {'Content-Type': 'application/json'},
@@ -40,6 +42,7 @@ class PointsCubit extends Cubit<List<Marker>> {
     // emit(jsonDecode(response.body));
     List<dynamic> res = jsonDecode(response.body)['items'];
     res.forEach((element) {
+      this.idGyms.add(element['idGym']);
       LatLng tem = LatLng(
           double.parse(element['latitud']), double.parse(element['longitud']));
       puntos.add(tem);
@@ -56,6 +59,11 @@ class PointsCubit extends Cubit<List<Marker>> {
       var temp = Marker(
         onTap: () {
           print("la tuya ");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PointPage()),
+            // MaterialPageRoute(builder: (context) => Membresias()),
+          );
         },
         markerId: MarkerId(i.toString()),
         position: LatLng(element.latitude, element.longitude),

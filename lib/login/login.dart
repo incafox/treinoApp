@@ -239,9 +239,11 @@ class _LoginState extends State<Login> {
         .bloc<SolicitudesCubit>()
         .getSolicitudes(context.bloc<LoginCubit>().res['id']);
     //agrega id cliente a cubit pago
+    //extrae todos los puntos de la ciudad
     await context
         .bloc<PointsCubit>()
-        .setCoordinates(context.bloc<LoginCubit>().res['idCiudad']);
+        .setCoordinates(context.bloc<LoginCubit>().res['idCiudad'], context);
+    //extrae todos
     await context
         .bloc<PayMembresiasCubit>()
         .setIdCliente(context.bloc<LoginCubit>().res['id']);
