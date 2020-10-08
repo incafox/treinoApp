@@ -79,10 +79,11 @@ class _TabBuscarMapState extends State<TabBuscarMap> {
           // Container(height: 400,width: 400,child: MarkerIconsPage())
           // MarkerIconsPage()
           MapCoordinatesPage(
-              lat: latLon[0],
-              lon: latLon[1],
-            )
-          : Container(),
+              // lat: latLon[0],
+              // lon: latLon[1],
+              )
+          : MapCoordinatesPage(),
+      // : Container(),
     );
   }
 

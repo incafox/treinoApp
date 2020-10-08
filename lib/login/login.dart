@@ -242,7 +242,6 @@ class _LoginState extends State<Login> {
     await context
         .bloc<PointsCubit>()
         .setCoordinates(context.bloc<LoginCubit>().res['idCiudad']);
-
     await context
         .bloc<PayMembresiasCubit>()
         .setIdCliente(context.bloc<LoginCubit>().res['id']);

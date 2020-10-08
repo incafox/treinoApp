@@ -23,19 +23,20 @@ class MapCoordinatesPage extends GoogleMapExampleAppPage {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CoordinatesCubit, List<String>>(
-      builder: (context, val) => _MapCoordinatesBody(
-        lat: val[0],
-        lon: val[1],
-      ),
-    );
+    return _MapCoordinatesBody();
+    // BlocBuilder<CoordinatesCubit, List<String>>(
+    //   builder: (context, val) => _MapCoordinatesBody(
+    //     lat: val[0],
+    //     lon: val[1],
+    //   ),
+    // );
   }
 }
 
 class _MapCoordinatesBody extends StatefulWidget {
-  const _MapCoordinatesBody({this.lat, this.lon});
-  final String lat;
-  final String lon;
+  const _MapCoordinatesBody();
+  // final String lat;
+  // final String lon;
   @override
   State<StatefulWidget> createState() => _MapCoordinatesBodyState();
 }
@@ -54,25 +55,26 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
     // TODO(iskakaushik): Remove this when collection literals makes it to stable.
     // https://github.com/flutter/flutter/issues/28312
     // ignore: prefer_collection_literals
-    return <Marker>[
-      Marker(
-        onTap: () {
-          print("la tuya ");
-        },
-        markerId: MarkerId("marker_1"),
-        position: LatLng(double.parse(widget.lat), double.parse(widget.lon)),
-        icon: _markerIcon,
-      ),
-    ].toSet();
+    // return <Marker>[
+    //   Marker(
+    //     onTap: () {
+    //       print("la tuya ");
+    //     },
+    //     markerId: MarkerId("marker_1"),
+    //     position: LatLng(double.parse(widget.lat), double.parse(widget.lon)),
+    //     icon: _markerIcon,
+    //   ),
+    // ].toSet();
   }
 
   @override
   Widget build(BuildContext context) {
     this.initialPos = CameraPosition(
-        target: LatLng(double.parse(widget.lat), double.parse(widget.lon)),
+        target: LatLng(context.bloc<PointsCubit>().puntos[0].latitude,
+            context.bloc<PointsCubit>().puntos[0].longitude),
         zoom: 15.0);
 
-    print("recibiendo >> " + widget.lat + " // " + widget.lon);
+    // print("recibiendo >> " + widget.lat + " // " + widget.lon);
     final GoogleMap googleMap = GoogleMap(
       onMapCreated: onMapCreated,
       initialCameraPosition: this.initialPos,
