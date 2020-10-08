@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:treino/PointPage/PointPage.dart';
+import 'package:treino/states/get_categories_from_gym.dart';
 
 class PointsCubit extends Cubit<List<Marker>> {
   PointsCubit() : super(null);
@@ -46,22 +47,36 @@ class PointsCubit extends Cubit<List<Marker>> {
       LatLng tem = LatLng(
           double.parse(element['latitud']), double.parse(element['longitud']));
       puntos.add(tem);
-      print(element['latitud'] + " -- " + element['longitud']);
+      print(element['latitud'] +
+          " -- " +
+          element['longitud'] +
+          " / " +
+          element['idGym']);
     });
 
-    if (this.markers.length > 0) {
-      this.markers.clear();
-    }
+    // if (this.markers.length > 0) {
+    //   this.markers.clear();
+    // }
     int i = 0;
     puntos.forEach((element) {
-      i++;
       print(element.latitude.toString() + " - " + element.longitude.toString());
       var temp = Marker(
         onTap: () {
-          print("la tuya ");
+          print(this.idGyms);
+          print(this.puntos.indexOf(element).toString());
+          print("la tuya " +
+              this.puntos.indexOf(element).toString() +
+              " // " +
+              this.idGyms[this.puntos.indexOf(element)]);
+          context
+              .bloc<CategoriesFromGymCubit>()
+              .getCategoriesByID(this.idGyms[this.puntos.indexOf(element)]);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PointPage()),
+            MaterialPageRoute(
+                builder: (context) => PointPage(
+                      idGym: this.idGyms[this.puntos.indexOf(element)],
+                    )),
             // MaterialPageRoute(builder: (context) => Membresias()),
           );
         },
@@ -70,6 +85,7 @@ class PointsCubit extends Cubit<List<Marker>> {
         icon: _markerIcon,
       );
       this.markers.add(temp);
+      i++;
     });
     emit(this.markers);
   }

@@ -10,6 +10,7 @@ import 'package:treino/states/detailGym.dart';
 import 'package:treino/states/externalcontroltab/externalControlTab.dart';
 import 'package:treino/states/getSolicitudes.dart';
 import 'package:treino/states/getSolicitudesPasadas.dart';
+import 'package:treino/states/get_categories_from_gym.dart';
 import 'package:treino/states/gps_points.dart';
 import 'package:treino/states/gym_coordinates.dart';
 import 'package:treino/states/gymsPerCategory.dart';
@@ -103,6 +104,10 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<PointsCubit>(
             create: (BuildContext context) => PointsCubit(),
+          ),
+          //CategoriesFromGymCubit
+          BlocProvider<CategoriesFromGymCubit>(
+            create: (BuildContext context) => CategoriesFromGymCubit(),
           )
         ],
         child: GestureDetector(
